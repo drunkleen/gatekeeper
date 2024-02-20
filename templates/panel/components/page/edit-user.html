@@ -1,0 +1,247 @@
+{% extends 'panel/components/wrapper.html' %}
+{% load custom_filters %}
+{% load static %}
+{% block content-wrapper %}
+
+    <div id="kt_app_content_container" class="app-container  container-fluid ">
+
+        <!--begin::Navbar-->
+        <div class="card mb-5 mb-xl-10">
+
+            <div class="card-body pt-9 pb-0">
+
+
+
+
+                <!--begin::Navs-->
+                <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
+                    <!--begin::Nav item-->
+                    <li class="nav-item mt-2">
+                        <a class="nav-link text-active-primary ms-0 me-10 py-5 " href="">
+                            Overview                    </a>
+                    </li>
+                    <!--end::Nav item-->
+                    <!--begin::Nav item-->
+                    <li class="nav-item mt-2">
+                        <a class="nav-link text-active-primary ms-0 me-10 py-5 active" href="">
+                            Settings                    </a>
+                    </li>
+                    <!--end::Nav item-->
+                </ul>
+                <!--begin::Navs-->
+            </div></div>
+        <!--end::Navbar-->
+        <!--begin::Basic info-->
+        <div class="card mb-5 mb-xl-10">
+            <!--begin::Card header-->
+            <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
+                <!--begin::Card title-->
+                <div class="card-title m-0">
+                    <h3 class="fw-bold m-0">Profile Details</h3>
+                </div>
+                <!--end::Card title-->
+            </div>
+            <!--begin::Card header-->
+
+            <!--begin::Content-->
+            <div id="kt_account_settings_profile_details" class="collapse show">
+                <!--begin::Form-->
+                <form id="kt_account_profile_details_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" method="POST" action="{% url 'edit-user' form.username.value %}" novalidate="novalidate">
+                {% csrf_token %}
+                    <!--begin::Card body-->
+                    <div class="card-body border-top p-9">
+
+
+                        <!--begin::Input group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">{{ form.username.label }}</label>
+                            <!--end::Label-->
+
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                {{ form.username }}
+                                <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+
+                        <!--begin::Input group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">{{ form.email.label }}</label>
+                            <!--end::Label-->
+
+                            <!--begin::Col-->
+                            <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                {{ form.email }}
+                                <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+
+                        <!--begin::Input group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Full Name</label>
+                            <!--end::Label-->
+
+                            <!--begin::Col-->
+                            <div class="col-lg-8">
+                                <!--begin::Row-->
+                                <div class="row">
+                                    <!--begin::Col-->
+                                    <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                                        {{ form.first_name }}
+                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                                    <!--end::Col-->
+
+                                    <!--begin::Col-->
+                                    <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                                        {{ form.last_name }}
+                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Row-->
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+
+                        <!--begin::Input group-->
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Full Name</label>
+                            <!--end::Label-->
+
+                            <!--begin::Col-->
+                            <div class="col-lg-8">
+                                <!--begin::Row-->
+                                <div class="row">
+                                    <!--begin::Col-->
+                                    <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                                        {{ form.first_name }}
+                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                                    <!--end::Col-->
+
+                                    <!--begin::Col-->
+                                    <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                                        {{ form.last_name }}
+                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                                    <!--end::Col-->
+                                </div>
+                                <!--end::Row-->
+                            </div>
+                            <!--end::Col-->
+                        </div>
+                        <!--end::Input group-->
+
+                        <div class="row mb-6">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label required fw-semibold fs-6">Account Type</label>
+                            <!--end::Label-->
+                            <!--end::Input row-->
+                            <div class="separator separator-dashed my-5"></div>
+                            <!--begin::Input row-->
+                            <!--begin::Roles-->
+                            <!--begin::Input row-->
+                            <div class="col-lg-4 fv-row fv-plugins-icon-container">
+                                <!--begin::Radio-->
+                                <div class="form-check form-check-custom form-check-solid">
+                                    <!--begin::Input-->
+                                    <input class="form-check-input me-3" name="account_type" type="radio" value="admin" id="kt_modal_update_role_option_0"
+                                            {% if form.account_type.value == 'admin' %} checked="checked" {% endif %}
+                                    >
+                                    <!--end::Input-->
+                                    <!--begin::Label-->
+                                    <label class="form-check-label" for="kt_modal_update_role_option_0">
+                                        <div class="fw-bold text-gray-800">Administrator</div>
+                                        <div class="text-gray-600">Holds extensive control, managing all aspects of the system</div>
+                                    </label>
+                                    <!--end::Label-->
+                                </div>
+                                <!--end::Radio-->
+                            </div>
+                            <div class="col-lg-4 fv-row fv-plugins-icon-container">
+                                <!--begin::Radio-->
+                                <div class="form-check form-check-custom form-check-solid">
+                                    <!--begin::Input-->
+                                    <input class="form-check-input me-3" name="account_type" type="radio" value="moderator" id="kt_modal_update_role_option_1"
+                                            {% if form.account_type.value == 'moderator' %} checked="checked" {% endif %}
+                                    >
+                                    <!--end::Input-->
+                                    <!--begin::Label-->
+                                    <label class="form-check-label" for="kt_modal_update_role_option_1">
+                                        <div class="fw-bold text-gray-800">Moderator</div>
+                                        <div class="text-gray-600">Empowered to add and modify users, ensuring streamlined user management</div>
+                                    </label>
+                                    <!--end::Label-->
+                                </div>
+                                <!--end::Radio-->
+                            </div>
+                            <div class="col-lg-4 fv-row fv-plugins-icon-container">
+                                <!--begin::Radio-->
+                                <div class="form-check form-check-custom form-check-solid">
+                                    <!--begin::Input-->
+                                    <input class="form-check-input me-3" name="account_type" type="radio" value="user" id="kt_modal_update_role_option_2"
+                                    {% if form.account_type.value == 'user' %} checked="checked" {% endif %}
+                                    >
+                                    <!--end::Input-->
+                                    <!--begin::Label-->
+                                    <label class="form-check-label" for="kt_modal_update_role_option_2">
+                                        <div class="fw-bold text-gray-800">User</div>
+                                        <div class="text-gray-600">Granted access to utilize the tool's functionalities for an enhanced user experience</div>
+                                    </label>
+                                    <!--end::Label-->
+                                </div>
+                                <!--end::Radio-->
+                            </div>
+                            <!--end::Input row-->
+                            <!--end::Input row-->
+                            <div class="separator separator-dashed my-5"></div>
+                            <!--begin::Input row-->
+                            <!--end::Roles-->
+                        </div>
+
+
+                        <!--begin::Input group-->
+                        <div class="row mb-0">
+                            <!--begin::Label-->
+                            <label class="col-lg-4 col-form-label fw-semibold fs-6">Status</label>
+                            <!--begin::Label-->
+
+                            <!--begin::Label-->
+                            <div class="col-lg-8 d-flex align-items-center">
+                                <div class="form-check form-check-solid form-switch form-check-custom fv-row">
+                                    {{ form.is_active }}
+                                    <label class="form-check-label" for="allowmarketing"></label>
+                                </div>
+                            </div>
+                            <!--begin::Label-->
+                        </div>
+                        <!--end::Input group-->
+
+
+
+
+
+
+                    </div>
+                    <!--end::Card body-->
+
+                    <!--begin::Actions-->
+                    <div class="card-footer d-flex justify-content-end py-6 px-9">
+                        <button type="reset" class="btn btn-light btn-active-light-primary me-2">Discard</button>
+                        <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save Changes</button>
+                    </div>
+                    <!--end::Actions-->
+                    <input type="hidden"></form>
+                <!--end::Form-->
+            </div>
+            <!--end::Content-->
+        </div>
+        <!--end::Basic info-->
+
+    </div>
+
+{% endblock content-wrapper %}

@@ -1,0 +1,473 @@
+{% extends 'panel/components/wrapper.html' %}
+{% load custom_filters %}
+{% load static %}
+{% block content-wrapper %}
+
+
+
+        <!--begin::Content container-->
+        <div id="kt_app_content_container" class="app-container container-fluid">
+            <!--begin::Card-->
+            <div class="card">
+                <!--begin::Card header-->
+                <div class="card-header border-0 pt-6">
+                    <!--begin::Card title-->
+                    <div class="card-title">
+                        <!--begin::Search-->
+                        <div class="d-flex align-items-center position-relative my-1">
+                            <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-5">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                            <input type="text" data-kt-user-table-filter="search" class="form-control form-control-solid w-250px ps-13" placeholder="Search user">
+                        </div>
+                        <!--end::Search-->
+                    </div>
+                    <!--begin::Card title-->
+                    <!--begin::Card toolbar-->
+                    <div class="card-toolbar">
+                        <!--begin::Toolbar-->
+                        <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
+                            <!--begin::Filter-->
+                            <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
+                                <i class="ki-duotone ki-filter fs-2">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>Filter</button>
+                            <!--begin::Menu 1-->
+                            <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
+                                <!--begin::Header-->
+                                <div class="px-7 py-5">
+                                    <div class="fs-5 text-dark fw-bold">Filter Options</div>
+                                </div>
+                                <!--end::Header-->
+                                <!--begin::Separator-->
+                                <div class="separator border-gray-200"></div>
+                                <!--end::Separator-->
+                                <!--begin::Content-->
+                                <form method="GET" action="{% url 'panel-admin-user-lists' %}" >
+                                <div class="px-7 py-5" data-kt-user-table-filter="form">
+                                    <!--begin::Input group-->
+                                    <div class="mb-7">
+                                        <!--begin::Label-->
+                                        <label class="fw-semibold fs-6 mb-5">Sort By:</label>
+                                        <!--end::Label-->
+                                        <!--begin::Roles-->
+                                        <!--begin::Input row-->
+                                        <div class="d-flex fv-row">
+                                            <!--begin::Radio-->
+                                            <div class="form-check form-check-custom form-check-solid">
+                                                <!--begin::Input-->
+                                                <input class="form-check-input me-3" name="order" type="radio" value="id" id="kt_modal_update_role_option_0" checked="checked">
+                                                <!--end::Input-->
+                                                <!--begin::Label-->
+                                                <label class="form-check-label" for="kt_modal_update_role_option_0">
+                                                    <div class="fw-bold text-gray-800">ID</div>
+                                                </label>
+                                                <!--end::Label-->
+                                            </div>
+                                            <!--end::Radio-->
+                                        </div>
+                                        <!--end::Input row-->
+                                        <div class="separator separator-dashed my-5"></div>
+                                        <!--begin::Input row-->
+                                        <div class="d-flex fv-row">
+                                            <!--begin::Radio-->
+                                            <div class="form-check form-check-custom form-check-solid">
+                                                <!--begin::Input-->
+                                                <input class="form-check-input me-3" name="order" type="radio" value="username" id="kt_modal_update_role_option_2">
+                                                <!--end::Input-->
+                                                <!--begin::Label-->
+                                                <label class="form-check-label" for="kt_modal_update_role_option_2">
+                                                    <div class="fw-bold text-gray-800">Username</div>
+                                                </label>
+                                                <!--end::Label-->
+                                            </div>
+                                            <!--end::Radio-->
+                                        </div>
+                                        <!--end::Input row-->
+                                        <!--end::Input row-->
+                                        <div class="separator separator-dashed my-5"></div>
+                                        <!--begin::Input row-->
+                                        <div class="d-flex fv-row">
+                                            <!--begin::Radio-->
+                                            <div class="form-check form-check-custom form-check-solid">
+                                                <!--begin::Input-->
+                                                <input class="form-check-input me-3" name="order" type="radio" value="account_type" id="kt_modal_update_role_option_3">
+                                                <!--end::Input-->
+                                                <!--begin::Label-->
+                                                <label class="form-check-label" for="kt_modal_update_role_option_3">
+                                                    <div class="fw-bold text-gray-800">Type</div>
+                                                </label>
+                                                <!--end::Label-->
+                                            </div>
+                                            <!--end::Radio-->
+                                        </div>
+                                        <!--end::Input row-->
+                                        <!--end::Input row-->
+                                        <div class="separator separator-dashed my-5"></div>
+                                        <!--begin::Input row-->
+                                        <div class="d-flex fv-row">
+                                            <!--begin::Radio-->
+                                            <div class="form-check form-check-custom form-check-solid">
+                                                <!--begin::Input-->
+                                                <input class="form-check-input me-3" name="order" type="radio" value="last_login" id="kt_modal_update_role_option_4">
+                                                <!--end::Input-->
+                                                <!--begin::Label-->
+                                                <label class="form-check-label" for="kt_modal_update_role_option_4">
+                                                    <div class="fw-bold text-gray-800">Last Login</div>
+                                                </label>
+                                                <!--end::Label-->
+                                            </div>
+                                            <!--end::Radio-->
+                                        </div>
+                                        <!--end::Input row-->
+                                        <!--end::Input row-->
+                                        <div class="separator separator-dashed my-5"></div>
+                                        <!--begin::Input row-->
+                                        <div class="d-flex fv-row">
+                                            <!--begin::Radio-->
+                                            <div class="form-check form-check-custom form-check-solid">
+                                                <!--begin::Input-->
+                                                <input class="form-check-input me-3" name="order" type="radio" value="is_active" id="kt_modal_update_role_option_5">
+                                                <!--end::Input-->
+                                                <!--begin::Label-->
+                                                <label class="form-check-label" for="kt_modal_update_role_option_5">
+                                                    <div class="fw-bold text-gray-800">Status</div>
+                                                </label>
+                                                <!--end::Label-->
+                                            </div>
+                                            <!--end::Radio-->
+                                        </div>
+                                        <!--end::Input row-->
+                                        <!--end::Input row-->
+                                        <div class="separator separator-dashed my-5"></div>
+                                        <!--begin::Input row-->
+                                        <div class="d-flex fv-row">
+                                            <!--begin::Radio-->
+                                            <div class="form-check form-check-custom form-check-solid">
+                                                <!--begin::Input-->
+                                                <input class="form-check-input me-3" name="order" type="radio" value="updated_at" id="kt_modal_update_role_option_6">
+                                                <!--end::Input-->
+                                                <!--begin::Label-->
+                                                <label class="form-check-label" for="kt_modal_update_role_option_6">
+                                                    <div class="fw-bold text-gray-800">Last Update</div>
+                                                </label>
+                                                <!--end::Label-->
+                                            </div>
+                                            <!--end::Radio-->
+                                        </div>
+                                        <!--end::Input row-->
+                                        <!--end::Roles-->
+                                    </div>
+                                    <!--begin::Actions-->
+                                    <div class="d-flex justify-content-end">
+                                        <a href="{% url 'panel-admin-user-lists' %}" class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6">
+                                            Reset
+                                        </a>
+                                        <button type="submit" class="btn btn-primary fw-semibold px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="filter">Apply</button>
+                                    </div>
+                                    <!--end::Actions-->
+                                </div>
+                                </form>
+                                    <!--end::Content-->
+                            </div>
+                            <!--end::Menu 1-->
+                            <!--end::Filter-->
+
+                            <!--begin::Add user-->
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
+                                <i class="ki-duotone ki-plus fs-2"></i>Add User</button>
+                            <!--end::Add user-->
+                        </div>
+                        <!--end::Toolbar-->
+                        <!--begin::Group actions-->
+                        <div class="d-flex justify-content-end align-items-center d-none" data-kt-user-table-toolbar="selected">
+                            <div class="fw-bold me-5">
+                                <span class="me-2" data-kt-user-table-select="selected_count">10</span>Selected</div>
+                            <button type="button" class="btn btn-danger" data-kt-user-table-select="delete_selected">Delete Selected</button>
+                        </div>
+                        <!--end::Group actions-->
+                        <!--begin::Modal - Add task-->
+                        <div class="modal fade" id="kt_modal_add_user" tabindex="-1" aria-hidden="true">
+                            <!--begin::Modal dialog-->
+                            <div class="modal-dialog modal-dialog-centered mw-650px">
+                                <!--begin::Modal content-->
+                                <div class="modal-content">
+                                    <!--begin::Modal header-->
+                                    <div class="modal-header" id="kt_modal_add_user_header">
+                                        <!--begin::Modal title-->
+                                        <h2 class="fw-bold">Add User</h2>
+                                        <!--end::Modal title-->
+                                        <!--begin::Close-->
+                                        <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close">
+                                            <i class="ki-duotone ki-cross fs-1">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </i>
+                                        </div>
+                                        <!--end::Close-->
+                                    </div>
+                                    <!--end::Modal header-->
+                                    <!--begin::Modal body-->
+                                    <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                                        <!--begin::Form-->
+                                        <form id="kt_modal_add_user_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" method="POST" action="{% url 'panel-admin-user-lists' %}">
+                                            {% csrf_token %}
+                                            <!--begin::Scroll-->
+                                            <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px" style="max-height: 379px;">
+
+                                                <!--begin::Input group-->
+                                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                    <!--begin::Label-->
+                                                    <label class="required form-label fw-bold text-dark fs-6">First Name</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    {{ add_user_form.first_name }}
+                                                    <!--end::Input-->
+                                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                                </div>
+                                                <!--end::Input group-->
+                                                <!--begin::Input group-->
+                                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                    <!--begin::Label-->
+                                                    <label class="form-label fw-bold text-dark fs-6">Last Name</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    {{ add_user_form.last_name }}
+                                                    <!--end::Input-->
+                                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                                </div>
+                                                <!--end::Input group-->
+                                                <!--begin::Input group-->
+                                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                    <!--begin::Label-->
+                                                    <label class="required fw-semibold fs-6 mb-2">Email</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    {{ add_user_form.email }}
+                                                    <!--end::Input-->
+                                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                                </div>
+                                                <!--end::Input group-->
+                                                <!--begin::Input group-->
+                                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                    <!--begin::Label-->
+                                                    <label class="required fw-semibold fs-6 mb-2">Username</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    {{ add_user_form.username }}
+                                                    <!--end::Input-->
+                                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                                </div>
+                                                <!--end::Input group-->
+                                                <!--begin::Input group-->
+                                                <div class="mb-7">
+                                                    <!--begin::Label-->
+                                                    <label class="required fw-semibold fs-6 mb-5">Type</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input row-->
+                                                    <div class="d-flex fv-row">
+                                                        <!--begin::Radio-->
+                                                        <div class="form-check form-check-custom form-check-solid">
+                                                            <!--begin::Input-->
+                                                            <input class="form-check-input me-3" name="account_type" type="radio" value="admin" id="kt_modal_update_role_option_0">
+                                                            <!--end::Input-->
+                                                            <!--begin::Label-->
+                                                            <label class="form-check-label" for="kt_modal_update_role_option_0">
+                                                                <div class="fw-bold text-gray-800">Administrator</div>
+                                                                <div class="text-gray-600">Holds extensive control, managing all aspects of the system</div>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                        </div>
+                                                        <!--end::Radio-->
+                                                    </div>
+                                                    <!--end::Input row-->
+                                                    <div class="separator separator-dashed my-5"></div>
+                                                    <!--begin::Input row-->
+                                                    <div class="d-flex fv-row">
+                                                        <!--begin::Radio-->
+                                                        <div class="form-check form-check-custom form-check-solid">
+                                                            <!--begin::Input-->
+                                                            <input class="form-check-input me-3" name="account_type" type="radio" value="moderator" id="kt_modal_update_role_option_1">
+                                                            <!--end::Input-->
+                                                            <!--begin::Label-->
+                                                            <label class="form-check-label" for="kt_modal_update_role_option_1">
+                                                                <div class="fw-bold text-gray-800">Moderator</div>
+                                                                <div class="text-gray-600">Empowered to add and modify users, ensuring streamlined user management</div>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                        </div>
+                                                        <!--end::Radio-->
+                                                    </div>
+                                                    <!--end::Input row-->
+                                                    <div class="separator separator-dashed my-5"></div>
+                                                    <!--begin::Input row-->
+                                                    <div class="d-flex fv-row">
+                                                        <!--begin::Radio-->
+                                                        <div class="form-check form-check-custom form-check-solid">
+                                                            <!--begin::Input-->
+                                                            <input class="form-check-input me-3" name="account_type" type="radio" value="user" id="kt_modal_update_role_option_2"  checked="checked">
+                                                            <!--end::Input-->
+                                                            <!--begin::Label-->
+                                                            <label class="form-check-label" for="kt_modal_update_role_option_2">
+                                                                <div class="fw-bold text-gray-800">User</div>
+                                                                <div class="text-gray-600">Granted access to utilize the tool's functionalities for an enhanced user experience</div>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                        </div>
+                                                        <!--end::Radio-->
+                                                    </div>
+                                                    <!--end::Input row-->
+                                                    <!--end::Roles-->
+                                                </div>
+                                                <!--end::Input group-->
+                                            </div>
+                                            <!--end::Scroll-->
+                                            <!--begin::Actions-->
+                                            <div class="text-center pt-15">
+                                                <button type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel">Discard</button>
+                                                <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
+                                                    <span class="indicator-label">Create User</span>
+                                                    <span class="indicator-progress">Please wait...
+                                                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                                </button>
+                                            </div>
+                                            <!--end::Actions-->
+                                        </form>
+                                        <!--end::Form-->
+                                    </div>
+                                    <!--end::Modal body-->
+                                </div>
+                                <!--end::Modal content-->
+                            </div>
+                            <!--end::Modal dialog-->
+                        </div>
+                        <!--end::Modal - Add task-->
+                    </div>
+                    <!--end::Card toolbar-->
+                </div>
+                <!--end::Card header-->
+                <!--begin::Card body-->
+                <div class="card-body py-4">
+                    <!--begin::Table-->
+                    <div id="kt_table_users_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer"><div class="table-responsive"><table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="kt_table_users">
+                        <thead>
+                        <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0"><th class="w-10px pe-2 sorting_disabled" rowspan="1" colspan="1" style="width: 29.9px;" aria-label="
+
+
+
+                                                    ">
+                            <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
+                                <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_users .form-check-input" value="1">
+                            </div>
+                        </th>
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" style="width: 537.283px;" aria-label="User: activate to sort column ascending">User</th>
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" style="width: 318.033px;" aria-label="Type: activate to sort column ascending">Type</th>
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" style="width: 318.033px;" aria-label="Last login: activate to sort column ascending">Last login</th>
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" style="width: 318.033px;" aria-label="Status: activate to sort column ascending">Status</th>
+                            <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" style="width: 413.783px;" aria-label="Last Update: activate to sort column ascending">Last Update</th>
+                            <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 261.833px;" aria-label="Actions">Actions</th></tr>
+                        </thead>
+                        <tbody class="text-gray-600 fw-semibold">
+
+
+
+                            {% for user in users %}
+
+                                <tr class="odd">
+
+                                    <td>
+                                        <div class="form-check form-check-sm form-check-custom form-check-solid">
+                                            <input class="form-check-input" type="checkbox" value="1">
+                                        </div>
+                                    </td>
+                                    <td class="d-flex align-items-center">
+                                        <!--begin:: Avatar -->
+                                        <div class="symbol symbol-circle symbol-50px overflow-hidden me-3">
+                                            <a href="#">
+                                                {% if forloop.counter0|divisibleby:6 %}
+                                                    <div class="symbol-label fs-3 bg-light-warning  text-warning ">
+                                                {% elif forloop.counter0|divisibleby:5 %}
+                                                    <div class="symbol-label fs-3 bg-light-primary text-primary">
+                                                {% elif forloop.counter0|divisibleby:4 %}
+                                                    <div class="symbol-label fs-3 bg-light-info text-info">
+                                                {% elif forloop.counter0|divisibleby:3 %}
+                                                    <div class="symbol-label fs-3 bg-light-secondary text-primary">
+                                                {% elif forloop.counter0|divisibleby:2 %}
+                                                    <div class="symbol-label fs-3 bg-light-subtle text-subtle">
+                                                {% else %}
+                                                    <div class="symbol-label fs-3 bg-light-danger text-danger">
+                                                {% endif %}
+                                                    {{ user.first_name|slice:":1" }} {{ user.last_name|slice:":1" }}
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <!--end::Avatar-->
+                                        <!--begin::User details-->
+                                        <div class="d-flex flex-column">
+                                            <a href="#" class="text-gray-800 text-hover-primary mb-1">{{ user.first_name }} {{ user.last_name }}</a>
+                                            <span>{{ user.email }}</span>
+                                        </div>
+                                        <!--begin::User details-->
+                                    </td>
+                                    <td>{{ user.account_type }}</td>
+                                    <td data-order="2024-02-18T16:19:32+01:00">
+                                        <div class="badge badge-light fw-bold">{{ user.last_login|time_ago }}</div>
+                                    </td>
+                                    <td>
+                                        {% if user.is_active %}
+                                        <div class="badge badge-light-success fw-bold">Active</div>
+                                        {% else %}
+                                        <div class="badge badge-light-danger fw-bold">Inactive</div>
+                                        {% endif %}
+                                    </td>
+
+
+                                    {% now "Y" as current_year %}
+                                    {% if current_year == user.updated_at|date:"Y" %}
+                                    <td data-order="{{user.updated_at|date:"M d - H:m"}}">
+                                        {{user.created_at|date:"M d - H:m"}}
+                                    </td>
+                                    {% else %}
+                                    <td data-order="{{user.updated_at|date:"M d, Y - H:m"}}">
+                                        {{user.updated_at|date:"M d, Y - H:m"}}
+                                    </td>
+                                    {% endif %}
+
+                                    <td class="text-end">
+                                        <a href="#" class="btn btn-light btn-active-light-primary btn-flex btn-center btn-sm" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                            <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
+                                        <!--begin::Menu-->
+                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4" data-kt-menu="true">
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item px-3">
+                                                <a href="{% url 'edit-user' user.username %}" class="menu-link px-3">Edit</a>
+                                            </div>
+                                            <!--end::Menu item-->
+                                            <!--begin::Menu item-->
+                                            <div class="menu-item px-3">
+                                                <a href="{% url 'delete-user' user.username %}" class="menu-link px-3" data-kt-users-table-filter="delete_row">Delete</a>
+                                            </div>
+                                            <!--end::Menu item-->
+                                        </div>
+                                        <!--end::Menu-->
+                                    </td>
+
+                                </tr>
+
+                            {% endfor %}
+
+
+
+                        </tbody>
+                    </table></div><div class="row"><div class="col-sm-12 col-md-5 d-flex align-items-center justify-content-center justify-content-md-start"></div><div class="col-sm-12 col-md-7 d-flex align-items-center justify-content-center justify-content-md-end"><div class="dataTables_paginate paging_simple_numbers" id="kt_table_users_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="kt_table_users_previous"><a href="#" aria-controls="kt_table_users" data-dt-idx="0" tabindex="0" class="page-link"><i class="previous"></i></a></li><li class="paginate_button page-item active"><a href="#" aria-controls="kt_table_users" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="kt_table_users" data-dt-idx="2" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="kt_table_users" data-dt-idx="3" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item next" id="kt_table_users_next"><a href="#" aria-controls="kt_table_users" data-dt-idx="4" tabindex="0" class="page-link"><i class="next"></i></a></li></ul></div></div></div></div>
+                    <!--end::Table-->
+                </div>
+                <!--end::Card body-->
+            </div>
+            <!--end::Card-->
+        </div>
+        <!--end::Content container-->
+
+{% endblock content-wrapper %}

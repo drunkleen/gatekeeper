@@ -1,0 +1,29 @@
+{% load static %}
+{% block content %}
+
+<head><base href=""/>
+    <title>Gate Keeper - {{ page_title }}</title>
+    <meta charset="utf-8" />
+    <meta name="description" content="Gate Keeper - Make Your Links Safe" />
+    <meta name="keywords" content="bootstrap, bootstrap 5, bootstrap admin, bootstrap dashboard" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="Gate Keeper" />
+    <meta property="og:site_name" content="Gate Keeper" />
+    <link rel="shortcut icon" href="{% static 'panel/media/logos/favicon.ico' %}" />
+    <!--begin::Fonts(mandatory for all pages)-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />
+    <!--end::Fonts-->
+    <!--begin::Vendor Stylesheets(used for this page only)-->
+    <link href="{% static 'panel/plugins/custom/fullcalendar/fullcalendar.bundle.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'panel/plugins/custom/datatables/datatables.bundle.css' %}" rel="stylesheet" type="text/css" />
+    <!--end::Vendor Stylesheets-->
+    <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
+    <link href="{% static 'panel/plugins/global/plugins.bundle.css' %}" rel="stylesheet" type="text/css" />
+    <link href="{% static 'panel/css/style.bundle.css' %}" rel="stylesheet" type="text/css" />
+    <!--end::Global Stylesheets Bundle-->
+    <script>// Frame-busting to prevent site from being loaded within a frame without permission (click-jacking) if (window.top != window.self) { window.top.location.replace(window.self.location.href); }</script>
+</head>
+
+{% endblock content %}
