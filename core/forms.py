@@ -1,13 +1,34 @@
 from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import PasswordChangeForm
 from core.models import UserAccount, Subscription
 
 
-class UserPasswordChangeForm(UserCreationForm):
+class UserPasswordChangeForm(PasswordChangeForm):
     class Meta:
         model = UserAccount
-        fields = ("password1", "password2")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['old_password'].widget.attrs.update({
+            'class': 'form-control form-control-lg form-control-solid',
+            'id': "currentpassword",
+            'autocomplete': "off",
+        })
+
+        self.fields['new_password1'].widget.attrs.update({
+            'class': 'form-control form-control-lg form-control-solid',
+            'id': "newpassword",
+            'autocomplete': "off",
+        })
+
+        self.fields['new_password2'].widget.attrs.update({
+            'class': 'form-control form-control-lg form-control-solid',
+            'id': "confirmpassword",
+            'autocomplete': "off",
+        })
 
 
 class UserCreationForm(UserCreationForm):

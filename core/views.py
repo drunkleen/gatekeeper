@@ -1,12 +1,15 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.views import PasswordChangeView
+from django.urls import reverse_lazy
+from django.http import HttpResponse, JsonResponse
 from django.contrib import messages
 from django import template
 
 from core.models import UserAccount, Subscription
-from core.forms import UserCreationForm, AdminUserCreationForm, AdminUserEditForm, UserEditForm
+from core.forms import UserCreationForm, AdminUserCreationForm, AdminUserEditForm, UserEditForm, UserPasswordChangeForm
 
 
 # Create your views here.
@@ -65,8 +68,8 @@ def index(request) -> redirect:
         if request.user.account_type == 'admin' or request.user.account_type == 'moderator':
             return redirect('panel-admin')
         else:
-            return HttpResponse("User")
-    redirect('sign-in')
+            return redirect('panel-user', username=request.user.username)
+    return redirect('sign-in')
 
 
 def user_sign_in(request) -> render:
@@ -269,12 +272,35 @@ def panel_user_edit(request, username: str) -> render:
 
                 return redirect('admin-edit-user', username=user_form.username)
 
-        form = AdminUserEditForm(instance=user)
-        context['form'] = form
+        context['form'] = AdminUserEditForm(instance=user)
+        context['password_reset_form'] = UserPasswordChangeForm(user)
         return render(request, 'panel/components/page/edit-user.html', context)
 
     return redirect('sign-in')
 
 
-def panel_user_reset_password(request, username: str) -> render:
-    return render(request,'reset-password.html',)
+def panel_user_reset_password(request, username: str):
+    user = get_object_or_404(UserAccount, username=username)
+
+    if request.user.is_authenticated and request.method == 'POST':
+        form = UserPasswordChangeForm(user, request.POST)
+
+        if form.is_valid() and user.check_password(form.cleaned_data['old_password']):
+            if (
+                    request.user.account_type == 'admin' or
+                    (request.user.account_type == 'moderator' and user.account_type == 'user') or
+                    (request.user.account_type == 'moderator' and user.username == request.user.username) or
+                    user.username == request.user.username
+            ):
+                form.save()
+                update_session_auth_hash(request, user)
+                messages.success(request, 'Your password was successfully updated!')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f'Error in {field}: {error}')
+
+        return redirect('edit-user', username=username)
+
+    messages.error(request, 'Action Not Allowed')
+    return redirect('edit-user', username=username)

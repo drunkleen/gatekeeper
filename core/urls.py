@@ -19,6 +19,6 @@ urlpatterns = [
     path('panel/user/<str:username>', views.panel_user_profile_overview, name='panel-user'),
     path('panel/user/profile/<str:username>', views.panel_user_profile_overview, name='panel-user-profile'),
     path('panel/user/edit/<str:username>', views.panel_user_edit, name='edit-user'),
-    path('panel/user/reset-password/<str:username>', views.panel_user_reset_password, name='user-reset-password'),
+    path('panel/user/panel_user_reset_password/<str:username>', views.panel_user_reset_password, name='user-reset-password'),
 
 ]

@@ -2,6 +2,45 @@
 {% block toolbar %}
 
 
+    {% if messages %}
+        {% for message in messages %}
+
+    <div
+            {% if message.tag == 'error' %}
+            class="notice d-flex bg-light-danger rounded border-danger border border-dashed p-6"
+            {% elif message.tag == 'success' %}
+            class="notice d-flex bg-light-success rounded border-success border border-dashed p-6"
+            {% else %}
+            class="notice d-flex bg-light-primary rounded border-primary border border-dashed p-6"
+            {% endif %}>
+        <!--begin::Icon-->
+        <i
+                {% if message.tag == 'error' %}
+                class="ki-duotone ki-cross-circle fs-2tx text-danger me-4"
+                {% elif message.tag == 'success' %}
+                class="ki-duotone ki-user-tick fs-2tx text-success me-4"
+                {% else %}
+                class="ki-duotone ki-question fs-2tx text-primary me-4"
+                {% endif %}
+        >
+            <span class="path1"></span>
+            <span class="path2"></span>
+        </i>
+        <!--end::Icon-->
+        <!--begin::Wrapper-->
+        <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+            <!--begin::Content-->
+            <div class="mb-3 mb-md-0 fw-semibold">
+                <h4 class="text-gray-900 fw-bold">{{ message.tags }}</h4>
+                <div class="fs-6 text-gray-700 pe-7">{{ message }}</div>
+            </div>
+            <!--end::Content-->
+        </div>
+        <!--end::Wrapper-->
+    </div>
+        {% endfor %}
+    {% endif %}
+
     <div id="kt_app_toolbar" class="app-toolbar pt-5">
         <!--begin::Toolbar container-->
         <div id="kt_app_toolbar_container" class="app-container container-fluid d-flex align-items-stretch">

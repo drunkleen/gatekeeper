@@ -3,235 +3,726 @@
 {% load static %}
 {% block content-wrapper %}
 
+
+    <!--begin::Content-->
     <div id="kt_app_content" class="app-content  flex-column-fluid ">
-
-
         <!--begin::Content container-->
         <div id="kt_app_content_container" class="app-container  container-fluid ">
-
-            <!--begin::Navbar-->
-            <div class="card mb-5 mb-xl-10">
+            <!--begin::Row-->
+            <div class="row g-5 g-xxl-8">
+                <!--begin::Col-->
                 <div class="card-body pt-9 pb-0">
-                    <!--begin::Details-->
+                    <!--begin::Timeline widget 2-->
+                    <div class="card mb-5 mb-xl-8" id="kt_timeline_widget_2_card">
+                        <!--begin::Header-->
+                        <div class="card-header position-relative py-0 border-bottom-2">
+                            <!--begin::Nav-->
+                            <ul class="nav nav-stretch nav-pills nav-pills-custom d-flex mt-3" role="tablist">
+                                <!--begin::Item-->
+                                <li class="nav-item p-0 ms-0 me-8" role="presentation">
+                                    <!--begin::Link-->
+                                    <a class="nav-link btn btn-color-muted px-0 active" data-bs-toggle="pill" href="#kt_timeline_widget_2_tab_1" aria-selected="true" role="tab">
+                                        <!--begin::Subtitle-->
+                                        <span class="nav-text fw-semibold fs-4 mb-3">
+                        Today Homeworks
+                    </span>
+                                        <!--end::Subtitle-->
 
-                    <!--end::Details-->
+                                        <!--begin::Bullet-->
+                                        <span class="bullet-custom position-absolute z-index-2 w-100 h-2px top-100 bottom-n100 bg-primary rounded"></span>
+                                        <!--end::Bullet-->
+                                    </a>
+                                    <!--end::Link-->
+                                </li>
+                                <!--end::Item-->
 
-                    <!--begin::Navs-->
-                    <ul class="nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold">
-                        <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5 active" href="">
-                                Overview                    </a>
-                        </li>
-                        <!--end::Nav item-->
-                        <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5 " href="l">
-                                Settings                    </a>
-                        </li>
-                        <!--end::Nav item-->
-                        <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5 " href="#">
-                                Security                    </a>
-                        </li>
-                        <!--end::Nav item-->
-                        <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5 " href="#">
-                                Activity                    </a>
-                        </li>
-                        <!--end::Nav item-->
-                        <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5 " href="#">
-                                Billing                    </a>
-                        </li>
-                        <!--end::Nav item-->
-                        <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5 " href="#">
-                                Statements                    </a>
-                        </li>
-                        <!--end::Nav item-->
-                        <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5 " href="#">
-                                Referrals                    </a>
-                        </li>
-                        <!--end::Nav item-->
-                        <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5 " href="#">
-                                API Keys                    </a>
-                        </li>
-                        <!--end::Nav item-->
-                        <!--begin::Nav item-->
-                        <li class="nav-item mt-2">
-                            <a class="nav-link text-active-primary ms-0 me-10 py-5 " href="#">
-                                Logs                    </a>
-                        </li>
-                        <!--end::Nav item-->
-                    </ul>
-                    <!--begin::Navs-->
-                </div>
-            </div>
-            <!--end::Navbar-->
-            <!--begin::details View-->
-            <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
-                <!--begin::Card header-->
-                <div class="card-header cursor-pointer">
-                    <!--begin::Card title-->
-                    <div class="card-title m-0">
-                        <h3 class="fw-bold m-0">Profile Details</h3>
-                    </div>
-                    <!--end::Card title-->
+                                <!--begin::Item-->
+                                <li class="nav-item p-0 ms-0 me-8" role="presentation">
+                                    <!--begin::Link-->
+                                    <a class="nav-link btn btn-color-muted px-0" data-bs-toggle="pill" href="#kt_timeline_widget_2_tab_2" aria-selected="false" role="tab" tabindex="-1">
+                                        <!--begin::Subtitle-->
+                                        <span class="nav-text fw-semibold fs-4 mb-3">
+                        Recent
+                    </span>
+                                        <!--end::Subtitle-->
 
-                    <!--begin::Action-->
-                    <a href="" class="btn btn-sm btn-primary align-self-center">Edit Profile</a>
-                    <!--end::Action-->
-                </div>
-                <!--begin::Card header-->
+                                        <!--begin::Bullet-->
+                                        <span class="bullet-custom position-absolute z-index-2 w-100 h-2px top-100 bottom-n100 bg-primary rounded"></span>
+                                        <!--end::Bullet-->
+                                    </a>
+                                    <!--end::Link-->
+                                </li>
+                                <!--end::Item-->
 
-                <!--begin::Card body-->
-                <div class="card-body p-9">
-                    <!--begin::Row-->
-                    <div class="row mb-7">
-                        <!--begin::Label-->
-                        <label class="col-lg-4 fw-semibold text-muted">Full Name</label>
-                        <!--end::Label-->
 
-                        <!--begin::Col-->
-                        <div class="col-lg-8">
-                            <span class="fw-bold fs-6 text-gray-800">Max Smith</span>
+                                <!--begin::Item-->
+                                <li class="nav-item p-0 ms-0" role="presentation">
+                                    <!--begin::Link-->
+                                    <a class="nav-link btn btn-color-muted px-0" data-bs-toggle="pill" href="#kt_timeline_widget_2_tab_3" aria-selected="false" role="tab" tabindex="-1">
+                                        <!--begin::Subtitle-->
+                                        <span class="nav-text fw-semibold fs-4 mb-3">
+                        Future
+                    </span>
+                                        <!--end::Subtitle-->
+
+                                        <!--begin::Bullet-->
+                                        <span class="bullet-custom position-absolute z-index-2 w-100 h-2px top-100 bottom-n100 bg-primary rounded"></span>
+                                        <!--end::Bullet-->
+                                    </a>
+                                    <!--end::Link-->
+                                </li>
+                                <!--end::Item-->
+                            </ul>
+                            <!--end::Nav-->
                         </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Row-->
+                        <!--end::Header-->
 
-                    <!--begin::Input group-->
-                    <div class="row mb-7">
-                        <!--begin::Label-->
-                        <label class="col-lg-4 fw-semibold text-muted">Company</label>
-                        <!--end::Label-->
+                        <!--begin::Body-->
+                        <div class="card-body">
+                            <!--begin::Tab Content-->
+                            <div class="tab-content">
 
-                        <!--begin::Col-->
-                        <div class="col-lg-8 fv-row">
-                            <span class="fw-semibold text-gray-800 fs-6"></span>
-                        </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Input group-->
+                                <!--begin::Tap pane-->
+                                <div class="tab-pane fade active show" id="kt_timeline_widget_2_tab_1" role="tabpanel">
+                                    <!--begin::Table container-->
+                                    <div class="table-responsive">
+                                        <!--begin::Table-->
+                                        <table class="table align-middle gs-0 gy-4">
+                                            <!--begin::Table head-->
+                                            <thead>
+                                            <tr>
+                                                <th class="p-0 w-10px"></th>
+                                                <th class="p-0 w-25px"></th>
+                                                <th class="p-0 min-w-400px"></th>
+                                                <th class="p-0 min-w-100px"></th>
+                                                <th class="p-0 min-w-125px"></th>
+                                            </tr>
+                                            </thead>
+                                            <!--end::Table head-->
 
-                    <!--begin::Input group-->
-                    <div class="row mb-7">
-                        <!--begin::Label-->
-                        <label class="col-lg-4 fw-semibold text-muted">
-                            Contact Phone
+                                            <!--begin::Table body-->
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <span data-kt-element="bullet" class="bullet bullet-vertical d-flex align-items-center h-40px bg-success"></span>
+                                                </td>
 
-                            <span class="ms-1" data-bs-toggle="tooltip" aria-label="Phone number must be active" data-bs-original-title="Phone number must be active" data-kt-initialized="1">
-                    <i class="ki-duotone ki-information fs-7"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>                </span>
-                        </label>
-                        <!--end::Label-->
+                                                <td class="ps-0">
+                                                    <div class="form-check form-check-custom form-check-success form-check-solid">
+                                                        <input class="form-check-input" type="checkbox" value="" checked="" data-kt-element="checkbox">
+                                                    </div>
+                                                </td>
 
-                        <!--begin::Col-->
-                        <div class="col-lg-8 d-flex align-items-center">
-                            <span class="fw-bold fs-6 text-gray-800 me-2">044 3276 454 935</span>
-                            <span class="badge badge-success">Verified</span>
-                        </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Input group-->
+                                                <td>
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-bold fs-6">Book p. 77-85, read &amp; complete tasks 1-6 on p. 85</a>
 
-                    <!--begin::Input group-->
-                    <div class="row mb-7">
-                        <!--begin::Label-->
-                        <label class="col-lg-4 fw-semibold text-muted">Company Site</label>
-                        <!--end::Label-->
+                                                    <span class="text-gray-400 fw-bold fs-7 d-block">Physics</span>
+                                                </td>
 
-                        <!--begin::Col-->
-                        <div class="col-lg-8">
-                            <a href="#" class="fw-semibold fs-6 text-gray-800 text-hover-primary"></a>
-                        </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Input group-->
+                                                <td class="text-end">
+                                                    <span data-kt-element="status" class="badge badge-light-success">Done</span>
+                                                </td>
 
-                    <!--begin::Input group-->
-                    <div class="row mb-7">
-                        <!--begin::Label-->
-                        <label class="col-lg-4 fw-semibold text-muted">
-                            Country
+                                                <td class="text-end">
+                                                    <!--begin::Icon-->
+                                                    <div class="d-flex justify-content-end flex-shrink-0">
+                                                        <!--begin::Print-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
+                                                        <!--end::Print-->
 
-                            <span class="ms-1" data-bs-toggle="tooltip" aria-label="Country of origination" data-bs-original-title="Country of origination" data-kt-initialized="1">
-                    <i class="ki-duotone ki-information fs-7"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>                </span>
-                        </label>
-                        <!--end::Label-->
+                                                        <!--begin::Chat-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
+                                                        <!--end::Chat-->
 
-                        <!--begin::Col-->
-                        <div class="col-lg-8">
-                            <span class="fw-bold fs-6 text-gray-800">Germany</span>
-                        </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Input group-->
+                                                        <!--begin::Attach-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm">
+                                                            <i class="ki-duotone ki-paper-clip fs-3"></i>                                                </a>
+                                                        <!--end::Attach-->
+                                                    </div>
+                                                    <!--end::Icon-->
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span data-kt-element="bullet" class="bullet bullet-vertical d-flex align-items-center h-40px bg-primary"></span>
+                                                </td>
 
-                    <!--begin::Input group-->
-                    <div class="row mb-7">
-                        <!--begin::Label-->
-                        <label class="col-lg-4 fw-semibold text-muted">Communication</label>
-                        <!--end::Label-->
+                                                <td class="ps-0">
+                                                    <div class="form-check form-check-custom  form-check-solid">
+                                                        <input class="form-check-input" type="checkbox" value="" data-kt-element="checkbox">
+                                                    </div>
+                                                </td>
 
-                        <!--begin::Col-->
-                        <div class="col-lg-8">
-                            <span class="fw-bold fs-6 text-gray-800">Email, Phone</span>
-                        </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Input group-->
+                                                <td>
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-bold fs-6">Workbook p. 17, tasks 1-6</a>
 
-                    <!--begin::Input group-->
-                    <div class="row mb-10">
-                        <!--begin::Label-->
-                        <label class="col-lg-4 fw-semibold text-muted">Allow Changes</label>
-                        <!--begin::Label-->
+                                                    <span class="text-gray-400 fw-bold fs-7 d-block">Mathematics</span>
+                                                </td>
 
-                        <!--begin::Label-->
-                        <div class="col-lg-8">
-                            <span class="fw-semibold fs-6 text-gray-800">Yes</span>
-                        </div>
-                        <!--begin::Label-->
-                    </div>
-                    <!--end::Input group-->
+                                                <td class="text-end">
+                                                    <span data-kt-element="status" class="badge badge-light-primary">In Process</span>
+                                                </td>
 
+                                                <td class="text-end">
+                                                    <!--begin::Icon-->
+                                                    <div class="d-flex justify-content-end flex-shrink-0">
+                                                        <!--begin::Print-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
+                                                        <!--end::Print-->
 
-                    <!--begin::Notice-->
-                    <div class="notice d-flex bg-light-warning rounded border-warning border border-dashed  p-6">
-                        <!--begin::Icon-->
-                        <i class="ki-duotone ki-information fs-2tx text-warning me-4"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>        <!--end::Icon-->
+                                                        <!--begin::Chat-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
+                                                        <!--end::Chat-->
 
-                        <!--begin::Wrapper-->
-                        <div class="d-flex flex-stack flex-grow-1 ">
-                            <!--begin::Content-->
-                            <div class=" fw-semibold">
-                                <h4 class="text-gray-900 fw-bold">We need your attention!</h4>
+                                                        <!--begin::Attach-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm">
+                                                            <i class="ki-duotone ki-paper-clip fs-3"></i>                                                </a>
+                                                        <!--end::Attach-->
+                                                    </div>
+                                                    <!--end::Icon-->
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span data-kt-element="bullet" class="bullet bullet-vertical d-flex align-items-center h-40px bg-success"></span>
+                                                </td>
 
-                                <div class="fs-6 text-gray-700 ">Your payment was declined. To start using tools, please <a class="fw-bold" href="#">Add Payment Method</a>.</div>
+                                                <td class="ps-0">
+                                                    <div class="form-check form-check-custom form-check-success form-check-solid">
+                                                        <input class="form-check-input" type="checkbox" value="" checked="" data-kt-element="checkbox">
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-bold fs-6">Learn paragraph p. 99, Exercise 1,2,3Scoping &amp; Estimations</a>
+
+                                                    <span class="text-gray-400 fw-bold fs-7 d-block">Chemistry</span>
+                                                </td>
+
+                                                <td class="text-end">
+                                                    <span data-kt-element="status" class="badge badge-light-success">Done</span>
+                                                </td>
+
+                                                <td class="text-end">
+                                                    <!--begin::Icon-->
+                                                    <div class="d-flex justify-content-end flex-shrink-0">
+                                                        <!--begin::Print-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
+                                                        <!--end::Print-->
+
+                                                        <!--begin::Chat-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
+                                                        <!--end::Chat-->
+
+                                                        <!--begin::Attach-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm">
+                                                            <i class="ki-duotone ki-paper-clip fs-3"></i>                                                </a>
+                                                        <!--end::Attach-->
+                                                    </div>
+                                                    <!--end::Icon-->
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span data-kt-element="bullet" class="bullet bullet-vertical d-flex align-items-center h-40px bg-primary"></span>
+                                                </td>
+
+                                                <td class="ps-0">
+                                                    <div class="form-check form-check-custom  form-check-solid">
+                                                        <input class="form-check-input" type="checkbox" value="" data-kt-element="checkbox">
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-bold fs-6">Write essay 1000 words “WW2 results”</a>
+
+                                                    <span class="text-gray-400 fw-bold fs-7 d-block">History</span>
+                                                </td>
+
+                                                <td class="text-end">
+                                                    <span data-kt-element="status" class="badge badge-light-primary">In Process</span>
+                                                </td>
+
+                                                <td class="text-end">
+                                                    <!--begin::Icon-->
+                                                    <div class="d-flex justify-content-end flex-shrink-0">
+                                                        <!--begin::Print-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
+                                                        <!--end::Print-->
+
+                                                        <!--begin::Chat-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
+                                                        <!--end::Chat-->
+
+                                                        <!--begin::Attach-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm">
+                                                            <i class="ki-duotone ki-paper-clip fs-3"></i>                                                </a>
+                                                        <!--end::Attach-->
+                                                    </div>
+                                                    <!--end::Icon-->
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span data-kt-element="bullet" class="bullet bullet-vertical d-flex align-items-center h-40px bg-primary"></span>
+                                                </td>
+
+                                                <td class="ps-0">
+                                                    <div class="form-check form-check-custom  form-check-solid">
+                                                        <input class="form-check-input" type="checkbox" value="" data-kt-element="checkbox">
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-bold fs-6">Internal conflicts in Philip Larkin poems, read p 380-515</a>
+
+                                                    <span class="text-gray-400 fw-bold fs-7 d-block">English Language</span>
+                                                </td>
+
+                                                <td class="text-end">
+                                                    <span data-kt-element="status" class="badge badge-light-primary">In Process</span>
+                                                </td>
+
+                                                <td class="text-end">
+                                                    <!--begin::Icon-->
+                                                    <div class="d-flex justify-content-end flex-shrink-0">
+                                                        <!--begin::Print-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
+                                                        <!--end::Print-->
+
+                                                        <!--begin::Chat-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
+                                                        <!--end::Chat-->
+
+                                                        <!--begin::Attach-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm">
+                                                            <i class="ki-duotone ki-paper-clip fs-3"></i>                                                </a>
+                                                        <!--end::Attach-->
+                                                    </div>
+                                                    <!--end::Icon-->
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                            <!--end::Table body-->
+                                        </table>
+                                    </div>
+                                    <!--end::Table-->
+                                </div>
+                                <!--end::Tap pane-->
+
+                                <!--begin::Tap pane-->
+                                <div class="tab-pane fade" id="kt_timeline_widget_2_tab_2" role="tabpanel">
+                                    <!--begin::Table container-->
+                                    <div class="table-responsive">
+                                        <!--begin::Table-->
+                                        <table class="table align-middle gs-0 gy-4">
+                                            <!--begin::Table head-->
+                                            <thead>
+                                            <tr>
+                                                <th class="p-0 w-10px"></th>
+                                                <th class="p-0 w-25px"></th>
+                                                <th class="p-0 min-w-400px"></th>
+                                                <th class="p-0 min-w-100px"></th>
+                                                <th class="p-0 min-w-125px"></th>
+                                            </tr>
+                                            </thead>
+                                            <!--end::Table head-->
+
+                                            <!--begin::Table body-->
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <span data-kt-element="bullet" class="bullet bullet-vertical d-flex align-items-center h-40px bg-success"></span>
+                                                </td>
+
+                                                <td class="ps-0">
+                                                    <div class="form-check form-check-custom form-check-success form-check-solid">
+                                                        <input class="form-check-input" type="checkbox" value="" checked="" data-kt-element="checkbox">
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-bold fs-6">Book p. 77-85, read &amp; complete tasks 1-6 on p. 85</a>
+
+                                                    <span class="text-gray-400 fw-bold fs-7 d-block">Physics</span>
+                                                </td>
+
+                                                <td class="text-end">
+                                                    <span data-kt-element="status" class="badge badge-light-success">Done</span>
+                                                </td>
+
+                                                <td class="text-end">
+                                                    <!--begin::Icon-->
+                                                    <div class="d-flex justify-content-end flex-shrink-0">
+                                                        <!--begin::Print-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
+                                                        <!--end::Print-->
+
+                                                        <!--begin::Chat-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
+                                                        <!--end::Chat-->
+
+                                                        <!--begin::Attach-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm">
+                                                            <i class="ki-duotone ki-paper-clip fs-3"></i>                                                </a>
+                                                        <!--end::Attach-->
+                                                    </div>
+                                                    <!--end::Icon-->
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span data-kt-element="bullet" class="bullet bullet-vertical d-flex align-items-center h-40px bg-primary"></span>
+                                                </td>
+
+                                                <td class="ps-0">
+                                                    <div class="form-check form-check-custom  form-check-solid">
+                                                        <input class="form-check-input" type="checkbox" value="" data-kt-element="checkbox">
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-bold fs-6">Workbook p. 17, tasks 1-6</a>
+
+                                                    <span class="text-gray-400 fw-bold fs-7 d-block">Mathematics</span>
+                                                </td>
+
+                                                <td class="text-end">
+                                                    <span data-kt-element="status" class="badge badge-light-primary">In Process</span>
+                                                </td>
+
+                                                <td class="text-end">
+                                                    <!--begin::Icon-->
+                                                    <div class="d-flex justify-content-end flex-shrink-0">
+                                                        <!--begin::Print-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
+                                                        <!--end::Print-->
+
+                                                        <!--begin::Chat-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
+                                                        <!--end::Chat-->
+
+                                                        <!--begin::Attach-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm">
+                                                            <i class="ki-duotone ki-paper-clip fs-3"></i>                                                </a>
+                                                        <!--end::Attach-->
+                                                    </div>
+                                                    <!--end::Icon-->
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span data-kt-element="bullet" class="bullet bullet-vertical d-flex align-items-center h-40px bg-success"></span>
+                                                </td>
+
+                                                <td class="ps-0">
+                                                    <div class="form-check form-check-custom form-check-success form-check-solid">
+                                                        <input class="form-check-input" type="checkbox" value="" checked="" data-kt-element="checkbox">
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-bold fs-6">Learn paragraph p. 99, Exercise 1,2,3Scoping &amp; Estimations</a>
+
+                                                    <span class="text-gray-400 fw-bold fs-7 d-block">Chemistry</span>
+                                                </td>
+
+                                                <td class="text-end">
+                                                    <span data-kt-element="status" class="badge badge-light-success">Done</span>
+                                                </td>
+
+                                                <td class="text-end">
+                                                    <!--begin::Icon-->
+                                                    <div class="d-flex justify-content-end flex-shrink-0">
+                                                        <!--begin::Print-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
+                                                        <!--end::Print-->
+
+                                                        <!--begin::Chat-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
+                                                        <!--end::Chat-->
+
+                                                        <!--begin::Attach-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm">
+                                                            <i class="ki-duotone ki-paper-clip fs-3"></i>                                                </a>
+                                                        <!--end::Attach-->
+                                                    </div>
+                                                    <!--end::Icon-->
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span data-kt-element="bullet" class="bullet bullet-vertical d-flex align-items-center h-40px bg-primary"></span>
+                                                </td>
+
+                                                <td class="ps-0">
+                                                    <div class="form-check form-check-custom  form-check-solid">
+                                                        <input class="form-check-input" type="checkbox" value="" data-kt-element="checkbox">
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-bold fs-6">Write essay 1000 words “WW2 results”</a>
+
+                                                    <span class="text-gray-400 fw-bold fs-7 d-block">History</span>
+                                                </td>
+
+                                                <td class="text-end">
+                                                    <span data-kt-element="status" class="badge badge-light-primary">In Process</span>
+                                                </td>
+
+                                                <td class="text-end">
+                                                    <!--begin::Icon-->
+                                                    <div class="d-flex justify-content-end flex-shrink-0">
+                                                        <!--begin::Print-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
+                                                        <!--end::Print-->
+
+                                                        <!--begin::Chat-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
+                                                        <!--end::Chat-->
+
+                                                        <!--begin::Attach-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm">
+                                                            <i class="ki-duotone ki-paper-clip fs-3"></i>                                                </a>
+                                                        <!--end::Attach-->
+                                                    </div>
+                                                    <!--end::Icon-->
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                            <!--end::Table body-->
+                                        </table>
+                                    </div>
+                                    <!--end::Table-->
+                                </div>
+                                <!--end::Tap pane-->
+
+                                <!--begin::Tap pane-->
+                                <div class="tab-pane fade" id="kt_timeline_widget_2_tab_3" role="tabpanel">
+                                    <!--begin::Table container-->
+                                    <div class="table-responsive">
+                                        <!--begin::Table-->
+                                        <table class="table align-middle gs-0 gy-4">
+                                            <!--begin::Table head-->
+                                            <thead>
+                                            <tr>
+                                                <th class="p-0 w-10px"></th>
+                                                <th class="p-0 w-25px"></th>
+                                                <th class="p-0 min-w-400px"></th>
+                                                <th class="p-0 min-w-100px"></th>
+                                                <th class="p-0 min-w-125px"></th>
+                                            </tr>
+                                            </thead>
+                                            <!--end::Table head-->
+
+                                            <!--begin::Table body-->
+                                            <tbody>
+                                            <tr>
+                                                <td>
+                                                    <span data-kt-element="bullet" class="bullet bullet-vertical d-flex align-items-center h-40px bg-primary"></span>
+                                                </td>
+
+                                                <td class="ps-0">
+                                                    <div class="form-check form-check-custom  form-check-solid">
+                                                        <input class="form-check-input" type="checkbox" value="" data-kt-element="checkbox">
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-bold fs-6">Workbook p. 17, tasks 1-6</a>
+
+                                                    <span class="text-gray-400 fw-bold fs-7 d-block">Mathematics</span>
+                                                </td>
+
+                                                <td class="text-end">
+                                                    <span data-kt-element="status" class="badge badge-light-primary">In Process</span>
+                                                </td>
+
+                                                <td class="text-end">
+                                                    <!--begin::Icon-->
+                                                    <div class="d-flex justify-content-end flex-shrink-0">
+                                                        <!--begin::Print-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
+                                                        <!--end::Print-->
+
+                                                        <!--begin::Chat-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
+                                                        <!--end::Chat-->
+
+                                                        <!--begin::Attach-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm">
+                                                            <i class="ki-duotone ki-paper-clip fs-3"></i>                                                </a>
+                                                        <!--end::Attach-->
+                                                    </div>
+                                                    <!--end::Icon-->
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span data-kt-element="bullet" class="bullet bullet-vertical d-flex align-items-center h-40px bg-success"></span>
+                                                </td>
+
+                                                <td class="ps-0">
+                                                    <div class="form-check form-check-custom form-check-success form-check-solid">
+                                                        <input class="form-check-input" type="checkbox" value="" checked="" data-kt-element="checkbox">
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-bold fs-6">Learn paragraph p. 99, Exercise 1,2,3Scoping &amp; Estimations</a>
+
+                                                    <span class="text-gray-400 fw-bold fs-7 d-block">Chemistry</span>
+                                                </td>
+
+                                                <td class="text-end">
+                                                    <span data-kt-element="status" class="badge badge-light-success">Done</span>
+                                                </td>
+
+                                                <td class="text-end">
+                                                    <!--begin::Icon-->
+                                                    <div class="d-flex justify-content-end flex-shrink-0">
+                                                        <!--begin::Print-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
+                                                        <!--end::Print-->
+
+                                                        <!--begin::Chat-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
+                                                        <!--end::Chat-->
+
+                                                        <!--begin::Attach-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm">
+                                                            <i class="ki-duotone ki-paper-clip fs-3"></i>                                                </a>
+                                                        <!--end::Attach-->
+                                                    </div>
+                                                    <!--end::Icon-->
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span data-kt-element="bullet" class="bullet bullet-vertical d-flex align-items-center h-40px bg-primary"></span>
+                                                </td>
+
+                                                <td class="ps-0">
+                                                    <div class="form-check form-check-custom  form-check-solid">
+                                                        <input class="form-check-input" type="checkbox" value="" data-kt-element="checkbox">
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-bold fs-6">Write essay 1000 words “WW2 results”</a>
+
+                                                    <span class="text-gray-400 fw-bold fs-7 d-block">History</span>
+                                                </td>
+
+                                                <td class="text-end">
+                                                    <span data-kt-element="status" class="badge badge-light-primary">In Process</span>
+                                                </td>
+
+                                                <td class="text-end">
+                                                    <!--begin::Icon-->
+                                                    <div class="d-flex justify-content-end flex-shrink-0">
+                                                        <!--begin::Print-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
+                                                        <!--end::Print-->
+
+                                                        <!--begin::Chat-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
+                                                        <!--end::Chat-->
+
+                                                        <!--begin::Attach-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm">
+                                                            <i class="ki-duotone ki-paper-clip fs-3"></i>                                                </a>
+                                                        <!--end::Attach-->
+                                                    </div>
+                                                    <!--end::Icon-->
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <span data-kt-element="bullet" class="bullet bullet-vertical d-flex align-items-center h-40px bg-primary"></span>
+                                                </td>
+
+                                                <td class="ps-0">
+                                                    <div class="form-check form-check-custom  form-check-solid">
+                                                        <input class="form-check-input" type="checkbox" value="" data-kt-element="checkbox">
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <a href="#" class="text-gray-800 text-hover-primary fw-bold fs-6">Internal conflicts in Philip Larkin poems, read p 380-515</a>
+
+                                                    <span class="text-gray-400 fw-bold fs-7 d-block">English Language</span>
+                                                </td>
+
+                                                <td class="text-end">
+                                                    <span data-kt-element="status" class="badge badge-light-primary">In Process</span>
+                                                </td>
+
+                                                <td class="text-end">
+                                                    <!--begin::Icon-->
+                                                    <div class="d-flex justify-content-end flex-shrink-0">
+                                                        <!--begin::Print-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
+                                                        <!--end::Print-->
+
+                                                        <!--begin::Chat-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                            <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
+                                                        <!--end::Chat-->
+
+                                                        <!--begin::Attach-->
+                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm">
+                                                            <i class="ki-duotone ki-paper-clip fs-3"></i>                                                </a>
+                                                        <!--end::Attach-->
+                                                    </div>
+                                                    <!--end::Icon-->
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                            <!--end::Table body-->
+                                        </table>
+                                    </div>
+                                    <!--end::Table-->
+                                </div>
+                                <!--end::Tap pane-->
                             </div>
-                            <!--end::Content-->
-
+                            <!--end::Tab Content-->
                         </div>
-                        <!--end::Wrapper-->
+                        <!--end::Body-->
                     </div>
-                    <!--end::Notice-->
-                </div>
-                <!--end::Card body-->
+                    <!--end::Tables Widget 2-->
+                </div><!--end::Col-->
             </div>
-            <!--end::details View-->
-
-
+            <!--end::Row-->                                        
         </div>
         <!--end::Content container-->
     </div>
+    <!--end::Content-->
 
 {% endblock content-wrapper %}
