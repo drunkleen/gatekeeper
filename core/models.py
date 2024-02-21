@@ -35,16 +35,25 @@ class UserAccount(AbstractUser):
 
 
 class Subscription(models.Model):
-    subscription_link = models.TextField(
-        max_length=512, validators=[MaxLengthValidator(512)], null=True, blank=True
+    subscription_title = models.CharField(
+        max_length=512,
+        validators=[MaxLengthValidator(512)], null=True, blank=False
     )
+    subscription_link = models.TextField(
+        max_length=512,
+        validators=[MaxLengthValidator(512)], null=True, blank=False
+    )
+
+    expose = models.BooleanField(default=False)
     is_active = models.BooleanField(default=False)
 
     creator = models.ForeignKey(
-        UserAccount, on_delete=models.CASCADE, null=True, blank=True, related_name="subscriptions_creator"
+        UserAccount, on_delete=models.CASCADE,
+        null=True, blank=False, related_name="subscriptions_creator"
     )
     assigned_to = models.ForeignKey(
-        UserAccount, on_delete=models.CASCADE, null=True, blank=True, related_name="subscriptions_assignee"
+        UserAccount, on_delete=models.CASCADE,
+        null=True, blank=False, related_name="subscriptions_assignee"
     )
 
     updated_at = models.DateTimeField(auto_now=True)
@@ -59,4 +68,4 @@ class Subscription(models.Model):
         super(Subscription, self).save(*args, **kwargs)
 
     def __str__(self):
-        return str(self.assigned_to)
+        return str(f'{self.subscription_title} ({self.assigned_to.username})')

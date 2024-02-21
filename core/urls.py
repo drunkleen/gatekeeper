@@ -4,6 +4,7 @@ from django.urls import path, include
 from core import views
 
 urlpatterns = [
+
     path('', views.index, name='index'),
     path('auth/sign-in', views.user_sign_in, name='sign-in'),
     path('auth/sign-up', views.user_sign_up, name='sign-up'),
@@ -19,6 +20,5 @@ urlpatterns = [
     path('panel/user/profile/<str:username>', views.panel_user_profile_overview, name='panel-user-profile'),
     path('panel/user/edit/<str:username>', views.panel_user_edit, name='edit-user'),
     path('panel/user/reset-password/<str:username>', views.panel_user_reset_password, name='user-reset-password'),
-
 
 ]
