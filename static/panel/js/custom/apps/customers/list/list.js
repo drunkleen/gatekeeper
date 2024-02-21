@@ -178,7 +178,7 @@ var KTCustomersList = function () {
         deleteSelected.addEventListener('click', function () {
             // SweetAlert2 pop up --- official docs reference: https://sweetalert2.github.io/
             Swal.fire({
-                text: "Are you sure you want to delete selected customers?",
+                text: "Are you sure you want to delete selected users?",
                 icon: "warning",
                 showCancelButton: true,
                 buttonsStyling: false,

@@ -119,7 +119,7 @@ var KTUsersViewRole = function () {
         deleteSelected.addEventListener('click', function () {
             // SweetAlert2 pop up --- official docs reference: https://sweetalert2.github.io/
             Swal.fire({
-                text: "Are you sure you want to delete selected customers?",
+                text: "Are you sure you want to delete selected users?",
                 icon: "warning",
                 showCancelButton: true,
                 buttonsStyling: false,
@@ -132,7 +132,7 @@ var KTUsersViewRole = function () {
             }).then(function (result) {
                 if (result.value) {
                     Swal.fire({
-                        text: "You have deleted all selected customers!.",
+                        text: "You have deleted all selected users!.",
                         icon: "success",
                         buttonsStyling: false,
                         confirmButtonText: "Ok, got it!",
@@ -156,12 +156,18 @@ var KTUsersViewRole = function () {
                     });
                 } else if (result.dismiss === 'cancel') {
                     Swal.fire({
-                        text: "Selected customers was not deleted.",
+                        text: "Selected users was not deleted.",
                         icon: "error",
                         buttonsStyling: false,
                         confirmButtonText: "Ok, got it!",
                         customClass: {
                             confirmButton: "btn fw-bold btn-primary",
+                        }
+                    }).then(function (result) {
+                        if (result.value) {
+                            // Submit the form to Django view for deletion
+                            const deleteForm = document.getElementById('admin-delete-selected-users');
+                            deleteForm.submit();
                         }
                     });
                 }

@@ -13,6 +13,7 @@ urlpatterns = [
     path('panel/admin/user-list', views.panel_admin_user_list, name='panel-admin-user-lists'),
     path('panel/admin/edit-user/<str:username>', views.panel_admin_edit_user, name='admin-edit-user'),
     path('panel/admin/delete-user/<str:username>', views.panel_admin_delete_user, name='admin-delete-user'),
+    path('panel/admin/delete-user/<str:username>', views.panel_admin_delete_user, name='admin-delete-selected-users'),
 
     path('panel/user/<str:username>', views.panel_user_profile_overview, name='panel-user'),
     path('panel/user/profile/<str:username>', views.panel_user_profile_overview, name='panel-user-profile'),
