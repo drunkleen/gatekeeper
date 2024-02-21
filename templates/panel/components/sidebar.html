@@ -8,74 +8,74 @@
             <div id="#kt_app_sidebar_menu" data-kt-menu="true" data-kt-menu-expand="false" class="flex-column-fluid menu menu-sub-indention menu-column menu-rounded menu-active-bg mb-7">
 
                 {% if request.user.account_type != 'user' %}
-                <!--begin:Menu item-->
-                <div data-kt-menu-trigger="click"
-                        {% if 'User Management' in page_title %}
-                     class="menu-item here show menu-accordion"
-                        {% else %}
-                     class="menu-item here menu-accordion"
-                        {% endif %}
-                >
-                    <!--begin:Menu link-->
-                    <span class="menu-link">
-										<span class="menu-icon">
-											<i class="ki-duotone ki-element-11 fs-1">
-												<span class="path1"></span>
-												<span class="path2"></span>
-												<span class="path3"></span>
-												<span class="path4"></span>
-											</i>
-										</span>
-										<span class="menu-title">User Management</span>
-										<span class="menu-arrow"></span>
-									</span>
-                    <!--end:Menu link-->
-                    <!--begin:Menu sub-->
-                    <div class="menu-sub menu-sub-accordion">
-                        <!--begin:Menu item-->
-                        <div class="menu-item">
-                            <!--begin:Menu link-->
-                            {% if page_name == 'overview' %}
-                            <a class="menu-link active" href="#">
+                    <!--begin:Menu item-->
+                    <div data-kt-menu-trigger="click"
+                            {% if page_title|first == 'User Management' %}
+                         class="menu-item here show menu-accordion"
                             {% else %}
-                            <a class="menu-link" href="{% url 'panel-admin' %}">
+                         class="menu-item here menu-accordion"
                             {% endif %}
-
-												<span class="menu-bullet">
-													<span class="bullet bullet-dot"></span>
-												</span>
-                                <span class="menu-title">Overview</span>
-                            </a>
-                            <!--end:Menu link-->
-                        </div>
-                        <!--end:Menu item-->
-                        <!--begin:Menu item-->
-                        <div class="menu-item">
-                            <!--begin:Menu link-->
-                            {% if page_name == 'user list' %}
+                    >
+                        <!--begin:Menu link-->
+                        <span class="menu-link">
+                                            <span class="menu-icon">
+                                                <i class="ki-duotone ki-element-11 fs-1">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                    <span class="path3"></span>
+                                                    <span class="path4"></span>
+                                                </i>
+                                            </span>
+                                            <span class="menu-title">User Management</span>
+                                            <span class="menu-arrow"></span>
+                                        </span>
+                        <!--end:Menu link-->
+                        <!--begin:Menu sub-->
+                        <div class="menu-sub menu-sub-accordion">
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                {% if page_name == 'overview' %}
                                 <a class="menu-link active" href="#">
-                            {% else %}
-                                <a class="menu-link" href="{% url 'panel-admin-user-lists' %}">
-                            {% endif %}
-												<span class="menu-bullet">
-													<span class="bullet bullet-dot"></span>
-												</span>
-                                <span class="menu-title">User List
-												<span class="badge badge-pro badge-light-danger fw-semibold fs-8 px-2 py-1 ms-1" data-bs-toggle="tooltip" title="Upgrade to Pro to get this">Pro</span></span>
-                            </a>
-                            <!--end:Menu link-->
+                                {% else %}
+                                <a class="menu-link" href="{% url 'panel-admin' %}">
+                                {% endif %}
+
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                    <span class="menu-title">Overview</span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
+                            <!--begin:Menu item-->
+                            <div class="menu-item">
+                                <!--begin:Menu link-->
+                                {% if page_name == 'user list' %}
+                                    <a class="menu-link active" href="#">
+                                {% else %}
+                                    <a class="menu-link" href="{% url 'panel-admin-user-lists' %}">
+                                {% endif %}
+                                                    <span class="menu-bullet">
+                                                        <span class="bullet bullet-dot"></span>
+                                                    </span>
+                                    <span class="menu-title">User List
+                                                    <span class="badge badge-pro badge-light-danger fw-semibold fs-8 px-2 py-1 ms-1" data-bs-toggle="tooltip" title="Upgrade to Pro to get this">Pro</span></span>
+                                </a>
+                                <!--end:Menu link-->
+                            </div>
+                            <!--end:Menu item-->
                         </div>
-                        <!--end:Menu item-->
+                        <!--end:Menu sub-->
                     </div>
-                    <!--end:Menu sub-->
-                </div>
-                <!--end:Menu item-->
+                    <!--end:Menu item-->
                 {% endif %}
 
                 <!--begin:Menu item-->
 
                 <div data-kt-menu-trigger="click"
-                        {% if 'Users' in page_title %}
+                        {% if page_title|first == 'Users' %}
                      class="menu-item here show menu-accordion"
                         {% else %}
                      class="menu-item here menu-accordion"
@@ -123,7 +123,7 @@
 
 
 
-                                    {% if page_name == 'user profile' %}
+                                    {% if page_title|last == 'User Profile' %}
                                         <a class="menu-link active" href="#">
                                     {% else %}
                                         <a class="menu-link" href="{% url 'panel-user-profile' request.user.username %}">
@@ -140,7 +140,7 @@
                                 <div class="menu-item">
                                     <!--begin:Menu link-->
 
-                                    {% if page_name == 'user setting' %}
+                                    {% if page_title|last == 'User Settings' %}
                                         <a class="menu-link active" href="#">
                                     {% else %}
                                         <a class="menu-link" href="{% url 'edit-user' request.user.username %}" data-kt-page="pro">
@@ -148,8 +148,9 @@
 														<span class="menu-bullet">
 															<span class="bullet bullet-dot"></span>
 														</span>
-                                        <span class="menu-title">User Settings
-														<span class="badge badge-pro badge-light-danger fw-semibold fs-8 px-2 py-1 ms-1" data-bs-toggle="tooltip" title="Upgrade to Pro to get this">Pro</span></span>
+                                        <span class="menu-title">
+                                            User Settings
+                                        </span>
                                     </a>
                                     <!--end:Menu link-->
                                 </div>
@@ -175,7 +176,7 @@
 												<span class="path3"></span>
 											</i>
 										</span>
-										<span class="menu-title">Apps</span>
+										<span class="menu-title">Links</span>
 										<span class="menu-arrow"></span>
 									</span>
                     <!--end:Menu link-->

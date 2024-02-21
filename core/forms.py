@@ -10,12 +10,6 @@ class UserPasswordChangeForm(UserCreationForm):
         fields = ("password1", "password2")
 
 
-class UserEditForm(UserCreationForm):
-    class Meta:
-        model = UserAccount
-        fields = ("first_name", "last_name", "username", "email", "account_type", "is_active")
-
-
 class UserCreationForm(UserCreationForm):
     class Meta:
         model = UserAccount
@@ -111,7 +105,7 @@ class AdminUserCreationForm(UserCreationForm):
         return user
 
 
-class AdminUserEditForm(UserCreationForm):
+class AdminUserEditForm(forms.ModelForm):
     class Meta:
         model = UserAccount
         fields = ("first_name", "last_name", "username", "email", "account_type", "is_active")
@@ -150,6 +144,42 @@ class AdminUserEditForm(UserCreationForm):
 
         self.fields['is_active'].widget.attrs.update({
             'class': 'form-check-input w-45px h-30px',
+            'autocomplete': "off",
+        })
+
+        # Set password fields as not required
+        self.fields['last_name'].required = False
+
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = UserAccount
+        fields = ("first_name", "last_name", "username", "email")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['first_name'].widget.attrs.update({
+            'class': 'form-control form-control-solid mb-3 mb-lg-0',
+            'placeholder': 'Name',
+            'autocomplete': "off",
+        })
+
+        self.fields['last_name'].widget.attrs.update({
+            'class': 'form-control form-control-solid mb-3 mb-lg-0',
+            'placeholder': 'Name',
+            'autocomplete': "off",
+        })
+
+        self.fields['username'].widget.attrs.update({
+            'class': 'form-control form-control-solid mb-3 mb-lg-0',
+            'placeholder': 'Username',
+            'autocomplete': "off",
+        })
+
+        self.fields['email'].widget.attrs.update({
+            'class': 'form-control form-control-solid mb-3 mb-lg-0',
+            'placeholder': 'E-mail Address',
             'autocomplete': "off",
         })
 

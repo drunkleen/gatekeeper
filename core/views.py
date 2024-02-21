@@ -6,7 +6,7 @@ from django.contrib import messages
 from django import template
 
 from core.models import UserAccount, Subscription
-from core.forms import UserCreationForm, AdminUserCreationForm, AdminUserEditForm
+from core.forms import UserCreationForm, AdminUserCreationForm, AdminUserEditForm, UserEditForm
 
 
 # Create your views here.
@@ -71,10 +71,12 @@ def index(request) -> redirect:
 
 def user_sign_in(request) -> render:
     if request.user.is_authenticated:
-        return HttpResponse('authenticated')
+        if request.user.account_type in ('admin', 'moderator'):
+            return redirect('panel-admin')
+        return redirect('panel-user', username=request.user.username)
 
     context = {
-        'page_title': 'Sign In',
+        'page_title': ['Sign In'],
     }
     if request.method == 'POST':
         username = request.POST.get('username')
@@ -85,9 +87,9 @@ def user_sign_in(request) -> render:
 
             if user is not None:
                 login(request, user)
-                if user.account_type == "admin" or user.account_type == "moderator":
+                if user.account_type in ("admin", "moderator"):
                     return redirect('panel-admin')
-                return redirect('panel-user')
+                return redirect('panel-user', username=request.user.username)
 
         except UserAccount.DoesNotExist:
             messages.error(request, 'Invalid E-mail or password')
@@ -97,23 +99,24 @@ def user_sign_in(request) -> render:
 
 def user_sign_up(request) -> render:
     context = {
-        'page_title': 'Sign Up',
+        'page_title': ['Sign Up'],
     }
 
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            print('\n\nform is valid')
-            user = form.save(commit=False)
-            user.account_type = 'user'
-            user.first_name = user.first_name.capitalize()
-            user.last_name = user.last_name.capitalize()
-            user.email = user.email.lower()
-            user.username = user.username.lower()
+
+            user_form = form.save(commit=False)
+            user_form.account_type = 'user'
+            user_form.first_name = user_form.first_name.capitalize()
+            user_form.last_name = user_form.last_name.capitalize()
+            user_form.email = user_form.email.lower()
+            user_form.username = user_form.username.lower()
             form.save()
 
-            login(request, user)
-            return redirect('panel-user')
+            login(request, user_form)
+
+            return redirect('panel-user', username=request.user.username)
 
     form = UserCreationForm()
     context['form'] = form
@@ -125,32 +128,32 @@ def user_sign_out(request) -> redirect:
     return redirect('sign-in')
 
 
-def panel_admin(request):
-    if request.user.is_authenticated and request.user.account_type == ('admin' or 'moderator'):
+def panel_admin(request) -> render:
+    if request.user.is_authenticated and request.user.account_type in ('admin', 'moderator'):
         context = {
             'request': request,
             'page_title': ['User Management', 'Overview'],
-            'page_name': 'overview',
         }
         return render(request, 'panel/components/page/overview.html', context)
 
 
 def panel_admin_user_list(request) -> render:
     if request.user.is_authenticated:
-        context = {
-            'request': request,
-            'page_name': 'user list',
-            'page_title': ['User Management', 'User Setting'],
-        }
+        if request.user.account_type in ('admin', 'moderator'):
+            context = {
+                'request': request,
+                'page_title': ['User Management', 'User List'],
+            }
 
-        if request.user.account_type == ('admin' or 'moderator'):
             page_num = request.GET.get('page', 1)
             page_ordering = request.GET.get('order', '-id')
             list_element_count = request.GET.get('count', 10)
 
-            users = UserAccount.objects.all().order_by(f'{page_ordering}')[
-                    ((page_num * list_element_count) - list_element_count):(page_num * list_element_count)
-                    ]
+            if request.user.account_type == 'admin':
+                users = UserAccount.objects.all().order_by(f'{page_ordering}')
+
+            if request.user.account_type == 'moderator':
+                users = UserAccount.objects.filter(account_type='user').order_by(f'{page_ordering}')
 
             if request.method == 'POST':
                 form = AdminUserCreationForm(request.POST)
@@ -171,19 +174,50 @@ def panel_admin_user_list(request) -> render:
 
             return render(request, 'panel/components/page/users-list.html', context)
         else:
-            context['page_title'] = 'User Panel'
-            return render(request, 'panel/components/page/users-list.html', context)
+            return HttpResponse("404")
     return redirect('sign-in')
 
 
-def panel_admin_delete_user(request, username) -> render:
+def panel_admin_edit_user(request, username: str) -> render:
+    if request.user.is_authenticated and \
+            request.user.account_type in ['admin', 'moderator']:
+
+        context = {
+            'request': request,
+            'page_title': ['User Management', 'User Setting', 'User Settings'],
+        }
+
+        user = get_object_or_404(UserAccount, username=username)
+
+        if request.method == 'POST':
+            form = AdminUserEditForm(request.POST, instance=user)
+            if form.is_valid():
+                user_form = form.save(commit=False)
+                user_form.email = user_form.email.lower() \
+                    if user_form.email != "" else user_form.email
+                user_form.username = user_form.username.lower() \
+                    if user_form.username != "" else user_form.username
+                user_form.first_name = user_form.first_name.capitalize() \
+                    if user_form.first_name != "" else user_form.first_name
+                user_form.last_name = user_form.last_name.capitalize() \
+                    if user_form.last_name != "" else user_form.last_name
+                user_form.save()
+
+        form = AdminUserEditForm(instance=user)
+        context['form'] = form
+        return render(request, 'panel/components/page/admin-edit-user.html', context)
+
+    return redirect('sign-in')
+
+
+def panel_admin_delete_user(request, username: str) -> redirect:
     if request.user.is_authenticated and request.user.account_type == ('admin' or 'moderator'):
 
         user = UserAccount.objects.get(username=username)
 
         if request.user.account_type == 'admin':
             user.delete()
-            return panel_admin_user_list(request)
+            return redirect('panel-admin-user-lists')
 
         if request.user.account_type == 'moderator' and user.account_type == 'user':
             user.delete()
@@ -192,14 +226,13 @@ def panel_admin_delete_user(request, username) -> render:
     return error_403(request, username)
 
 
-def panel_user_profile_overview(request, username):
+def panel_user_profile_overview(request, username: str) -> render:
     if request.user.is_authenticated:
         context = {
             'request': request,
-            'page_name': 'user profile',
         }
 
-        if request.user.account_type in ('admin', 'moderator') or request.user.username == username:
+        if request.user.username == username:
             user = get_object_or_404(UserAccount, username=username)
             context['page_title'] = ['Users', 'Profile', 'User Profile']
             context['user'] = user
@@ -211,32 +244,37 @@ def panel_user_profile_overview(request, username):
     return redirect('sign-in')
 
 
-def panel_edit_user(request, username):
-    if request.user.is_authenticated:
+def panel_user_edit(request, username: str) -> render:
+    if request.user.is_authenticated and request.user.username == username:
         context = {
             'request': request,
-            'page_name': 'user setting',
+            'page_title': ['Users', 'Profile', 'User Settings']
         }
 
-        if request.user.account_type in ('admin', 'moderator') or request.user.username == username:
-            context['page_title'] = ['Users', 'Profile', ' User Setting']
+        user = get_object_or_404(UserAccount, username=username)
 
-            user = get_object_or_404(UserAccount, username=username)
+        if request.method == 'POST':
+            form = UserEditForm(request.POST, instance=user)
+            if form.is_valid():
+                user_form = form.save(commit=False)
+                user_form.email = user_form.email.lower() \
+                    if user_form.email != "" else user_form.email
+                user_form.username = user_form.username.lower() \
+                    if user_form.username != "" else user_form.username
+                user_form.first_name = user_form.first_name.capitalize() \
+                    if user_form.first_name != "" else user_form.first_name
+                user_form.last_name = user_form.last_name.capitalize() \
+                    if user_form.last_name != "" else user_form.last_name
+                user_form.save()
 
-            if request.method == 'POST':
-                form = AdminUserEditForm(request.POST, instance=user)
-                if form.is_valid():
-                    user = form.save(commit=False)
-                    user.email = user.email.lower()
-                    user.username = user.username.lower()
-                    user.first_name = user.first_name.capitalize()
-                    user.last_name = user.last_name.capitalize()
-                    form.save()
+                return redirect('admin-edit-user', username=user_form.username)
 
-            form = AdminUserEditForm(instance=user)
-            context['form'] = form
-            return render(request, 'panel/components/page/edit-user.html', context)
-
-        return redirect('sign-in')
+        form = AdminUserEditForm(instance=user)
+        context['form'] = form
+        return render(request, 'panel/components/page/edit-user.html', context)
 
     return redirect('sign-in')
+
+
+def panel_user_reset_password(request, username: str) -> render:
+    return render(request,'reset-password.html',)
