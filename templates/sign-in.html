@@ -55,13 +55,52 @@
                                 <!--end::Link-->
                             </div>
                             <!--begin::Heading-->
+
+                            {% if messages %}
+                                {% for message in messages %}
+
+                                    <div
+                                            {% if message.tags %}
+                                                class="notice d-flex bg-light-danger mb-4 rounded border-danger border border-dashed p-6"
+                                            {% elif message.tags == 'success' %}
+                                                class="notice d-flex bg-light-success mb-4 rounded border-success border border-dashed p-6"
+                                            {% else %}
+                                                class="notice d-flex bg-light-primary mb-4 rounded border-primary border border-dashed p-6"
+                                            {% endif %}>
+                                        <!--begin::Icon-->
+                                        <i
+                                                {% if message.tags == 'error' %}
+                                                    class="ki-duotone ki-cross-circle fs-2tx text-danger me-4"
+                                                {% elif message.tags == 'success' %}
+                                                    class="ki-duotone ki-user-tick fs-2tx text-success me-4"
+                                                {% else %}
+                                                    class="ki-duotone ki-question fs-2tx text-primary me-4"
+                                                {% endif %}
+                                        >
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                        <!--end::Icon-->
+                                        <!--begin::Wrapper-->
+                                        <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+                                            <!--begin::Content-->
+                                            <div class="mb-3 mb-md-0 fw-semibold">
+                                                <div class="fs-5 text-gray-700 pe-7">{{ message }}</div>
+                                            </div>
+                                            <!--end::Content-->
+                                        </div>
+                                        <!--end::Wrapper-->
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+
                             <!--begin::Input group-->
                             <div class="fv-row mb-10">
                                 <!--begin::Label-->
-                                <label class="form-label fs-6 fw-bold text-dark">Username</label>
+                                <label class="form-label fs-6 fw-bold text-dark">E-mail</label>
                                 <!--end::Label-->
                                 <!--begin::Input-->
-                                <input class="form-control form-control-lg form-control-solid" type="text" name="username" autocomplete="off" />
+                                <input class="form-control form-control-lg form-control-solid" type="email" name="email" autocomplete="off" />
                                 <!--end::Input-->
                             </div>
                             <!--end::Input group-->

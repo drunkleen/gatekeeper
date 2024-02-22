@@ -32,7 +32,7 @@
                     <!--end::Card title-->
 
                     <!--begin::Action-->
-                    <a href="" class="btn btn-sm btn-primary align-self-center">Edit Profile</a>
+                    <a href="{% url 'edit-user' user.username %}" class="btn btn-sm btn-primary align-self-center">Edit Profile</a>
                     <!--end::Action-->
                 </div>
                 <!--begin::Card header-->
@@ -89,40 +89,56 @@
                     <div class="row mb-7">
                         <!--begin::Label-->
                         <label class="col-lg-4 fw-semibold text-muted">
-                            Username
+                            User Type
                         </label>
-                        <!--end::Label-->
+                            <!--end::Label-->
 
-                        <!--begin::Col-->
+                            <!--begin::Col-->
                         <div class="col-lg-8">
-                            <span class="fw-bold fs-6 text-gray-800">{{ user.username }}</span>
+                            <span class="menu-badge">
+                                <span
+                                        {% if user.account_type == 'admin' %}
+                                            class="badge badge-light-danger fw-bolder fs-8 px-2 py-2 ms-1"
+                                        {% elif user.account_type == 'moderator' %}
+                                            class="badge badge-info fw-bolder fs-8 px-2 py-2 ms-1"
+                                        {% else %}
+                                            class="badge badge-light-primary fw-bolder fs-8 px-2 py-2 ms-1"
+                                        {% endif %}
+                                >
+                                    {{ user.account_type }}
+                                </span>
+                            </span>
                         </div>
                         <!--end::Col-->
                     </div>
                     <!--end::Input group-->
 
+                    <!--begin::Input group-->
+                    <div class="row mb-7">
+                        <!--begin::Label-->
+                        <label class="col-lg-4 fw-semibold text-muted">
+                            User Status
+                        </label>
+                        <!--end::Label-->
 
-
-
-                    <!--begin::Notice-->
-                    <div class="notice d-flex bg-light-warning rounded border-warning border border-dashed  p-6">
-                        <!--begin::Icon-->
-                        <i class="ki-duotone ki-information fs-2tx text-warning me-4"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>        <!--end::Icon-->
-
-                        <!--begin::Wrapper-->
-                        <div class="d-flex flex-stack flex-grow-1 ">
-                            <!--begin::Content-->
-                            <div class=" fw-semibold">
-                                <h4 class="text-gray-900 fw-bold">We need your attention!</h4>
-
-                                <div class="fs-6 text-gray-700 ">Your payment was declined. To start using tools, please <a class="fw-bold" href="#">Add Payment Method</a>.</div>
-                            </div>
-                            <!--end::Content-->
-
+                        <!--begin::Col-->
+                        <div class="col-lg-8">
+                            <span class="menu-badge">
+                                {% if user.is_active %}
+                                    <span class="badge badge-success fw-semibold fs-8 px-2 py-2 ms-1">
+                                        Active
+                                    </span>
+                                {% else %}
+                                    <span class="badge badge-danger fw-semibold fs-8 px-2 py-2 ms-1">
+                                        Inactive
+                                    </span>
+                                {% endif %}
+                            </span>
                         </div>
-                        <!--end::Wrapper-->
+                        <!--end::Col-->
                     </div>
-                    <!--end::Notice-->
+                    <!--end::Input group-->
+
                 </div>
                 <!--end::Card body-->
             </div>

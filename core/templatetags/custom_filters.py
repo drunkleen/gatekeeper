@@ -5,6 +5,11 @@ from datetime import timedelta
 register = template.Library()
 
 
+@register.filter(name='split_comma')
+def split_links(value):
+    return value.split(',')
+
+
 @register.filter(name='time_ago')
 def time_ago(value):
     if value is None:

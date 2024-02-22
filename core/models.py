@@ -1,5 +1,6 @@
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxLengthValidator
+import uuid
 from django.db import models
 
 
@@ -35,6 +36,7 @@ class UserAccount(AbstractUser):
 
 
 class Subscription(models.Model):
+    subscription_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     subscription_title = models.CharField(
         max_length=512,
         validators=[MaxLengthValidator(512)], null=True, blank=False
@@ -45,7 +47,7 @@ class Subscription(models.Model):
     )
 
     expose = models.BooleanField(default=False)
-    is_active = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=True)
 
     creator = models.ForeignKey(
         UserAccount, on_delete=models.CASCADE,

@@ -1,5 +1,6 @@
 asgiref==3.7.2
 Django==5.0.2
+django-cron==0.6.0
 humanize==4.9.0
 python-dotenv==1.0.1
 sqlparse==0.4.4

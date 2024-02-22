@@ -1,5 +1,4 @@
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 
 from core import views
 
@@ -19,6 +18,8 @@ urlpatterns = [
     path('panel/user/<str:username>', views.panel_user_profile_overview, name='panel-user'),
     path('panel/user/profile/<str:username>', views.panel_user_profile_overview, name='panel-user-profile'),
     path('panel/user/edit/<str:username>', views.panel_user_edit, name='edit-user'),
-    path('panel/user/panel_user_reset_password/<str:username>', views.panel_user_reset_password, name='user-reset-password'),
+    path('panel/user/panel_user_reset_password/<str:username>',
+         views.panel_user_reset_password, name='user-reset-password'),
+    path('panel/user/link/<str:username>', views.user_link_control, name='user-link-control'),
 
 ]
