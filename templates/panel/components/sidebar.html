@@ -198,7 +198,7 @@
                             {% if page_title|last == 'View Links' %}
                                 <a class="menu-link active " href="#">
                             {% else %}
-                                <a class="menu-link" href="{% url 'user-link-control' request.user.username %}">
+                                <a class="menu-link" href="{% url 'user-view-links' request.user.username %}">
                             {% endif %}
 
 

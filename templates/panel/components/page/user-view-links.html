@@ -104,7 +104,6 @@
                                             <tbody>
                                             {% for link in links %}
                                                 {% if link.expose %}
-                                                    
                                                     <tr>
                                                         <td>
                                                             <span data-kt-element="bullet" class="bullet bullet-vertical d-flex align-items-center h-40px bg-danger"></span>
@@ -122,9 +121,8 @@
     
                                                             </div>
                                                         </td>
-                                                        {% url 'short-link' link.subscription_uuid %}
                                                         <td>
-                                                            <a href="{% url 'short-link' link.subscription_uuid %}" class="text-gray-800 text-hover-danger fw-bold fs-6">{{ link.subscription_links.splitlines }}</a>
+                                                            <a href="{% url 'user_link_page' link.subscription_uuid %}" class="text-gray-800 text-hover-danger fw-bold fs-6">{{ link.subscription_title }}</a>
     
                                                             <span class="text-gray-400 fw-bold fs-7 d-block">Last Chaned: {{ link.updated_at }}</span>
                                                         </td>
@@ -178,8 +176,8 @@
                                                         </td>
     
                                                         <td>
-                                                            <a href="{% url 'short-link' link.subscription_uuid %}" class="text-gray-800 text-hover-primary fw-bold fs-6">{{ link.subscription_title }}</a>
-    
+                                                            <a href="{% url 'user_link_page' link.subscription_uuid %}" class="text-gray-800 text-hover-primary fw-bold fs-6">{{ link.subscription_title }}</a>
+
                                                             <span class="text-gray-400 fw-bold fs-7 d-block">Last Chaned: {{ link.updated_at }}</span>
                                                         </td>
     
@@ -243,7 +241,7 @@
                                             <!--begin::Table body-->
                                             <tbody>
 
-                                            {% for restricted_link in restricted_links %}
+                                            {% for link in restricted_links %}
                                                 <tr>
                                                     <td>
                                                         <span data-kt-element="bullet" class="bullet bullet-vertical d-flex align-items-center h-40px bg-primary"></span>
@@ -263,9 +261,9 @@
                                                     </td>
 
                                                     <td>
-                                                        <a href="{% url 'short-link' link.subscription_uuid %}" class="text-gray-800 text-hover-primary fw-bold fs-6">{{ restricted_link.subscription_title }}</a>
+                                                        <a href="{% url 'user_link_page' link.subscription_uuid %}" class="text-gray-800 text-hover-primary fw-bold fs-6">{{ link.subscription_title }}</a>
 
-                                                        <span class="text-gray-400 fw-bold fs-7 d-block">Last Chaned: {{ restricted_link.updated_at }}</span>
+                                                        <span class="text-gray-400 fw-bold fs-7 d-block">Last Chaned: {{ link.updated_at }}</span>
                                                     </td>
 
                                                     <td class="text-end">
@@ -328,7 +326,7 @@
                                             <!--begin::Table body-->
                                             <tbody>
 
-                                                {% for exposed_link in exposed_links %}
+                                                {% for link in exposed_links %}
                                                     <tr>
                                                         <td>
                                                             <span data-kt-element="bullet" class="bullet bullet-vertical d-flex align-items-center h-40px bg-danger"></span>
@@ -348,9 +346,9 @@
                                                         </td>
 
                                                         <td>
-                                                            <a href="{% url 'short-link' link.subscription_uuid %}" class="text-gray-800 text-hover-danger fw-bold fs-6">{{ exposed_link.subscription_title }}</a>
+                                                            <a href="{% url 'user_link_page' link.subscription_uuid %}" class="text-gray-800 text-hover-danger fw-bold fs-6">{{ link.subscription_title }}</a>
 
-                                                            <span class="text-gray-400 fw-bold fs-7 d-block">Last Chaned: {{ exposed_link.updated_at }}</span>
+                                                            <span class="text-gray-400 fw-bold fs-7 d-block">Last Chaned: {{ link.updated_at }}</span>
                                                         </td>
 
                                                         <td class="text-end">

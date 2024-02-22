@@ -20,6 +20,7 @@ urlpatterns = [
     path('panel/user/edit/<str:username>', views.panel_user_edit, name='edit-user'),
     path('panel/user/panel_user_reset_password/<str:username>',
          views.panel_user_reset_password, name='user-reset-password'),
-    path('panel/user/link/<str:username>', views.user_link_control, name='user-link-control'),
+    path('panel/user/link/<str:username>', views.user_view_links, name='user-view-links'),
+    path('panel/user/user-link/<str:shorten_uuid_link>', views.user_link_page, name='user_link_page'),
 
 ]

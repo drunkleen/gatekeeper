@@ -14,7 +14,7 @@ from core.forms import UserCreationForm, AdminUserCreationForm, AdminUserEditFor
 # Create your views here.
 
 # Error handling
-def error_400(request, exception) -> render:
+def error_400(request, exception) -> HttpResponse:
     context = {
         "pre_url": request.META.get('HTTP_REFERER'),
         "error": "400",
@@ -23,7 +23,7 @@ def error_400(request, exception) -> render:
     return render(request, 'error_handlers/index.html', context)
 
 
-def error_403(request, exception) -> render:
+def error_403(request, exception) -> HttpResponse:
     context = {
         "pre_url": request.META.get('HTTP_REFERER'),
         "error": "403",
@@ -32,7 +32,7 @@ def error_403(request, exception) -> render:
     return render(request, 'error_handlers/index.html', context)
 
 
-def error_404(request, exception) -> render:
+def error_404(request, exception) -> HttpResponse:
     context = {
         "pre_url": request.META.get('HTTP_REFERER'),
         "error": "404",
@@ -41,7 +41,7 @@ def error_404(request, exception) -> render:
     return render(request, 'error_handlers/index.html', context)
 
 
-def return_error(request, error_code: str, text: str) -> render:
+def return_error(request, error_code: str, text: str) -> HttpResponse:
     context = {
         "pre_url": request.META.get('HTTP_REFERER'),
         "error": error_code,
@@ -50,7 +50,7 @@ def return_error(request, error_code: str, text: str) -> render:
     return render(request, 'error_handlers/index.html', context)
 
 
-def error_500(request) -> render:
+def error_500(request) -> HttpResponse:
     context = {
         "pre_url": request.META.get('HTTP_REFERER'),
         "error": "500",
@@ -62,7 +62,7 @@ def error_500(request) -> render:
 # View handler
 
 
-def index(request) -> redirect:
+def index(request) -> HttpResponse:
     if request.user.is_authenticated:
         if request.user.account_type == 'admin' or request.user.account_type == 'moderator':
             return redirect('panel-admin')
@@ -71,7 +71,7 @@ def index(request) -> redirect:
     return redirect('sign-in')
 
 
-def user_sign_in(request) -> render:
+def user_sign_in(request) -> HttpResponse:
     if request.user.is_authenticated:
         if request.user.account_type in ('admin', 'moderator'):
             return redirect('panel-admin')
@@ -103,7 +103,7 @@ def user_sign_in(request) -> render:
     return render(request, 'sign-in.html', context)
 
 
-def user_sign_up(request) -> render:
+def user_sign_up(request) -> HttpResponse:
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -128,13 +128,13 @@ def user_sign_up(request) -> render:
     return render(request, 'sign-up.html', context)
 
 
-def user_sign_out(request) -> redirect:
+def user_sign_out(request) -> HttpResponse:
     logout(request)
     return redirect('sign-in')
 
 
 @login_required(login_url='/auth/sign-in')
-def panel_admin(request) -> render:
+def panel_admin(request) -> HttpResponse:
     if request.user.account_type in ('admin', 'moderator'):
         context = {
             'request': request,
@@ -144,7 +144,7 @@ def panel_admin(request) -> render:
 
 
 @login_required(login_url='/auth/sign-in')
-def panel_admin_user_list(request) -> render:
+def panel_admin_user_list(request) -> HttpResponse:
     if request.user.account_type in ('admin', 'moderator'):
         context = {
             'request': request,
@@ -181,7 +181,7 @@ def panel_admin_user_list(request) -> render:
 
 
 @login_required(login_url='/auth/sign-in')
-def panel_admin_edit_user(request, username: str) -> render:
+def panel_admin_edit_user(request, username: str) -> HttpResponse:
     if request.user.account_type in ['admin', 'moderator']:
 
         context = {
@@ -213,7 +213,7 @@ def panel_admin_edit_user(request, username: str) -> render:
 
 
 @login_required(login_url='/auth/sign-in')
-def panel_admin_delete_user(request, username: str) -> redirect:
+def panel_admin_delete_user(request, username: str) -> HttpResponse:
     if request.user.account_type == ('admin' or 'moderator'):
 
         user = UserAccount.objects.get(username=username)
@@ -230,7 +230,7 @@ def panel_admin_delete_user(request, username: str) -> redirect:
 
 
 @login_required(login_url='/auth/sign-in')
-def panel_user_profile_overview(request, username: str) -> render:
+def panel_user_profile_overview(request, username: str) -> HttpResponse:
     context = {
         'request': request,
     }
@@ -246,7 +246,7 @@ def panel_user_profile_overview(request, username: str) -> render:
 
 
 @login_required(login_url='/auth/sign-in')
-def panel_user_edit(request, username: str) -> render:
+def panel_user_edit(request, username: str) -> HttpResponse:
     if request.user.username == username:
         context = {
             'request': request,
@@ -279,7 +279,7 @@ def panel_user_edit(request, username: str) -> render:
 
 
 @login_required(login_url='/auth/sign-in')
-def panel_user_reset_password(request, username: str) -> redirect:
+def panel_user_reset_password(request, username: str) -> HttpResponse:
     user = get_object_or_404(UserAccount, username=username)
 
     if request.method == 'POST':
@@ -307,18 +307,45 @@ def panel_user_reset_password(request, username: str) -> redirect:
 
 
 @login_required(login_url='/auth/sign-in')
-def user_link_control(request, username: str) -> render:
+def user_view_links(request, username: str) -> HttpResponse:
+    context = {
+
+        'page_title': ['Link Control', 'View Links'],
+        'request': request,
+    }
+    user = get_object_or_404(UserAccount, username=username)
+    if request.user.username == username or \
+            (request.user.account_type == 'moderator' and user.account_type == 'user') or \
+            request.user.account_type == 'admin':
+        try:
+            links = Subscription.objects.filter(assigned_to=user)
+            context['links'] = links.filter(is_active=True)
+            context['exposed_links'] = links.filter(is_active=True, expose=True)
+            context['restricted_links'] = links.filter(is_active=True, expose=False)
+        except ObjectDoesNotExist:
+            messages.error(request, 'No subscription links were located.')
+
+        return render(request, 'panel/components/page/user-view-links.html', context)
+
+    return error_404(request, username)
+
+
+@login_required(login_url='/auth/sign-in')
+def user_link_page(request, shorten_uuid_link) -> HttpResponse:
     context = {
 
         'page_title': ['Link Control', 'View Links'],
         'request': request,
     }
     try:
-        links = Subscription.objects.filter(assigned_to=request.user).filter(is_active=True)
-        context['links'] = links
-        context['exposed_links'] = links.filter(expose=True),
-        context['restricted_links'] = links.filter(expose=False),
+        link = Subscription.objects.get(subscription_uuid=shorten_uuid_link)
+        if request.user.username == link.assigned_to.username or \
+                (request.user.account_type == 'moderator' and link.assigned_to.account_type == 'user') or \
+                request.user.account_type == 'admin':
+            context['link'] = link
+            return HttpResponse(shorten_uuid_link)
+
     except ObjectDoesNotExist:
         messages.error(request, 'No subscription links were located.')
 
-    return render(request, 'panel/components/page/link-control.html', context)
+    return error_404(request, shorten_uuid_link)
