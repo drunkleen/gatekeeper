@@ -13,8 +13,6 @@ from core.forms import UserCreationForm, AdminUserCreationForm, AdminUserEditFor
 from core.utils.utils import generate_qr_code, link_scraper
 
 
-# Create your views here.
-
 # Error handling
 def error_400(request, exception) -> HttpResponse:
     context = {
@@ -275,7 +273,7 @@ def panel_user_edit(request, username: str) -> HttpResponse:
         context['form'] = AdminUserEditForm(instance=user)
         context['email_change_form'] = UserEmailChangeForm(instance=user)
         context['password_reset_form'] = UserPasswordChangeForm(user)
-        return render(request, 'panel/components/page/edit-user.html', context)
+        return render(request, 'panel/components/page/edit-user-change.html', context)
 
     return redirect('sign-in')
 

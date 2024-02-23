@@ -102,116 +102,139 @@
 
                                             <!--begin::Table body-->
                                             <tbody>
-                                            {% for link in links %}
-                                                {% if link.expose %}
-                                                    <tr>
-                                                        <td>
-                                                            <span data-kt-element="bullet" class="bullet bullet-vertical d-flex align-items-center h-40px bg-danger"></span>
-                                                        </td>
-    
-                                                        <td class="ps-0">
-                                                            <div class="form-check form-check-custom form-check-danger form-check-solid">
-    
-                                                                <i class="ki-duotone ki-paper-clip fs-1">
-                                                                    <span class="path1"></span>
-                                                                    <span class="path2"></span>
-                                                                    <span class="path3"></span>
-                                                                    <span class="path4"></span>
-                                                                </i>
-    
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <a href="{% url 'user_link_page' link.subscription_uuid %}" class="text-gray-800 text-hover-danger fw-bold fs-6">{{ link.subscription_title }}</a>
-    
-                                                            <span class="text-gray-600 fw-bold fs-7 d-block">Latest Utilized:: {{ link.updated_at }}</span>
-                                                        </td>
-    
-                                                        <td class="text-end">
-                                                            <span data-kt-element="status" class="badge badge-light-danger">Exposed</span>
-                                                        </td>
-    
-                                                        <td class="text-end">
-                                                            <!--begin::Icon-->
-                                                            <div class="d-flex justify-content-end flex-shrink-0">
-                                                                <!--begin::Print-->
-                                                                <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
-                                                                    <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
-                                                                <!--end::Print-->
-    
-                                                                <!--begin::Chat-->
-                                                                <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
-                                                                    <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
-                                                                <!--end::Chat-->
-    
-                                                                {% if request.user.account_type == 'admin' or request.user.account_type == 'moderator' %}
-                                                                    <!--begin::Attach-->
-                                                                    <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-danger btn-sm">
-                                                                        <i class="ki-duotone ki-paper-clip fs-3"></i>
-                                                                    </a>
-                                                                    <!--end::Attach-->
-                                                                {% endif %}
-    
-                                                            </div>
-                                                            <!--end::Icon-->
-                                                        </td>
-                                                    </tr>
-                                                {% else %}
-                                                    <tr>
-                                                        <td>
-                                                            <span data-kt-element="bullet" class="bullet bullet-vertical d-flex align-items-center h-40px bg-primary"></span>
-                                                        </td>
-    
-                                                        <td class="ps-0">
-                                                            <div class="form-check form-check-custom form-check-primary form-check-solid">
-    
-                                                                <i class="ki-duotone ki-paper-clip fs-1">
-                                                                    <span class="path1"></span>
-                                                                    <span class="path2"></span>
-                                                                    <span class="path3"></span>
-                                                                    <span class="path4"></span>
-                                                                </i>
-    
-                                                            </div>
-                                                        </td>
-    
-                                                        <td>
-                                                            <a href="{% url 'user_link_page' link.subscription_uuid %}" class="text-gray-800 text-hover-primary fw-bold fs-6">{{ link.subscription_title }}</a>
+                                            {% if links %}
+                                                {% for link in links %}
+                                                    {% if link.expose %}
+                                                        <tr>
+                                                            <td>
+                                                                <span data-kt-element="bullet" class="bullet bullet-vertical d-flex align-items-center h-40px bg-danger"></span>
+                                                            </td>
 
-                                                            <span class="text-gray-600 fw-bold fs-7 d-block">Latest Utilized: {{ link.updated_at }}</span>
-                                                        </td>
-    
-                                                        <td class="text-end">
-                                                            <span data-kt-element="status" class="badge badge-light-primary">Restricted</span>
-                                                        </td>
-    
-                                                        <td class="text-end">
-                                                            <!--begin::Icon-->
-                                                            <div class="d-flex justify-content-end flex-shrink-0">
-                                                                <!--begin::Print-->
-                                                                <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
-                                                                    <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
-                                                                <!--end::Print-->
-    
-                                                                <!--begin::Chat-->
-                                                                <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
-                                                                    <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
-                                                                <!--end::Chat-->
-    
-                                                                {% if request.user.account_type == 'admin' or request.user.account_type == 'moderator' %}
-                                                                    <!--begin::Attach-->
-                                                                    <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-danger btn-sm">
-                                                                        <i class="ki-duotone ki-paper-clip fs-3"></i>
-                                                                    </a>
-                                                                    <!--end::Attach-->
-                                                                {% endif %}
-    
-                                                            </div>
-                                                            <!--end::Icon-->
-                                                        </td>
-                                                    </tr>
-                                                {% endif %}
-                                            {% endfor %}
+                                                            <td class="ps-0">
+                                                                <div class="form-check form-check-custom form-check-danger form-check-solid">
+
+                                                                    <i class="ki-duotone ki-paper-clip fs-1">
+                                                                        <span class="path1"></span>
+                                                                        <span class="path2"></span>
+                                                                        <span class="path3"></span>
+                                                                        <span class="path4"></span>
+                                                                    </i>
+
+                                                                </div>
+                                                            </td>
+                                                            <td>
+                                                                <a href="{% url 'user_link_page' link.subscription_uuid %}" class="text-gray-800 text-hover-danger fw-bold fs-6">{{ link.subscription_title }}</a>
+
+                                                                <span class="text-gray-600 fw-bold fs-7 d-block">Latest Utilized:: {{ link.updated_at }}</span>
+                                                            </td>
+
+                                                            <td class="text-end">
+                                                                <span data-kt-element="status" class="badge badge-light-danger">Exposed</span>
+                                                            </td>
+
+                                                            <td class="text-end">
+                                                                <!--begin::Icon-->
+                                                                <div class="d-flex justify-content-end flex-shrink-0">
+                                                                    <!--begin::Print-->
+                                                                    <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                                        <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
+                                                                    <!--end::Print-->
+
+                                                                    <!--begin::Chat-->
+                                                                    <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                                        <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
+                                                                    <!--end::Chat-->
+
+                                                                    {% if request.user.account_type == 'admin' or request.user.account_type == 'moderator' %}
+                                                                        <!--begin::Attach-->
+                                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-danger btn-sm">
+                                                                            <i class="ki-duotone ki-paper-clip fs-3"></i>
+                                                                        </a>
+                                                                        <!--end::Attach-->
+                                                                    {% endif %}
+
+                                                                </div>
+                                                                <!--end::Icon-->
+                                                            </td>
+                                                        </tr>
+                                                    {% else %}
+                                                        <tr>
+                                                            <td>
+                                                                <span data-kt-element="bullet" class="bullet bullet-vertical d-flex align-items-center h-40px bg-primary"></span>
+                                                            </td>
+
+                                                            <td class="ps-0">
+                                                                <div class="form-check form-check-custom form-check-primary form-check-solid">
+
+                                                                    <i class="ki-duotone ki-paper-clip fs-1">
+                                                                        <span class="path1"></span>
+                                                                        <span class="path2"></span>
+                                                                        <span class="path3"></span>
+                                                                        <span class="path4"></span>
+                                                                    </i>
+
+                                                                </div>
+                                                            </td>
+
+                                                            <td>
+                                                                <a href="{% url 'user_link_page' link.subscription_uuid %}" class="text-gray-800 text-hover-primary fw-bold fs-6">{{ link.subscription_title }}</a>
+
+                                                                <span class="text-gray-600 fw-bold fs-7 d-block">Latest Utilized: {{ link.updated_at }}</span>
+                                                            </td>
+
+                                                            <td class="text-end">
+                                                                <span data-kt-element="status" class="badge badge-light-primary">Restricted</span>
+                                                            </td>
+
+                                                            <td class="text-end">
+                                                                <!--begin::Icon-->
+                                                                <div class="d-flex justify-content-end flex-shrink-0">
+                                                                    <!--begin::Print-->
+                                                                    <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                                        <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
+                                                                    <!--end::Print-->
+
+                                                                    <!--begin::Chat-->
+                                                                    <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                                        <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
+                                                                    <!--end::Chat-->
+
+                                                                    {% if request.user.account_type == 'admin' or request.user.account_type == 'moderator' %}
+                                                                        <!--begin::Attach-->
+                                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-danger btn-sm">
+                                                                            <i class="ki-duotone ki-paper-clip fs-3"></i>
+                                                                        </a>
+                                                                        <!--end::Attach-->
+                                                                    {% endif %}
+
+                                                                </div>
+                                                                <!--end::Icon-->
+                                                            </td>
+                                                        </tr>
+                                                    {% endif %}
+                                                {% endfor %}
+                                            {% else %}
+                                                <tr>
+                                                    <td>
+                                                        <span data-kt-element="bullet" class="bullet bullet-vertical d-flex align-items-center h-40px bg-primary"></span>
+                                                    </td>
+
+                                                    <td class="ps-0">
+
+                                                    </td>
+                                                    <a class="text-gray-800 text-hover-danger align-items-center fw-bold fs-6">No Links Available</a>
+
+                                                    <td>
+                                                    </td>
+
+                                                    <td class="text-end">
+                                                    </td>
+
+                                                    <td class="text-end">
+                                                        <span data-kt-element="bullet" class="bullet bullet-vertical align-items-end h-40px bg-danger"></span>
+                                                    </td>
+                                                </tr>
+                                            {% endif %}
                                             </tbody>
                                             <!--end::Table body-->
                                         </table>
@@ -240,63 +263,83 @@
 
                                             <!--begin::Table body-->
                                             <tbody>
+                                            {% if restricted_links %}
+                                                {% for link in restricted_links %}
+                                                    <tr>
+                                                        <td>
+                                                            <span data-kt-element="bullet" class="bullet bullet-vertical d-flex align-items-center h-40px bg-primary"></span>
+                                                        </td>
 
-                                            {% for link in restricted_links %}
+                                                        <td class="ps-0">
+                                                            <div class="form-check form-check-custom form-check-primary form-check-solid">
+
+                                                                <i class="ki-duotone ki-paper-clip fs-1">
+                                                                    <span class="path1"></span>
+                                                                    <span class="path2"></span>
+                                                                    <span class="path3"></span>
+                                                                    <span class="path4"></span>
+                                                                </i>
+
+                                                            </div>
+                                                        </td>
+
+                                                        <td>
+                                                            <a href="{% url 'user_link_page' link.subscription_uuid %}" class="text-gray-800 text-hover-primary fw-bold fs-6">{{ link.subscription_title }}</a>
+
+                                                            <span class="text-gray-600 fw-bold fs-7 d-block">Latest Utilized: {{ link.updated_at }}</span>
+                                                        </td>
+
+                                                        <td class="text-end">
+                                                            <span data-kt-element="status" class="badge badge-light-primary">Restricted</span>
+                                                        </td>
+
+                                                        <td class="text-end">
+                                                            <!--begin::Icon-->
+                                                            <div class="d-flex justify-content-end flex-shrink-0">
+                                                                <!--begin::Print-->
+                                                                <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                                    <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
+                                                                <!--end::Print-->
+
+                                                                <!--begin::Chat-->
+                                                                <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
+                                                                    <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
+                                                                <!--end::Chat-->
+
+                                                                {% if request.user.account_type == 'admin' or request.user.account_type == 'moderator' %}
+                                                                    <!--begin::Attach-->
+                                                                    <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-danger btn-sm">
+                                                                        <i class="ki-duotone ki-paper-clip fs-3"></i>
+                                                                    </a>
+                                                                    <!--end::Attach-->
+                                                                {% endif %}
+
+                                                            </div>
+                                                            <!--end::Icon-->
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                            {% else %}
                                                 <tr>
                                                     <td>
                                                         <span data-kt-element="bullet" class="bullet bullet-vertical d-flex align-items-center h-40px bg-primary"></span>
                                                     </td>
 
                                                     <td class="ps-0">
-                                                        <div class="form-check form-check-custom form-check-primary form-check-solid">
 
-                                                            <i class="ki-duotone ki-paper-clip fs-1">
-                                                                <span class="path1"></span>
-                                                                <span class="path2"></span>
-                                                                <span class="path3"></span>
-                                                                <span class="path4"></span>
-                                                            </i>
-
-                                                        </div>
                                                     </td>
-
+                                                        <a class="text-gray-800 text-hover-danger fw-bold fs-6">No Restricted Links Available</a>
                                                     <td>
-                                                        <a href="{% url 'user_link_page' link.subscription_uuid %}" class="text-gray-800 text-hover-primary fw-bold fs-6">{{ link.subscription_title }}</a>
-
-                                                        <span class="text-gray-600 fw-bold fs-7 d-block">Latest Utilized: {{ link.updated_at }}</span>
                                                     </td>
 
                                                     <td class="text-end">
-                                                        <span data-kt-element="status" class="badge badge-light-primary">Restricted</span>
                                                     </td>
 
                                                     <td class="text-end">
-                                                        <!--begin::Icon-->
-                                                        <div class="d-flex justify-content-end flex-shrink-0">
-                                                            <!--begin::Print-->
-                                                            <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
-                                                                <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
-                                                            <!--end::Print-->
-
-                                                            <!--begin::Chat-->
-                                                            <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
-                                                                <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
-                                                            <!--end::Chat-->
-
-                                                            {% if request.user.account_type == 'admin' or request.user.account_type == 'moderator' %}
-                                                                <!--begin::Attach-->
-                                                                <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-danger btn-sm">
-                                                                    <i class="ki-duotone ki-paper-clip fs-3"></i>
-                                                                </a>
-                                                                <!--end::Attach-->
-                                                            {% endif %}
-
-                                                        </div>
-                                                        <!--end::Icon-->
+                                                        <span data-kt-element="bullet" class="bullet bullet-vertical align-items-end h-40px bg-danger"></span>
                                                     </td>
                                                 </tr>
-                                            {% endfor %}
-
+                                            {% endif %}
                                             </tbody>
                                             <!--end::Table body-->
                                         </table>
@@ -325,7 +368,7 @@
 
                                             <!--begin::Table body-->
                                             <tbody>
-
+                                            {% if exposed_links %}
                                                 {% for link in exposed_links %}
                                                     <tr>
                                                         <td>
@@ -381,6 +424,27 @@
                                                         </td>
                                                     </tr>
                                                 {% endfor %}
+                                            {% else %}
+                                                <tr>
+                                                    <td>
+                                                        <span data-kt-element="bullet" class="bullet bullet-vertical d-flex align-items-center h-40px bg-danger"></span>
+                                                    </td>
+
+                                                    <td class="ps-0">
+
+                                                    </td>
+                                                        <a class="text-gray-800 text-hover-danger fw-bold fs-6">No Exposed Links Available</a>
+                                                    <td>
+                                                    </td>
+
+                                                    <td class="text-end">
+                                                    </td>
+
+                                                    <td class="text-end">
+                                                        <span data-kt-element="bullet" class="bullet bullet-vertical align-items-end h-40px bg-primary"></span>
+                                                    </td>
+                                                </tr>
+                                            {% endif %}
                                             </tbody>
                                             <!--end::Table body-->
                                         </table>
@@ -388,6 +452,8 @@
                                     <!--end::Table-->
                                 </div>
                                 <!--end::Tap pane-->
+                            
+                            
                             </div>
                             <!--end::Tab Content-->
                         </div>
