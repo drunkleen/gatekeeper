@@ -140,6 +140,7 @@ def panel_admin(request) -> HttpResponse:
             'page_title': ['User Management', 'Overview'],
         }
         return render(request, 'panel/components/page/overview.html', context)
+    return redirect('panel-user', username=request.user.username)
 
 
 @login_required(login_url='/auth/sign-in')
@@ -185,7 +186,7 @@ def panel_admin_edit_user(request, username: str) -> HttpResponse:
 
         context = {
             'request': request,
-            'page_title': ['User Management', 'User Setting', 'User Settings'],
+            'page_title': ['User Management', 'User List', 'Edit User'],
         }
 
         user = get_object_or_404(UserAccount, username=username)
@@ -204,11 +205,15 @@ def panel_admin_edit_user(request, username: str) -> HttpResponse:
                     if user_form.last_name != "" else user_form.last_name
                 user_form.save()
 
+                messages.success(request, 'User was successfully updated!')
+                return redirect('panel-admin-user-lists')
+
         form = AdminUserEditForm(instance=user)
         context['form'] = form
         return render(request, 'panel/components/page/admin-edit-user.html', context)
 
-    return redirect('sign-in')
+    messages.error(request, 'Action Not Allowed')
+    return redirect('panel-user', username=request.user.username)
 
 
 @login_required(login_url='/auth/sign-in')
