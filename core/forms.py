@@ -5,6 +5,37 @@ from django.contrib.auth.forms import PasswordChangeForm
 from core.models import UserAccount, Subscription
 
 
+class UserEmailChangeForm(forms.ModelForm):
+    class Meta:
+        model = UserAccount
+        fields = ['email']
+
+    old_password = forms.CharField(
+        label='Current Password',
+        widget=forms.PasswordInput(attrs={
+            'class': 'form-control form-control-lg form-control-solid',
+            'id': 'confirmemailpassword',
+            'autocomplete': 'off',
+        })
+    )
+
+    def clean_old_password(self):
+        old_password = self.cleaned_data.get('old_password')
+        user = self.instance
+        if not user.check_password(old_password):
+            raise forms.ValidationError('Incorrect password')
+        return old_password
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['email'].widget.attrs.update({
+            'class': 'form-control form-control-lg form-control-solid',
+            'id': 'emailaddress',
+            'autocomplete': 'off',
+        })
+
+
 class UserPasswordChangeForm(PasswordChangeForm):
     class Meta:
         model = UserAccount

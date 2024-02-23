@@ -1,0 +1,178 @@
+{% extends 'panel/components/wrapper.html' %}
+{% load custom_filters %}
+{% load static %}
+{% block content-wrapper %}
+
+
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content  flex-column-fluid ">
+        <!--begin::Content container-->
+        <div id="kt_app_content_container" class="app-container  container-fluid ">
+            <!--begin::Row-->
+            <div class="card mb-5 mb-xxl-8">
+                <div class="card-body pt-9 pb-0">
+                    <!--begin::Details-->
+                    <div class="d-flex flex-wrap flex-sm-nowrap">
+                        <!--begin: Pic-->
+                        <div class="me-7 mb-4">
+                            <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
+
+                                <div class="symbol-label fs-1 bg-light-danger  text-danger">
+                                    {{ link.assigned_to.first_name|first }} {{ link.assigned_to.last_name|first }}
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <!--end::Pic-->
+
+                        <!--begin::Info-->
+                        <div class="flex-grow-1">
+                            <!--begin::Title-->
+                            <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
+                                <!--begin::User-->
+                                <div class="d-flex flex-column">
+                                    <!--begin::Name-->
+                                    <div class="d-flex align-items-center mb-2">
+                                        <a  class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">
+                                            {{ link.subscription_title }}
+                                        </a >
+                                    </div>
+                                    <!--end::Name-->
+
+                                    <!--begin::Info-->
+                                    <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
+                                        <a href="{% url 'panel-user-profile' link.assigned_to.username %}" class="d-flex align-items-center text-gray-600 text-hover-primary me-5 mb-2">
+                                            <i class="ki-duotone ki-profile-circle fs-4 me-1">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                                <span class="path3"></span>
+                                            </i>
+                                            {{ link.assigned_to.first_name }} {{ link.assigned_to.last_name }}
+                                        </a>
+                                    </div>
+                                    <!--end::Info-->
+                                </div>
+                                <!--end::User-->
+
+                                <!--begin::Actions-->
+                                <div class="d-flex my-4">
+
+                                    {% if link.expose %}
+                                        <button class="btn btn-sm btn-secondary text-hover-primary me-2" onclick="toggleAllQRCode()">
+                                            <i class="bi-qr-code fs-1">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </i>
+                                        </button>
+                                        <button class="btn btn-sm btn-secondary text-hover-primary me-2" onclick="copyText()">
+                                            <i class="ki-outline ki-copy  fs-1">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </i>
+                                        </button>
+                                        <a class="btn btn-sm btn-secondary text-hover-primary me-2" href="mailto:{{ link.assigned_to.email }}?subject=Your%20link%20(don't%20share%20this%20link)&body=Your%20unique%20subscription%20link%3A%0A{{ scheme_host }}{% url 'user_link_page_show' link.subscription_uuid %}%0A%0A(Please%20keep%20this%20link%20confidential%20and%20avoid%20sharing%20it%20with%20others)%0A%0AGate%20Keeper%0Ahttps%3A%2F%2Fgithub.com%2Fdrunkleen%2FGate-Keeper">
+                                            <i class="bi-envelope-paper fs-1">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                            </i>
+                                        </a>
+                                        <a href="{% url 'user_link_page_restrict' link.subscription_uuid %}" class="btn btn-sm btn-danger">Restrict Link</a>
+                                        <input type="text" value="{{ scheme_host }}{% url 'user_link_page_show' link.subscription_uuid %}" id="textInput" hidden />
+
+                                    {% else %}
+                                        <a href="{% url 'user_link_page_expose' link.subscription_uuid %}" class="btn btn-sm btn-primary">Expose Link</a>
+                                    {% endif %}
+                                </div>
+                                <!--end::Actions-->
+                            </div>
+                            <!--end::Title-->
+
+                            <!--begin::Stats-->
+                            <div class="d-flex flex-wrap flex-stack">
+                                <!--begin::Wrapper-->
+                                <div class="d-flex flex-column flex-grow-1 pe-8">
+                                    <!--begin::Stats-->
+                                    <div class="d-flex flex-wrap">
+                                        <!--begin::Stat-->
+                                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                            <!--begin::Number-->
+                                            <div class="d-flex align-items-center">
+
+                                                <div class="fs-5 fw-bold counted">
+                                                    {{ link.updated_at|time_ago }}
+                                                </div>
+                                            </div>
+                                            <!--end::Number-->
+
+                                            <!--begin::Label-->
+                                            <div class="fw-semibold fs-6 text-gray-600">Latest Utilized</div>
+                                            <!--end::Label-->
+                                        </div>
+                                        <!--end::Stat-->
+
+                                        <!--begin::Stat-->
+                                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                            <!--begin::Number-->
+                                            <div class="d-flex align-items-center">
+                                                <i class="ki-duotone ki-arrow-right fs-2 text-danger me-2">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                </i>
+                                                <div class="fs-5 fw-bold counted">{{ link.use_count }}</div>
+                                            </div>
+                                            <!--end::Number-->
+
+                                            <!--begin::Label-->
+                                            <div class="fw-semibold fs-6 text-gray-600">Usage Count</div>
+                                            <!--end::Label-->
+                                        </div>
+                                        <!--end::Stat-->
+
+                                    </div>
+                                    <!--end::Stats-->
+                                </div>
+                                <!--end::Wrapper-->
+
+                            </div>
+                            <!--end::Stats-->
+                        </div>
+                        <!--end::Info-->
+                    </div>
+
+                    {% if link.expose %}
+                    <div class="card-border-0 d-flex flex-column flex-center" id="qrcode1" style="display: none;">
+                        <button onclick="copyText()" id="qrcode2" class="mt-10 mb-10 text-center symbol symbol-200px symbol-lg-200px flex-center text-center" style="display: none;">
+                            <img src="data:image/png;base64,{{ qrcode }}" alt="Your Image" style="border-radius: 10px;">
+                        </button>
+                    </div>
+
+                    <script>
+                        function toggleAllQRCode() {
+                            const qrcodeDivs = document.querySelectorAll('[id^="qrcode"]');
+                            qrcodeDivs.forEach(function (qrcodeDiv) {
+                                qrcodeDiv.style.display = (qrcodeDiv.style.display === 'none' || qrcodeDiv.style.display === '') ? 'block' : 'none';
+                            });
+                        }
+
+                        function copyText() {
+                            const text = document.getElementById("textInput").value;
+
+                            navigator.clipboard.writeText(text).then(function() {
+                            }).catch(function(err) {
+                                console.error('Unable to copy text', err);
+                            });
+                        }
+                    </script>
+                    {% endif %}
+
+                    <!--end::Details-->
+                </div>
+            </div>
+            <!--end::Row-->
+        </div>
+        <!--end::Content container-->
+    </div>
+    <!--end::Content-->
+
+{% endblock content-wrapper %}

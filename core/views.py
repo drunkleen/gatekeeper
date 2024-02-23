@@ -8,7 +8,9 @@ from django.contrib.auth import update_session_auth_hash
 from django.http import HttpResponse
 from django.contrib import messages
 from core.models import UserAccount, Subscription
-from core.forms import UserCreationForm, AdminUserCreationForm, AdminUserEditForm, UserEditForm, UserPasswordChangeForm
+from core.forms import UserCreationForm, AdminUserCreationForm, AdminUserEditForm, UserEditForm, UserPasswordChangeForm, \
+    UserEmailChangeForm
+from core.utils.utils import generate_qr_code, link_scraper
 
 
 # Create your views here.
@@ -107,7 +109,6 @@ def user_sign_up(request) -> HttpResponse:
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-
             user_form = form.save(commit=False)
             user_form.account_type = 'user'
             user_form.first_name = user_form.first_name.capitalize()
@@ -272,10 +273,38 @@ def panel_user_edit(request, username: str) -> HttpResponse:
                 return redirect('panel-user-profile', username=user_form.username)
 
         context['form'] = AdminUserEditForm(instance=user)
+        context['email_change_form'] = UserEmailChangeForm(instance=user)
         context['password_reset_form'] = UserPasswordChangeForm(user)
         return render(request, 'panel/components/page/edit-user.html', context)
 
     return redirect('sign-in')
+
+
+@login_required(login_url='/auth/sign-in')
+def panel_user_change_email(request, username):
+    user = get_object_or_404(UserAccount, username=username)
+
+    if request.method == 'POST':
+        form = UserEmailChangeForm(request.POST, instance=user)
+
+        if form.is_valid():
+            if (request.user.account_type == 'admin' or
+                    (request.user.account_type == 'moderator' and user.account_type == 'user') or
+                    (request.user.account_type == 'moderator' and user.username == request.user.username) or
+                    user.username == request.user.username
+            ):
+                form.save()
+                update_session_auth_hash(request, user)
+                messages.success(request, 'Your E-mail was successfully updated!')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f'Error in {field}: {error}')
+
+        return redirect('edit-user', username=username)
+
+    messages.error(request, 'Action Not Allowed')
+    return redirect('edit-user', username=username)
 
 
 @login_required(login_url='/auth/sign-in')
@@ -331,9 +360,8 @@ def user_view_links(request, username: str) -> HttpResponse:
 
 
 @login_required(login_url='/auth/sign-in')
-def user_link_page(request, shorten_uuid_link) -> HttpResponse:
+def user_view_single_link(request, shorten_uuid_link) -> HttpResponse:
     context = {
-
         'page_title': ['Link Control', 'View Links'],
         'request': request,
     }
@@ -343,7 +371,69 @@ def user_link_page(request, shorten_uuid_link) -> HttpResponse:
                 (request.user.account_type == 'moderator' and link.assigned_to.account_type == 'user') or \
                 request.user.account_type == 'admin':
             context['link'] = link
-            return HttpResponse(shorten_uuid_link)
+            context['scheme_host'] = request.scheme + '://' + request.get_host()
+            if link.expose:
+                qrcode_data = generate_qr_code(
+                    f'{context.get("scheme_host")}/panel/user/user-link/show/{link.subscription_uuid}'
+                )
+                context['qrcode'] = qrcode_data
+
+            return render(request, 'panel/components/page/user-view-link-activation.html', context)
+
+    except ObjectDoesNotExist:
+        messages.error(request, 'No subscription links were located.')
+
+    return error_404(request, shorten_uuid_link)
+
+
+@login_required(login_url='/auth/sign-in')
+def user_view_single_link_expose(request, shorten_uuid_link) -> HttpResponse:
+    try:
+        link = Subscription.objects.get(subscription_uuid=shorten_uuid_link)
+        if request.user.username == link.assigned_to.username or \
+                (request.user.account_type == 'moderator' and link.assigned_to.account_type == 'user') or \
+                request.user.account_type == 'admin':
+            link.expose = True
+            link.save()
+
+            return redirect('user_link_page', shorten_uuid_link=shorten_uuid_link)
+
+    except ObjectDoesNotExist:
+        messages.error(request, 'No subscription links were located.')
+
+    return error_404(request, shorten_uuid_link)
+
+
+@login_required(login_url='/auth/sign-in')
+def user_view_single_link_restrict(request, shorten_uuid_link) -> HttpResponse:
+    try:
+        link = Subscription.objects.get(subscription_uuid=shorten_uuid_link)
+        if request.user.username == link.assigned_to.username or \
+                (request.user.account_type == 'moderator' and link.assigned_to.account_type == 'user') or \
+                request.user.account_type == 'admin':
+            link.expose = False
+            link.save()
+
+            return redirect('user_link_page', shorten_uuid_link=shorten_uuid_link)
+
+    except ObjectDoesNotExist:
+        messages.error(request, 'No subscription links were located.')
+
+    return error_404(request, shorten_uuid_link)
+
+
+def user_view_single_link_show(request, shorten_uuid_link) -> HttpResponse:
+    try:
+        link = Subscription.objects.get(subscription_uuid=shorten_uuid_link)
+
+        if link.expose or \
+                (request.user.account_type == 'moderator' and link.assigned_to.account_type == 'user') or \
+                request.user.account_type == 'admin':
+            link.use_count += 1
+            link.save()
+            return HttpResponse(link_scraper(link.subscription_link))
+        else:
+            return error_404(request, shorten_uuid_link)
 
     except ObjectDoesNotExist:
         messages.error(request, 'No subscription links were located.')

@@ -45,7 +45,7 @@ class Subscription(models.Model):
         max_length=512,
         validators=[MaxLengthValidator(512)], null=True, blank=False
     )
-
+    use_count = models.IntegerField(null=False, default=0)
     expose = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 

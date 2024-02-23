@@ -32,15 +32,12 @@
                         <!--end:Menu link-->
                         <!--begin:Menu sub-->
                         <div class="menu-sub menu-sub-accordion">
-                            <!--begin:Menu item-->
                             <div class="menu-item">
-                                <!--begin:Menu link-->
                                 {% if page_title|last == 'Overview' %}
                                 <a class="menu-link active" href="#">
                                 {% else %}
                                 <a class="menu-link" href="{% url 'panel-admin' %}">
                                 {% endif %}
-
                                     <span class="menu-bullet">
                                         <span class="bullet bullet-dot"></span>
                                     </span>
@@ -48,7 +45,6 @@
                                         Overview
                                     </span>
                                 </a>
-                                <!--end:Menu link-->
                             </div>
                             <!--end:Menu item-->
                             <!--begin:Menu item-->
@@ -63,7 +59,7 @@
                                                         <span class="bullet bullet-dot"></span>
                                                     </span>
                                     <span class="menu-title">User List
-                                                    <span class="badge badge-pro badge-light-danger fw-semibold fs-8 px-2 py-1 ms-1" data-bs-toggle="tooltip" title="Upgrade to Pro to get this">Pro</span></span>
+                                                    </span>
                                 </a>
                                 <!--end:Menu link-->
                             </div>
@@ -196,9 +192,9 @@
                         <div class="menu-item">
                             <!--begin:Menu link-->
                             {% if page_title|last == 'View Links' %}
-                                <a class="menu-link active " href="#">
+                                <a class="menu-link active " href="{% url 'user-view-links' request.user.username %}">
                             {% else %}
-                                <a class="menu-link" href="{% url 'user-view-links' request.user.username %}">
+                            <a class="menu-link" href="{% url 'user-view-links' request.user.username %}">
                             {% endif %}
 
 
