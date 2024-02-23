@@ -60,7 +60,7 @@
                                 {% for message in messages %}
 
                                     <div
-                                            {% if message.tags %}
+                                            {% if message.tags  == 'error'%}
                                                 class="notice d-flex bg-light-danger mb-4 rounded border-danger border border-dashed p-6"
                                             {% elif message.tags == 'success' %}
                                                 class="notice d-flex bg-light-success mb-4 rounded border-success border border-dashed p-6"

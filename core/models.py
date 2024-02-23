@@ -36,7 +36,7 @@ class UserAccount(AbstractUser):
 
 
 class Subscription(models.Model):
-    subscription_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
+    subscription_uuid = models.UUIDField(default=uuid.uuid4(), editable=False, unique=True)
     subscription_title = models.CharField(
         max_length=512,
         validators=[MaxLengthValidator(512)], null=True, blank=False

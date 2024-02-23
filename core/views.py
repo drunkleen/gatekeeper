@@ -238,6 +238,9 @@ def panel_user_profile_overview(request, username: str) -> HttpResponse:
         user = get_object_or_404(UserAccount, username=username)
         context['page_title'] = ['Users', 'Profile', 'User Profile']
         context['user'] = user
+        context['form'] = AdminUserEditForm(instance=user)
+        context['email_change_form'] = UserEmailChangeForm(instance=user)
+        context['password_reset_form'] = UserPasswordChangeForm(user)
 
         return render(request, 'panel/components/page/user-profile.html', context)
 
@@ -246,17 +249,16 @@ def panel_user_profile_overview(request, username: str) -> HttpResponse:
 
 @login_required(login_url='/auth/sign-in')
 def panel_user_edit(request, username: str) -> HttpResponse:
-    if request.user.username == username:
-        context = {
-            'request': request,
-            'page_title': ['Users', 'Profile', 'User Settings']
-        }
+    user = get_object_or_404(UserAccount, username=username)
 
-        user = get_object_or_404(UserAccount, username=username)
-
-        if request.method == 'POST':
-            form = UserEditForm(request.POST, instance=user)
-            if form.is_valid():
+    if request.method == 'POST':
+        form = UserEditForm(request.POST, instance=user)
+        if form.is_valid():
+            if (request.user.account_type == 'admin' or
+                    (request.user.account_type == 'moderator' and user.account_type == 'user') or
+                    (request.user.account_type == 'moderator' and user.username == request.user.username) or
+                    user.username == request.user.username
+            ):
                 user_form = form.save(commit=False)
                 user_form.email = user_form.email.lower() \
                     if user_form.email != "" else user_form.email
@@ -267,15 +269,17 @@ def panel_user_edit(request, username: str) -> HttpResponse:
                 user_form.last_name = user_form.last_name.capitalize() \
                     if user_form.last_name != "" else user_form.last_name
                 user_form.save()
+                messages.success(request, 'Your Profile was successfully updated!')
 
-                return redirect('panel-user-profile', username=user_form.username)
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f'Error in {field}: {error}')
 
-        context['form'] = AdminUserEditForm(instance=user)
-        context['email_change_form'] = UserEmailChangeForm(instance=user)
-        context['password_reset_form'] = UserPasswordChangeForm(user)
-        return render(request, 'panel/components/page/edit-user-change.html', context)
+        return redirect('panel-user-profile', username=username)
 
-    return redirect('sign-in')
+    messages.error(request, 'Action Not Allowed')
+    return redirect('panel-user-profile', username=username)
 
 
 @login_required(login_url='/auth/sign-in')
@@ -299,10 +303,10 @@ def panel_user_change_email(request, username):
                 for error in errors:
                     messages.error(request, f'Error in {field}: {error}')
 
-        return redirect('edit-user', username=username)
+        return redirect('panel-user-profile', username=username)
 
     messages.error(request, 'Action Not Allowed')
-    return redirect('edit-user', username=username)
+    return redirect('panel-user-profile', username=username)
 
 
 @login_required(login_url='/auth/sign-in')
@@ -327,10 +331,10 @@ def panel_user_reset_password(request, username: str) -> HttpResponse:
                 for error in errors:
                     messages.error(request, f'Error in {field}: {error}')
 
-        return redirect('edit-user', username=username)
+        return redirect('panel-user-profile', username=username)
 
     messages.error(request, 'Action Not Allowed')
-    return redirect('edit-user', username=username)
+    return redirect('panel-user-profile', username=username)
 
 
 @login_required(login_url='/auth/sign-in')

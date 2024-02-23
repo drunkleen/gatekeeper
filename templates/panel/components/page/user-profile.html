@@ -3,154 +3,405 @@
 {% load static %}
 {% block content-wrapper %}
 
-    <div id="kt_app_content" class="app-content  flex-column-fluid ">
 
-
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
         <!--begin::Content container-->
-        <div id="kt_app_content_container" class="app-container  container-fluid ">
+        <div id="kt_app_content_container" class="app-container container-fluid">
+            <!--begin::Row-->
+            <div class="row g-5 g-xxl-8">
+                <!--begin::Col-->
+                <div class="card-body pb-0">
+                    <!--begin::Timeline widget 2-->
+                    <div class="card mb-xl-8" id="kt_timeline_widget_2_card">
+                    
+                    
+                        <!--begin::Header-->
+                        <div class="card-header position-relative py-0 border-bottom-2">
+                            <!--begin::Nav-->
+                            <ul class="nav nav-stretch nav-pills nav-pills-custom d-flex mt-3" role="tablist">
+                                <!--begin::Item-->
+                                <li class="nav-item p-0 ms-0 me-8" role="presentation">
+                                    <!--begin::Link-->
+                                    <a class="nav-link btn btn-color-muted px-0 active" data-bs-toggle="pill" href="#show_profile" aria-selected="true" role="tab">
+                                        <!--begin::Subtitle-->
+                                        <span class="nav-text fw-semibold fs-4 mb-3">
+                                            Profile
+                                        </span>
+                                        <!--end::Subtitle-->
 
-            <!--begin::Navbar-->
-            <div class="card mb-5 mb-xl-10">
-                <div class="card-body pt-9 pb-0">
-                    <!--begin::Details-->
+                                        <!--begin::Bullet-->
+                                        <span class="bullet-custom position-absolute z-index-2 w-100 h-2px top-100 bottom-n100 bg-primary rounded"></span>
+                                        <!--end::Bullet-->
+                                    </a>
+                                    <!--end::Link-->
+                                </li>
+                                <!--end::Item-->
 
-                    <!--end::Details-->
+                                <!--begin::Item-->
+                                <li class="nav-item p-0 ms-0 me-8" role="presentation">
+                                    <!--begin::Link-->
+                                    <a class="nav-link btn btn-color-muted px-0" data-bs-toggle="pill" href="#profile_setting" aria-selected="false" role="tab" tabindex="-1">
+                                        <!--begin::Subtitle-->
+                                        <span class="nav-text fw-semibold fs-4 mb-3">
+                                            Profile Setting
+                                        </span>
+                                        <!--end::Subtitle-->
 
-                    {% include 'panel/components/page/../profile-page-heading.html' %}
+                                        <!--begin::Bullet-->
+                                        <span class="bullet-custom position-absolute z-index-2 w-100 h-2px top-100 bottom-n100 bg-primary rounded"></span>
+                                        <!--end::Bullet-->
+                                    </a>
+                                    <!--end::Link-->
+                                </li>
+                                <!--end::Item-->
 
-                </div>
-            </div>
-            <!--end::Navbar-->
-            <!--begin::details View-->
-            <div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
-                <!--begin::Card header-->
-                <div class="card-header cursor-pointer">
-                    <!--begin::Card title-->
-                    <div class="card-title m-0">
-                        <h3 class="fw-bold m-0">Profile Details</h3>
-                    </div>
-                    <!--end::Card title-->
 
-                    <!--begin::Action-->
-                    <a href="{% url 'edit-user' user.username %}" class="btn btn-sm btn-primary align-self-center">Edit Profile</a>
-                    <!--end::Action-->
-                </div>
-                <!--begin::Card header-->
+                                <!--begin::Item-->
+                                <li class="nav-item p-0 ms-0" role="presentation">
+                                    <!--begin::Link-->
+                                    <a class="nav-link btn btn-color-muted px-0" data-bs-toggle="pill" href="#login_adn_security" aria-selected="false" role="tab" tabindex="-1">
+                                        <!--begin::Subtitle-->
+                                        <span class="nav-text fw-semibold fs-4 mb-3">
+                                            Login & Security
+                                        </span>
+                                        <!--end::Subtitle-->
 
-                <!--begin::Card body-->
-                <div class="card-body p-9">
-                    <!--begin::Row-->
-                    <div class="row mb-7">
-                        <!--begin::Label-->
-                        <label class="col-lg-4 fw-semibold text-muted">Full Name</label>
-                        <!--end::Label-->
-
-                        <!--begin::Col-->
-                        <div class="col-lg-8">
-                            <span class="fw-bold fs-6 text-gray-800">{{ user.first_name }} {{ user.last_name }}</span>
+                                        <!--begin::Bullet-->
+                                        <span class="bullet-custom position-absolute z-index-2 w-100 h-2px top-100 bottom-n100 bg-primary rounded"></span>
+                                        <!--end::Bullet-->
+                                    </a>
+                                    <!--end::Link-->
+                                </li>
+                                <!--end::Item-->
+                            </ul>
+                            <!--end::Nav-->
                         </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Row-->
+                        <!--end::Header-->
 
-                    <!--begin::Input group-->
-                    <div class="row mb-7">
-                        <!--begin::Label-->
-                        <label class="col-lg-4 fw-semibold text-muted">
-                            Username
-                        </label>
-                        <!--end::Label-->
+                        <!--body::Header-->
+                        <div class="card-body">
+                            <div class="tab-content">
+                                <div class="tab-pane fade active show" id="show_profile" role="tabpanel">
 
-                        <!--begin::Col-->
-                        <div class="col-lg-8">
-                            <span class="fw-bold fs-6 text-gray-800">{{ user.username }}</span>
-                        </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Input group-->
+                                    <!--begin::Card header-->
+                                    <div class="card-header cursor-pointer">
+                                        <!--begin::Card title-->
+                                        <div class="card-title m-0">
+                                            <h3 class="fw-bold m-0">Profile Details</h3>
+                                        </div>
+                                        <!--end::Card title-->
 
-                    <!--begin::Input group-->
-                    <div class="row mb-7">
-                        <!--begin::Label-->
-                        <label class="col-lg-4 fw-semibold text-muted">
-                            Email Address
-                        </label>
-                        <!--end::Label-->
+                                    </div>
+                                    <!--begin::Card header-->
 
-                        <!--begin::Col-->
-                        <div class="col-lg-8">
-                            <span class="fw-bold fs-6 text-gray-800">{{ user.email }}</span>
-                        </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Input group-->
+                                    <!--begin::Card body-->
+                                    <div class="card-body p-9">
+                                        <!--begin::Row-->
+                                        <div class="row mb-7">
+                                            <!--begin::Label-->
+                                            <label class="col-lg-4 fw-semibold text-muted">Full Name</label>
+                                            <!--end::Label-->
 
-                    <!--begin::Input group-->
-                    <div class="row mb-7">
-                        <!--begin::Label-->
-                        <label class="col-lg-4 fw-semibold text-muted">
-                            User Type
-                        </label>
-                            <!--end::Label-->
+                                            <!--begin::Col-->
+                                            <div class="col-lg-8">
+                                                <span class="fw-bold fs-6 text-gray-800">{{ user.first_name }} {{ user.last_name }}</span>
+                                            </div>
+                                            <!--end::Col-->
+                                        </div>
+                                        <!--end::Row-->
 
-                            <!--begin::Col-->
-                        <div class="col-lg-8">
-                            <span class="menu-badge">
-                                <span
-                                        {% if user.account_type == 'admin' %}
-                                            class="badge badge-light-danger fw-bolder fs-8 px-2 py-2 ms-1"
-                                        {% elif user.account_type == 'moderator' %}
-                                            class="badge badge-info fw-bolder fs-8 px-2 py-2 ms-1"
+                                        <!--begin::Input group-->
+                                        <div class="row mb-7">
+                                            <!--begin::Label-->
+                                            <label class="col-lg-4 fw-semibold text-muted">
+                                                Username
+                                            </label>
+                                            <!--end::Label-->
+
+                                            <!--begin::Col-->
+                                            <div class="col-lg-8">
+                                                <span class="fw-bold fs-6 text-gray-800">{{ user.username }}</span>
+                                            </div>
+                                            <!--end::Col-->
+                                        </div>
+                                        <!--end::Input group-->
+
+                                        <!--begin::Input group-->
+                                        <div class="row mb-7">
+                                            <!--begin::Label-->
+                                            <label class="col-lg-4 fw-semibold text-muted">
+                                                Email Address
+                                            </label>
+                                            <!--end::Label-->
+
+                                            <!--begin::Col-->
+                                            <div class="col-lg-8">
+                                                <span class="fw-bold fs-6 text-gray-800">{{ user.email }}</span>
+                                            </div>
+                                            <!--end::Col-->
+                                        </div>
+                                        <!--end::Input group-->
+
+                                        <!--begin::Input group-->
+                                        <div class="row mb-7">
+                                            <!--begin::Label-->
+                                            <label class="col-lg-4 fw-semibold text-muted">
+                                                User Type
+                                            </label>
+                                            <!--end::Label-->
+
+                                            <!--begin::Col-->
+                                            <div class="col-lg-8">
+                                    <span class="menu-badge">
+                                        <span
+                                                {% if user.account_type == 'admin' %}
+                                                    class="badge badge-light-danger fw-bolder fs-8 px-2 py-2 ms-1"
+                                                {% elif user.account_type == 'moderator' %}
+                                                    class="badge badge-info fw-bolder fs-8 px-2 py-2 ms-1"
+                                                {% else %}
+                                                    class="badge badge-light-primary fw-bolder fs-8 px-2 py-2 ms-1"
+                                                {% endif %}
+                                        >
+                                            {{ user.account_type }}
+                                        </span>
+                                    </span>
+                                            </div>
+                                            <!--end::Col-->
+                                        </div>
+                                        <!--end::Input group-->
+
+                                        <!--begin::Input group-->
+                                        <div class="row mb-7">
+                                            <!--begin::Label-->
+                                            <label class="col-lg-4 fw-semibold text-muted">
+                                                User Status
+                                            </label>
+                                            <!--end::Label-->
+
+                                            <!--begin::Col-->
+                                            <div class="col-lg-8">
+                                    <span class="menu-badge">
+                                        {% if user.is_active %}
+                                            <span class="badge badge-success fw-semibold fs-8 px-2 py-2 ms-1">
+                                                Active
+                                            </span>
                                         {% else %}
-                                            class="badge badge-light-primary fw-bolder fs-8 px-2 py-2 ms-1"
+                                            <span class="badge badge-danger fw-semibold fs-8 px-2 py-2 ms-1">
+                                                Inactive
+                                            </span>
                                         {% endif %}
-                                >
-                                    {{ user.account_type }}
-                                </span>
-                            </span>
-                        </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Input group-->
-
-                    <!--begin::Input group-->
-                    <div class="row mb-7">
-                        <!--begin::Label-->
-                        <label class="col-lg-4 fw-semibold text-muted">
-                            User Status
-                        </label>
-                        <!--end::Label-->
-
-                        <!--begin::Col-->
-                        <div class="col-lg-8">
-                            <span class="menu-badge">
-                                {% if user.is_active %}
-                                    <span class="badge badge-success fw-semibold fs-8 px-2 py-2 ms-1">
-                                        Active
                                     </span>
-                                {% else %}
-                                    <span class="badge badge-danger fw-semibold fs-8 px-2 py-2 ms-1">
-                                        Inactive
-                                    </span>
-                                {% endif %}
-                            </span>
-                        </div>
-                        <!--end::Col-->
-                    </div>
-                    <!--end::Input group-->
+                                            </div>
+                                            <!--end::Col-->
+                                        </div>
+                                        <!--end::Input group-->
 
-                </div>
-                <!--end::Card body-->
+                                    </div>
+                                    <!--end::Card body-->
+
+                                    <!--end::details View-->
+                                </div>
+
+                                <div class="tab-pane fade" id="profile_setting" role="tabpanel">
+
+                                    <div class="card-header cursor-pointer">
+                                        <!--begin::Card title-->
+                                        <div class="card-title m-0">
+                                            <h3 class="fw-bold m-0">Profile Setting</h3>
+                                        </div>
+                                        <!--end::Card title-->
+                                    </div>
+                                    <div class="card-body p-9">
+                                        <!--begin::Form-->
+                                        <form id="kt_account_profile_details_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" method="POST" action="{% url 'edit-user' user.username %}" novalidate="novalidate">
+                                            <input type="hidden" name="csrfmiddlewaretoken" value="QyCKKNdh9IPLwpke656snrE4DqgMHAXmgWdQEPFbD3nMDu5FlfBj3UQraqx1sM2Z">
+                                            <!--begin::Card body-->
+
+
+                                                <!--begin::Input group-->
+                                                <div class="row mb-6">
+                                                    <!--begin::Label-->
+                                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">Full Name</label>
+                                                    <!--end::Label-->
+
+                                                    <!--begin::Col-->
+                                                    <div class="col-lg-8">
+                                                        <!--begin::Row-->
+                                                        <div class="row">
+                                                            <!--begin::Col-->
+                                                            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                                                                {{ form.first_name}}
+                                                                <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                                                            <!--end::Col-->
+
+                                                            <!--begin::Col-->
+                                                            <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                                                                {{ form.last_name}}
+                                                                <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                                                            <!--end::Col-->
+                                                        </div>
+                                                        <!--end::Row-->
+                                                    </div>
+                                                    <!--end::Col-->
+                                                </div>
+                                                <!--end::Input group-->
+
+                                                <!--begin::Input group-->
+                                                <div class="row mb-6">
+                                                    <!--begin::Label-->
+                                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">Username</label>
+                                                    <!--end::Label-->
+
+                                                    <!--begin::Col-->
+                                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                                        {{ form.username }}
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                                                    <!--end::Col-->
+                                                </div>
+                                                <!--end::Input group-->
+
+
+                                            <!--end::Card body-->
+
+                                            <!--begin::Actions-->
+                                            <div class="card-footer d-flex justify-content-end py-6 px-9">
+                                                <button type="reset" class="btn btn-light btn-active-light-primary me-2">Discard</button>
+                                                <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save Changes</button>
+                                            </div>
+                                            <!--end::Actions-->
+                                            <input type="hidden"></form>
+                                        <!--end::Form-->
+                                    </div>
+
+                                </div>
+
+                                <div class="tab-pane fade" id="login_adn_security" role="tabpanel">
+                                <!--begin::Card header-->
+                                    <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_signin_method">
+                                        <div class="card-title m-0">
+                                            <h3 class="fw-bold m-0">Security</h3>
+                                        </div>
+                                    </div>
+                                    <!--end::Card header-->
+                                    <!--begin::Content-->
+                                    <div id="kt_account_settings_signin_method" class="collapse show">
+                                        <!--begin::Card body-->
+                                        <div class="card-body border-top p-9">
+                                            <!--begin::Email Address-->
+                                            <div class="d-flex flex-wrap align-items-center">
+                                                <!--begin::Label-->
+                                                <div id="kt_signin_email">
+                                                    <div class="fs-6 fw-bold mb-1">Email Address</div>
+                                                    <div class="fw-semibold text-gray-600">{{ user.email }}a</div>
+                                                </div>
+                                                <!--end::Label-->
+                                                <!--begin::Edit-->
+                                                <div id="kt_signin_email_edit" class="flex-row-fluid d-none">
+                                                    <!--begin::Form-->
+                                                    <form class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" method="POST" action="{% url 'user-change-email' user.username %}">
+                                                        <input type="hidden" name="csrfmiddlewaretoken" value="u7W4D23uE9a7jmSF7Qujuc48ylznSAcGUvxax4vo8uI8qrD6m0ZaaFgv5lQCDMhj">
+                                                        <div class="row mb-6">
+                                                            <div class="col-lg-6 mb-4 mb-lg-0">
+                                                                <div class="fv-row mb-0">
+                                                                    <label for="emailaddress" class="form-label fs-6 fw-bold mb-3">Enter New Email Address</label>
+                                                                    {{ email_change_form.email }}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-6">
+                                                                <div class="fv-row mb-0">
+                                                                    <label for="confirmemailpassword" class="form-label fs-6 fw-bold mb-3">Confirm Password</label>
+                                                                    {{ email_change_form.old_password }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="d-flex">
+                                                            <button id="kt_signin_submit" type="submit" class="btn btn-primary me-2 px-6">Update Email</button>
+                                                            <button id="kt_signin_cancel" type="button" class="btn btn-color-gray-400 btn-active-light-primary px-6">Cancel</button>
+                                                        </div>
+                                                    </form>
+                                                    <!--end::Form-->
+                                                </div>
+                                                <!--end::Edit-->
+                                                <!--begin::Action-->
+                                                <div id="kt_signin_email_button" class="ms-auto">
+                                                    <button class="btn btn-light btn-active-light-primary">Change Email</button>
+                                                </div>
+                                                <!--end::Action-->
+                                            </div>
+                                            <!--end::Email Address-->
+                                            <!--begin::Separator-->
+                                            <div class="separator separator-dashed my-6"></div>
+                                            <!--end::Separator-->
+                                            <!--begin::Password-->
+                                            <div class="d-flex flex-wrap align-items-center">
+                                                <!--begin::Label-->
+                                                <div id="kt_signin_password">
+                                                    <div class="fs-6 fw-bold mb-1">Password</div>
+                                                    <div class="fw-semibold text-gray-600">************</div>
+                                                </div>
+                                                <!--end::Label-->
+                                                <!--begin::Edit-->
+                                                <div id="kt_signin_password_edit" class="flex-row-fluid d-none">
+                                                    <!--begin::Form-->
+                                                    <form class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" action="{% url 'user-reset-password' user.username %}" method="POST">
+                                                        <input type="hidden" name="csrfmiddlewaretoken" value="u7W4D23uE9a7jmSF7Qujuc48ylznSAcGUvxax4vo8uI8qrD6m0ZaaFgv5lQCDMhj">
+                                                        <div class="row mb-1">
+                                                            <div class="col-lg-4">
+                                                                <div class="fv-row mb-0">
+                                                                    <label for="currentpassword" class="form-label fs-6 fw-bold mb-3">Current Password</label>
+                                                                    {{ password_reset_form.old_password }}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <div class="fv-row mb-0">
+                                                                    <label for="newpassword" class="form-label fs-6 fw-bold mb-3">New Password</label>
+                                                                    {{ password_reset_form.new_password1 }}
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <div class="fv-row mb-0">
+                                                                    <label for="confirmpassword" class="form-label fs-6 fw-bold mb-3">Confirm New Password</label>
+                                                                    {{ password_reset_form.new_password2 }}
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-text mb-5">Password must be at least 8 character and contain symbols</div>
+                                                        <div class="d-flex">
+                                                            <button id="kt_password_submit" type="submit" class="btn btn-primary me-2 px-6">Update Password</button>
+                                                            <button id="kt_password_cancel" type="button" class="btn btn-color-gray-400 btn-active-light-primary px-6">Cancel</button>
+                                                        </div>
+                                                        <!--end::Form-->
+                                                    </form>
+                                                </div>
+                                                <!--end::Edit-->
+                                                <!--begin::Action-->
+                                                <div id="kt_signin_password_button" class="ms-auto">
+                                                    <button class="btn btn-light btn-active-light-primary">Reset Password</button>
+                                                </div>
+                                                <!--end::Action-->
+                                            </div>
+                                            <!--end::Password-->
+
+                                        </div>
+                                        <!--end::Card body-->
+                                    </div>
+                                    <!--end::Content-->
+                                </div>
+
+                            </div>
+                        </div>
+                        <!--body::Header-->
+                    
+                    
+                    </div>
+                    <!--end::Tables Widget 2-->
+                </div><!--end::Col-->
             </div>
-            <!--end::details View-->
-
-
-
-
-
-
+            <!--end::Row-->                                        
         </div>
         <!--end::Content container-->
     </div>
+    <!--end::Content-->
 
 {% endblock content-wrapper %}

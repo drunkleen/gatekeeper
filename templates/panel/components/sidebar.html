@@ -133,25 +133,6 @@
                                     <!--end:Menu link-->
                                 </div>
                                 <!--end:Menu item-->
-                                <!--begin:Menu item-->
-                                <div class="menu-item">
-                                    <!--begin:Menu link-->
-
-                                    {% if page_title|last == 'User Settings' %}
-                                        <a class="menu-link active" href="#">
-                                    {% else %}
-                                        <a class="menu-link" href="{% url 'edit-user' request.user.username %}" data-kt-page="pro">
-                                    {% endif %}
-														<span class="menu-bullet">
-															<span class="bullet bullet-dot"></span>
-														</span>
-                                        <span class="menu-title">
-                                            User Settings
-                                        </span>
-                                    </a>
-                                    <!--end:Menu link-->
-                                </div>
-                                <!--end:Menu item-->
                             </div>
                             <!--end:Menu sub-->
 

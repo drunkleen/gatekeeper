@@ -6,19 +6,19 @@
         {% for message in messages %}
 
     <div
-            {% if message.tag == 'error' %}
+            {% if message.tags == 'error' %}
             class="notice d-flex bg-light-danger rounded border-danger border border-dashed p-6"
-            {% elif message.tag == 'success' %}
+            {% elif message.tags == 'success' %}
             class="notice d-flex bg-light-success rounded border-success border border-dashed p-6"
             {% else %}
             class="notice d-flex bg-light-primary rounded border-primary border border-dashed p-6"
             {% endif %}>
         <!--begin::Icon-->
         <i
-                {% if message.tag == 'error' %}
+                {% if message.tags == 'error' %}
                 class="ki-duotone ki-cross-circle fs-2tx text-danger me-4"
-                {% elif message.tag == 'success' %}
-                class="ki-duotone ki-user-tick fs-2tx text-success me-4"
+                {% elif message.tags == 'success' %}
+                class="ki-duotone ki-like fs-2tx text-success me-4"
                 {% else %}
                 class="ki-duotone ki-question fs-2tx text-primary me-4"
                 {% endif %}
