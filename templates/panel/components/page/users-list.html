@@ -29,155 +29,6 @@
                     <div class="card-toolbar">
                         <!--begin::Toolbar-->
                         <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
-                            <!--begin::Filter-->
-                            <button type="button" class="btn btn-light-primary me-3" data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">
-                                <i class="ki-duotone ki-filter fs-2">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                </i>Filter</button>
-                            <!--begin::Menu 1-->
-                            <div class="menu menu-sub menu-sub-dropdown w-300px w-md-325px" data-kt-menu="true">
-                                <!--begin::Header-->
-                                <div class="px-7 py-5">
-                                    <div class="fs-5 text-dark fw-bold">Filter Options</div>
-                                </div>
-                                <!--end::Header-->
-                                <!--begin::Separator-->
-                                <div class="separator border-gray-200"></div>
-                                <!--end::Separator-->
-                                <!--begin::Content-->
-                                <form method="GET" action="{% url 'panel-admin-user-lists' %}" >
-                                <div class="px-7 py-5" data-kt-user-table-filter="form">
-                                    <!--begin::Input group-->
-                                    <div class="mb-7">
-                                        <!--begin::Label-->
-                                        <label class="fw-semibold fs-6 mb-5">Sort By:</label>
-                                        <!--end::Label-->
-                                        <!--begin::Roles-->
-                                        <!--begin::Input row-->
-                                        <div class="d-flex fv-row">
-                                            <!--begin::Radio-->
-                                            <div class="form-check form-check-custom form-check-solid">
-                                                <!--begin::Input-->
-                                                <input class="form-check-input me-3" name="order" type="radio" value="id" id="kt_modal_update_role_option_0" checked="checked">
-                                                <!--end::Input-->
-                                                <!--begin::Label-->
-                                                <label class="form-check-label" for="kt_modal_update_role_option_0">
-                                                    <div class="fw-bold text-gray-800">ID</div>
-                                                </label>
-                                                <!--end::Label-->
-                                            </div>
-                                            <!--end::Radio-->
-                                        </div>
-                                        <!--end::Input row-->
-                                        <div class="separator separator-dashed my-5"></div>
-                                        <!--begin::Input row-->
-                                        <div class="d-flex fv-row">
-                                            <!--begin::Radio-->
-                                            <div class="form-check form-check-custom form-check-solid">
-                                                <!--begin::Input-->
-                                                <input class="form-check-input me-3" name="order" type="radio" value="username" id="kt_modal_update_role_option_2">
-                                                <!--end::Input-->
-                                                <!--begin::Label-->
-                                                <label class="form-check-label" for="kt_modal_update_role_option_2">
-                                                    <div class="fw-bold text-gray-800">Username</div>
-                                                </label>
-                                                <!--end::Label-->
-                                            </div>
-                                            <!--end::Radio-->
-                                        </div>
-                                        <!--end::Input row-->
-                                        <!--end::Input row-->
-                                        <div class="separator separator-dashed my-5"></div>
-                                        <!--begin::Input row-->
-                                        <div class="d-flex fv-row">
-                                            <!--begin::Radio-->
-                                            <div class="form-check form-check-custom form-check-solid">
-                                                <!--begin::Input-->
-                                                <input class="form-check-input me-3" name="order" type="radio" value="account_type" id="kt_modal_update_role_option_3">
-                                                <!--end::Input-->
-                                                <!--begin::Label-->
-                                                <label class="form-check-label" for="kt_modal_update_role_option_3">
-                                                    <div class="fw-bold text-gray-800">Type</div>
-                                                </label>
-                                                <!--end::Label-->
-                                            </div>
-                                            <!--end::Radio-->
-                                        </div>
-                                        <!--end::Input row-->
-                                        <!--end::Input row-->
-                                        <div class="separator separator-dashed my-5"></div>
-                                        <!--begin::Input row-->
-                                        <div class="d-flex fv-row">
-                                            <!--begin::Radio-->
-                                            <div class="form-check form-check-custom form-check-solid">
-                                                <!--begin::Input-->
-                                                <input class="form-check-input me-3" name="order" type="radio" value="last_login" id="kt_modal_update_role_option_4">
-                                                <!--end::Input-->
-                                                <!--begin::Label-->
-                                                <label class="form-check-label" for="kt_modal_update_role_option_4">
-                                                    <div class="fw-bold text-gray-800">Last Login</div>
-                                                </label>
-                                                <!--end::Label-->
-                                            </div>
-                                            <!--end::Radio-->
-                                        </div>
-                                        <!--end::Input row-->
-                                        <!--end::Input row-->
-                                        <div class="separator separator-dashed my-5"></div>
-                                        <!--begin::Input row-->
-                                        <div class="d-flex fv-row">
-                                            <!--begin::Radio-->
-                                            <div class="form-check form-check-custom form-check-solid">
-                                                <!--begin::Input-->
-                                                <input class="form-check-input me-3" name="order" type="radio" value="is_active" id="kt_modal_update_role_option_5">
-                                                <!--end::Input-->
-                                                <!--begin::Label-->
-                                                <label class="form-check-label" for="kt_modal_update_role_option_5">
-                                                    <div class="fw-bold text-gray-800">Status</div>
-                                                </label>
-                                                <!--end::Label-->
-                                            </div>
-                                            <!--end::Radio-->
-                                        </div>
-                                        <!--end::Input row-->
-                                        <!--end::Input row-->
-                                        <div class="separator separator-dashed my-5"></div>
-                                        <!--begin::Input row-->
-                                        <div class="d-flex fv-row">
-                                            <!--begin::Radio-->
-                                            <div class="form-check form-check-custom form-check-solid">
-                                                <!--begin::Input-->
-                                                <input class="form-check-input me-3" name="order" type="radio" value="updated_at" id="kt_modal_update_role_option_6">
-                                                <!--end::Input-->
-                                                <!--begin::Label-->
-                                                <label class="form-check-label" for="kt_modal_update_role_option_6">
-                                                    <div class="fw-bold text-gray-800">Last Update</div>
-                                                </label>
-                                                <!--end::Label-->
-                                            </div>
-                                            <!--end::Radio-->
-                                        </div>
-                                        <!--end::Input row-->
-                                        <!--end::Roles-->
-                                    </div>
-                                    <!--begin::Actions-->
-                                    <div class="d-flex justify-content-end">
-                                        <a href="{% url 'panel-admin-user-lists' %}" class="btn btn-light btn-active-light-primary fw-semibold me-2 px-6">
-                                            Reset
-                                        </a>
-                                        <button type="submit" class="btn btn-primary fw-semibold px-6" data-kt-menu-dismiss="true" data-kt-user-table-filter="filter">Apply</button>
-                                    </div>
-                                    <!--end::Actions-->
-                                </div>
-                                </form>
-
-
-
-                                    <!--end::Content-->
-                            </div>
-                            <!--end::Menu 1-->
-                            <!--end::Filter-->
 
                             <!--begin::Add user-->
                             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
@@ -358,13 +209,7 @@
                     <div id="kt_table_users_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer"><div class="table-responsive"><table class="table align-middle table-row-dashed fs-6 gy-5 dataTable no-footer" id="kt_table_users">
                         <thead>
                             <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-
-                                <th class="w-10px pe-2 sorting_disabled" rowspan="1" colspan="1" style="width: 29.9px;" aria-label="">
-                                    <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                        <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_users .form-check-input" value="1">
-                                    </div>
-                                </th>
-
+                                <th class="w-10px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" style="width: 537.283px;" aria-label="ID: activate to sort column ascending">ID</th>
                                 <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" style="width: 537.283px;" aria-label="User: activate to sort column ascending">User</th>
                                 <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" style="width: 318.033px;" aria-label="Type: activate to sort column ascending">Type</th>
                                 <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" style="width: 318.033px;" aria-label="Last login: activate to sort column ascending">Last login</th>
@@ -374,8 +219,6 @@
                             </tr>
                         </thead>
                         <tbody class="text-gray-600 fw-semibold">
-
-
 
                             {% for user in users %}
 
@@ -387,10 +230,9 @@
                                     {% endif %}
                                 >
 
-                                    <td>
-                                        <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                            <input class="form-check-input" type="checkbox" name="selected_users" value="{{ user.id }}">
-                                        </div>
+
+                                    <td data-order="{{ user.id }}">
+                                        {{ user.id }}
                                     </td>
                                     <td class="d-flex align-items-center">
                                         <!--begin:: Avatar -->
@@ -421,8 +263,10 @@
                                         </div>
                                         <!--begin::User details-->
                                     </td>
-                                    <td>{{ user.account_type }}</td>
-                                    <td data-order="2024-02-18T16:19:32+01:00">
+                                    <td data-order="{{ user.account_type }}">
+                                        {{ user.account_type }}
+                                    </td>
+                                    <td data-order="{{ user.last_login }}">
                                         <div class="badge badge-light fw-bold">{{ user.last_login|time_ago }}</div>
                                     </td>
                                     <td>
