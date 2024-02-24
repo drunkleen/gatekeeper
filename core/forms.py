@@ -237,3 +237,15 @@ class UserEditForm(forms.ModelForm):
 
         # Set password fields as not required
         self.fields['last_name'].required = False
+
+
+class SubscriptionForm(forms.ModelForm):
+    class Meta:
+        model = Subscription
+        fields = ['subscription_title', 'subscription_link', 'expose', 'assigned_to', 'is_active', 'creator']
+
+    def __init__(self, *args, **kwargs):
+        super(SubscriptionForm, self).__init__(*args, **kwargs)
+
+        self.fields['assigned_to'].required = False
+        self.fields['creator'].required = False

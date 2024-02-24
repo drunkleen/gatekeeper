@@ -5,34 +5,22 @@
     {% include 'panel/components/header.html' %}
 
     <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
-        <!--begin::Sidebar-->
         {% include 'panel/components/sidebar.html' %}
-        <!--end::Sidebar-->
-        <!--begin::Main-->
         <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
-            <!--begin::Content wrapper-->
             <div class="d-flex flex-column flex-column-fluid">
-                <!--begin::Content-->
                 <div id="kt_app_content" class="app-content flex-column-fluid">
                 
-                <!--begin::Toolbar-->
                 {% include 'panel/components/toolbar.html' %}
-                <!--end::Toolbar-->
 
                 {% block content-wrapper %}{% endblock content-wrapper %}
 
                 </div>
-                <!--end::Content-->
 
             </div>
-            <!--end::Content wrapper-->
 
-            <!--begin::Footer-->
             {% include 'panel/components/footer.html' %}
-            <!--end::Footer-->
         </div>
 
-        <!--end:::Main-->
 
     </div>
 

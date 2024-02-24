@@ -4,91 +4,52 @@
 {% block content-wrapper %}
 
 
-    <!--begin::Content-->
     <div id="kt_app_content" class="app-content  flex-column-fluid ">
-        <!--begin::Content container-->
         <div id="kt_app_content_container" class="app-container  container-fluid ">
-            <!--begin::Row-->
             <div class="row g-5 g-xxl-8">
-                <!--begin::Col-->
                 <div class="card-body pb-0">
-                    <!--begin::Timeline widget 2-->
                     <div class="card mb-5 mb-xl-8" id="kt_timeline_widget_2_card">
-                        <!--begin::Header-->
                         <div class="card-header position-relative py-0 border-bottom-2">
-                            <!--begin::Nav-->
                             <ul class="nav nav-stretch nav-pills nav-pills-custom d-flex mt-3" role="tablist">
-                                <!--begin::Item-->
                                 <li class="nav-item p-0 ms-0 me-8" role="presentation">
-                                    <!--begin::Link-->
                                     <a class="nav-link btn btn-color-muted px-0 active" data-bs-toggle="pill" href="#kt_timeline_widget_2_tab_1" aria-selected="true" role="tab">
-                                        <!--begin::Subtitle-->
                                         <span class="nav-text fw-semibold fs-4 mb-3">
                                             All Links
                                         </span>
-                                        <!--end::Subtitle-->
 
-                                        <!--begin::Bullet-->
                                         <span class="bullet-custom position-absolute z-index-2 w-100 h-2px top-100 bottom-n100 bg-primary rounded"></span>
-                                        <!--end::Bullet-->
                                     </a>
-                                    <!--end::Link-->
                                 </li>
-                                <!--end::Item-->
 
-                                <!--begin::Item-->
                                 <li class="nav-item p-0 ms-0 me-8" role="presentation">
-                                    <!--begin::Link-->
                                     <a class="nav-link btn btn-color-muted px-0" data-bs-toggle="pill" href="#kt_timeline_widget_2_tab_2" aria-selected="false" role="tab" tabindex="-1">
-                                        <!--begin::Subtitle-->
                                         <span class="nav-text fw-semibold fs-4 mb-3">
                                             Restricted
                                         </span>
-                                        <!--end::Subtitle-->
 
-                                        <!--begin::Bullet-->
                                         <span class="bullet-custom position-absolute z-index-2 w-100 h-2px top-100 bottom-n100 bg-primary rounded"></span>
-                                        <!--end::Bullet-->
                                     </a>
-                                    <!--end::Link-->
                                 </li>
-                                <!--end::Item-->
 
 
-                                <!--begin::Item-->
                                 <li class="nav-item p-0 ms-0" role="presentation">
-                                    <!--begin::Link-->
                                     <a class="nav-link btn btn-color-muted px-0" data-bs-toggle="pill" href="#kt_timeline_widget_2_tab_3" aria-selected="false" role="tab" tabindex="-1">
-                                        <!--begin::Subtitle-->
                                         <span class="nav-text fw-semibold fs-4 mb-3">
                                             Exposed
                                         </span>
-                                        <!--end::Subtitle-->
 
-                                        <!--begin::Bullet-->
                                         <span class="bullet-custom position-absolute z-index-2 w-100 h-2px top-100 bottom-n100 bg-primary rounded"></span>
-                                        <!--end::Bullet-->
                                     </a>
-                                    <!--end::Link-->
                                 </li>
-                                <!--end::Item-->
                             </ul>
-                            <!--end::Nav-->
                         </div>
-                        <!--end::Header-->
 
-                        <!--begin::Body-->
                         <div class="card-body">
-                            <!--begin::Tab Content-->
                             <div class="tab-content">
 
-                                <!--begin::Tap pane-->
                                 <div class="tab-pane fade active show" id="kt_timeline_widget_2_tab_1" role="tabpanel">
-                                    <!--begin::Table container-->
                                     <div class="table-responsive">
-                                        <!--begin::Table-->
                                         <table class="table align-middle gs-0 gy-4">
-                                            <!--begin::Table head-->
                                             <thead>
                                             <tr>
                                                 <th class="p-0 w-10px"></th>
@@ -98,9 +59,7 @@
                                                 <th class="p-0 min-w-125px"></th>
                                             </tr>
                                             </thead>
-                                            <!--end::Table head-->
 
-                                            <!--begin::Table body-->
                                             <tbody>
                                             {% if links %}
                                                 {% for link in links %}
@@ -133,28 +92,20 @@
                                                             </td>
 
                                                             <td class="text-end">
-                                                                <!--begin::Icon-->
                                                                 <div class="d-flex justify-content-end flex-shrink-0">
-                                                                    <!--begin::Print-->
                                                                     <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
                                                                         <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
-                                                                    <!--end::Print-->
 
-                                                                    <!--begin::Chat-->
                                                                     <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
                                                                         <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
-                                                                    <!--end::Chat-->
 
                                                                     {% if request.user.account_type == 'admin' or request.user.account_type == 'moderator' %}
-                                                                        <!--begin::Attach-->
                                                                         <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-danger btn-sm">
                                                                             <i class="ki-duotone ki-paper-clip fs-3"></i>
                                                                         </a>
-                                                                        <!--end::Attach-->
                                                                     {% endif %}
 
                                                                 </div>
-                                                                <!--end::Icon-->
                                                             </td>
                                                         </tr>
                                                     {% else %}
@@ -187,28 +138,20 @@
                                                             </td>
 
                                                             <td class="text-end">
-                                                                <!--begin::Icon-->
                                                                 <div class="d-flex justify-content-end flex-shrink-0">
-                                                                    <!--begin::Print-->
                                                                     <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
                                                                         <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
-                                                                    <!--end::Print-->
 
-                                                                    <!--begin::Chat-->
                                                                     <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
                                                                         <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
-                                                                    <!--end::Chat-->
 
                                                                     {% if request.user.account_type == 'admin' or request.user.account_type == 'moderator' %}
-                                                                        <!--begin::Attach-->
                                                                         <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-danger btn-sm">
                                                                             <i class="ki-duotone ki-paper-clip fs-3"></i>
                                                                         </a>
-                                                                        <!--end::Attach-->
                                                                     {% endif %}
 
                                                                 </div>
-                                                                <!--end::Icon-->
                                                             </td>
                                                         </tr>
                                                     {% endif %}
@@ -236,20 +179,13 @@
                                                 </tr>
                                             {% endif %}
                                             </tbody>
-                                            <!--end::Table body-->
                                         </table>
                                     </div>
-                                    <!--end::Table-->
                                 </div>
-                                <!--end::Tap pane-->
 
-                                <!--begin::Tap pane-->
                                 <div class="tab-pane fade" id="kt_timeline_widget_2_tab_2" role="tabpanel">
-                                    <!--begin::Table container-->
                                     <div class="table-responsive">
-                                        <!--begin::Table-->
                                         <table class="table align-middle gs-0 gy-4">
-                                            <!--begin::Table head-->
                                             <thead>
                                             <tr>
                                                 <th class="p-0 w-10px"></th>
@@ -259,9 +195,7 @@
                                                 <th class="p-0 min-w-125px"></th>
                                             </tr>
                                             </thead>
-                                            <!--end::Table head-->
 
-                                            <!--begin::Table body-->
                                             <tbody>
                                             {% if restricted_links %}
                                                 {% for link in restricted_links %}
@@ -294,28 +228,20 @@
                                                         </td>
 
                                                         <td class="text-end">
-                                                            <!--begin::Icon-->
                                                             <div class="d-flex justify-content-end flex-shrink-0">
-                                                                <!--begin::Print-->
                                                                 <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
                                                                     <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
-                                                                <!--end::Print-->
 
-                                                                <!--begin::Chat-->
                                                                 <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
                                                                     <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
-                                                                <!--end::Chat-->
 
                                                                 {% if request.user.account_type == 'admin' or request.user.account_type == 'moderator' %}
-                                                                    <!--begin::Attach-->
                                                                     <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-danger btn-sm">
                                                                         <i class="ki-duotone ki-paper-clip fs-3"></i>
                                                                     </a>
-                                                                    <!--end::Attach-->
                                                                 {% endif %}
 
                                                             </div>
-                                                            <!--end::Icon-->
                                                         </td>
                                                     </tr>
                                                 {% endfor %}
@@ -341,20 +267,13 @@
                                                 </tr>
                                             {% endif %}
                                             </tbody>
-                                            <!--end::Table body-->
                                         </table>
                                     </div>
-                                    <!--end::Table-->
                                 </div>
-                                <!--end::Tap pane-->
 
-                                <!--begin::Tap pane-->
                                 <div class="tab-pane fade" id="kt_timeline_widget_2_tab_3" role="tabpanel">
-                                    <!--begin::Table container-->
                                     <div class="table-responsive">
-                                        <!--begin::Table-->
                                         <table class="table align-middle gs-0 gy-4">
-                                            <!--begin::Table head-->
                                             <thead>
                                             <tr>
                                                 <th class="p-0 w-10px"></th>
@@ -364,9 +283,7 @@
                                                 <th class="p-0 min-w-125px"></th>
                                             </tr>
                                             </thead>
-                                            <!--end::Table head-->
 
-                                            <!--begin::Table body-->
                                             <tbody>
                                             {% if exposed_links %}
                                                 {% for link in exposed_links %}
@@ -399,28 +316,20 @@
                                                         </td>
 
                                                         <td class="text-end">
-                                                            <!--begin::Icon-->
                                                             <div class="d-flex justify-content-end flex-shrink-0">
-                                                                <!--begin::Print-->
                                                                 <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
                                                                     <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
-                                                                <!--end::Print-->
 
-                                                                <!--begin::Chat-->
                                                                 <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
                                                                     <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
-                                                                <!--end::Chat-->
 
                                                                 {% if request.user.account_type == 'admin' or request.user.account_type == 'moderator' %}
-                                                                    <!--begin::Attach-->
                                                                     <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-danger btn-sm">
                                                                         <i class="ki-duotone ki-paper-clip fs-3"></i>
                                                                     </a>
-                                                                    <!--end::Attach-->
                                                                 {% endif %}
 
                                                             </div>
-                                                            <!--end::Icon-->
                                                         </td>
                                                     </tr>
                                                 {% endfor %}
@@ -446,26 +355,16 @@
                                                 </tr>
                                             {% endif %}
                                             </tbody>
-                                            <!--end::Table body-->
                                         </table>
                                     </div>
-                                    <!--end::Table-->
                                 </div>
-                                <!--end::Tap pane-->
                             
                             
                             </div>
-                            <!--end::Tab Content-->
                         </div>
-                        <!--end::Body-->
                     </div>
-                    <!--end::Tables Widget 2-->
-                </div><!--end::Col-->
             </div>
-            <!--end::Row-->                                        
         </div>
-        <!--end::Content container-->
     </div>
-    <!--end::Content-->
 
 {% endblock content-wrapper %}

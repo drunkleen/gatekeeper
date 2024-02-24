@@ -9,8 +9,10 @@ from django.http import HttpResponse
 from django.contrib import messages
 from core.models import UserAccount, Subscription
 from core.forms import UserCreationForm, AdminUserCreationForm, AdminUserEditForm, UserEditForm, UserPasswordChangeForm, \
-    UserEmailChangeForm
+    UserEmailChangeForm, SubscriptionForm
 from core.utils.utils import generate_qr_code, link_scraper
+from django.utils import timezone
+from datetime import timedelta
 
 
 # Error handling
@@ -139,6 +141,19 @@ def panel_admin(request) -> HttpResponse:
             'request': request,
             'page_title': ['User Management', 'Overview'],
         }
+
+        try:
+            last_24_h = timezone.now() - timedelta(days=1)
+            last_week = timezone.now() - timedelta(days=7)
+            users = UserAccount.objects
+
+            context['last_24_h_active_users_count'] = len(users.filter(last_login__gte=last_24_h))
+            context['last_week_active_users_count'] = len(users.filter(last_login__gte=last_week))
+            context['overall_active_users_count'] = len(users.filter(last_login__isnull=False))
+
+        except UserAccount.DoesNotExist:
+            pass
+
         return render(request, 'panel/components/page/overview.html', context)
     return redirect('panel-user', username=request.user.username)
 
@@ -211,6 +226,35 @@ def panel_admin_edit_user(request, username: str) -> HttpResponse:
         form = AdminUserEditForm(instance=user)
         context['form'] = form
         return render(request, 'panel/components/page/admin-edit-user.html', context)
+
+    messages.error(request, 'Action Not Allowed')
+    return redirect('panel-user', username=request.user.username)
+
+
+@login_required(login_url='/auth/sign-in')
+def panel_admin_create_link(request, username: str) -> HttpResponse:
+    if request.user.account_type in ['admin', 'moderator']:
+
+        context = {
+            'request': request,
+            'page_title': ['User Management', 'User List', 'Edit User', 'Create Link'],
+        }
+
+        user = get_object_or_404(UserAccount, username=username)
+
+        if request.method == 'POST':
+            form = SubscriptionForm(request.POST)
+            if form.is_valid():
+                form.assigned_to = user
+                form.creator = request.user
+                subscription = form.save()
+
+                messages.success(request, 'Link was successfully created!')
+                return redirect('panel-admin-user-lists')
+
+        form = AdminUserEditForm(instance=user)
+        context['form'] = form
+        return render(request, 'panel/components/page/admin-create-link.html', context)
 
     messages.error(request, 'Action Not Allowed')
     return redirect('panel-user', username=request.user.username)
