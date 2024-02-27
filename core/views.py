@@ -15,55 +15,6 @@ from django.utils import timezone
 from datetime import timedelta
 
 
-# Error handling
-def error_400(request, exception) -> HttpResponse:
-    context = {
-        "pre_url": request.META.get('HTTP_REFERER'),
-        "error": "400",
-        "text": "Bad Request!",
-    }
-    return render(request, 'error-handler.html', context, status=400)
-
-
-def error_403(request, exception) -> HttpResponse:
-    context = {
-        "pre_url": request.META.get('HTTP_REFERER'),
-        "error": "403",
-        "text": "Access denied!",
-    }
-    return render(request, 'error-handler.html', context, status=403)
-
-
-def error_404(request, exception) -> HttpResponse:
-    context = {
-        "pre_url": request.META.get('HTTP_REFERER'),
-        "error": "404",
-        "text": "Page not found!",
-    }
-    return render(request, 'error-handler.html', context, status=404)
-
-
-def return_error(request, error_code: str, text: str) -> HttpResponse:
-    context = {
-        "pre_url": request.META.get('HTTP_REFERER'),
-        "error": error_code,
-        "text": text,
-    }
-    return render(request, 'error-handler.html', context)
-
-
-def error_500(request) -> HttpResponse:
-    context = {
-        "pre_url": request.META.get('HTTP_REFERER'),
-        "error": "500",
-        "text": "Internal Server Error!",
-    }
-    return render(request, 'error-handler.html', context, status=500)
-
-
-# View handler
-
-
 def index(request) -> HttpResponse:
     if request.user.is_authenticated:
         if request.user.account_type == 'admin' or request.user.account_type == 'moderator':
