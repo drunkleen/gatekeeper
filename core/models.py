@@ -41,7 +41,7 @@ class Subscription(models.Model):
         max_length=512,
         validators=[MaxLengthValidator(512)], null=True, blank=False
     )
-    subscription_link = models.TextField(
+    subscription_link = models.CharField(
         max_length=512,
         validators=[MaxLengthValidator(512)], null=True, blank=False
     )
@@ -49,7 +49,7 @@ class Subscription(models.Model):
     expose = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
-    creator = models.ForeignKey(
+    created_by = models.ForeignKey(
         UserAccount, on_delete=models.CASCADE,
         null=True, blank=False, related_name="subscriptions_creator"
     )
@@ -66,8 +66,8 @@ class Subscription(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            self.creator = self.assigned_to
+            self.created_by = self.assigned_to
         super(Subscription, self).save(*args, **kwargs)
 
     def __str__(self):
-        return str(f'{self.subscription_title} ({self.assigned_to.username})')
+        return str(f'{self.subscription_title} ({self.assigned_to})')

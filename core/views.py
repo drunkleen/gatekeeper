@@ -22,7 +22,7 @@ def error_400(request, exception) -> HttpResponse:
         "error": "400",
         "text": "Bad Request!",
     }
-    return render(request, 'error_handlers/index.html', context)
+    return render(request, 'error-handler.html', context, status=400)
 
 
 def error_403(request, exception) -> HttpResponse:
@@ -31,7 +31,7 @@ def error_403(request, exception) -> HttpResponse:
         "error": "403",
         "text": "Access denied!",
     }
-    return render(request, 'error_handlers/index.html', context)
+    return render(request, 'error-handler.html', context, status=403)
 
 
 def error_404(request, exception) -> HttpResponse:
@@ -40,7 +40,7 @@ def error_404(request, exception) -> HttpResponse:
         "error": "404",
         "text": "Page not found!",
     }
-    return render(request, 'error_handlers/index.html', context)
+    return render(request, 'error-handler.html', context, status=404)
 
 
 def return_error(request, error_code: str, text: str) -> HttpResponse:
@@ -49,7 +49,7 @@ def return_error(request, error_code: str, text: str) -> HttpResponse:
         "error": error_code,
         "text": text,
     }
-    return render(request, 'error_handlers/index.html', context)
+    return render(request, 'error-handler.html', context)
 
 
 def error_500(request) -> HttpResponse:
@@ -58,7 +58,7 @@ def error_500(request) -> HttpResponse:
         "error": "500",
         "text": "Internal Server Error!",
     }
-    return render(request, 'error_handlers/index.html', context)
+    return render(request, 'error-handler.html', context, status=500)
 
 
 # View handler
@@ -94,7 +94,7 @@ def user_sign_in(request) -> HttpResponse:
                 login(request, user)
                 if user.account_type in ('admin', 'moderator'):
                     return redirect('panel-admin')
-                return redirect('panel-user', username=user.username)
+                return redirect('user-view-links', username=user.username)
 
         except ObjectDoesNotExist:
             messages.error(request, 'Invalid email or password')
@@ -245,15 +245,20 @@ def panel_admin_create_link(request, username: str) -> HttpResponse:
         if request.method == 'POST':
             form = SubscriptionForm(request.POST)
             if form.is_valid():
-                form.assigned_to = user
-                form.creator = request.user
-                subscription = form.save()
+                link_form = form.save(commit=False)
+                link_form.created_by = request.user
+                link_form.assigned_to = user
+                link_form.expose = False
+                link_form.save()
 
-                messages.success(request, 'Link was successfully created!')
+                messages.success(
+                    request, f'Link was successfully assigned to {user.first_name} {user.last_name} [{user.username}].'
+                )
                 return redirect('panel-admin-user-lists')
 
-        form = AdminUserEditForm(instance=user)
+        form = SubscriptionForm()
         context['form'] = form
+        context['user'] = user
         return render(request, 'panel/components/page/admin-create-link.html', context)
 
     messages.error(request, 'Action Not Allowed')

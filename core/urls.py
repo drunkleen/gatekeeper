@@ -31,5 +31,4 @@ urlpatterns = [
     path('panel/user/user-link/show/<str:shorten_uuid_link>',
          views.user_view_single_link_show, name='user_link_page_show'),
 
-
 ]

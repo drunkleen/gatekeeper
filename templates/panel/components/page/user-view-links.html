@@ -11,6 +11,7 @@
                     <div class="card mb-5 mb-xl-8" id="kt_timeline_widget_2_card">
                         <div class="card-header position-relative py-0 border-bottom-2">
                             <ul class="nav nav-stretch nav-pills nav-pills-custom d-flex mt-3" role="tablist">
+                                
                                 <li class="nav-item p-0 ms-0 me-8" role="presentation">
                                     <a class="nav-link btn btn-color-muted px-0 active" data-bs-toggle="pill" href="#kt_timeline_widget_2_tab_1" aria-selected="true" role="tab">
                                         <span class="nav-text fw-semibold fs-4 mb-3">
@@ -93,17 +94,19 @@
 
                                                             <td class="text-end">
                                                                 <div class="d-flex justify-content-end flex-shrink-0">
-                                                                    <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
-                                                                        <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
-
-                                                                    <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
-                                                                        <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
 
                                                                     {% if request.user.account_type == 'admin' or request.user.account_type == 'moderator' %}
-                                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-danger btn-sm">
+                                                                        <a href="" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-danger btn-sm me-3">
                                                                             <i class="ki-duotone ki-paper-clip fs-3"></i>
                                                                         </a>
                                                                     {% endif %}
+
+                                                                    <a href="{% url 'user_link_page' link.subscription_uuid %}" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm" title="Edit (Super User)">
+                                                                        <i class="ki-duotone ki-pencil">
+                                                                            <span class="path1"></span>
+                                                                            <span class="path2"></span>
+                                                                        </i>
+                                                                    </a>
 
                                                                 </div>
                                                             </td>
@@ -139,17 +142,20 @@
 
                                                             <td class="text-end">
                                                                 <div class="d-flex justify-content-end flex-shrink-0">
-                                                                    <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
-                                                                        <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
-
-                                                                    <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
-                                                                        <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
 
                                                                     {% if request.user.account_type == 'admin' or request.user.account_type == 'moderator' %}
-                                                                        <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-danger btn-sm">
+                                                                        <a href="" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-danger btn-sm me-3">
                                                                             <i class="ki-duotone ki-paper-clip fs-3"></i>
                                                                         </a>
                                                                     {% endif %}
+
+                                                                    <a href="{% url 'user_link_page' link.subscription_uuid %}" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm" title="Edit (Super User)">
+                                                                        <i class="ki-duotone ki-pencil">
+                                                                            <span class="path1"></span>
+                                                                            <span class="path2"></span>
+                                                                        </i>
+                                                                    </a>
+
 
                                                                 </div>
                                                             </td>
@@ -229,17 +235,19 @@
 
                                                         <td class="text-end">
                                                             <div class="d-flex justify-content-end flex-shrink-0">
-                                                                <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
-                                                                    <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
-
-                                                                <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
-                                                                    <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
 
                                                                 {% if request.user.account_type == 'admin' or request.user.account_type == 'moderator' %}
-                                                                    <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-danger btn-sm">
+                                                                    <a href="" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-danger btn-sm me-3">
                                                                         <i class="ki-duotone ki-paper-clip fs-3"></i>
                                                                     </a>
                                                                 {% endif %}
+
+                                                                <a href="{% url 'user_link_page' link.subscription_uuid %}" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm" title="Edit (Super User)">
+                                                                    <i class="ki-duotone ki-pencil">
+                                                                        <span class="path1"></span>
+                                                                        <span class="path2"></span>
+                                                                    </i>
+                                                                </a>
 
                                                             </div>
                                                         </td>
@@ -317,17 +325,19 @@
 
                                                         <td class="text-end">
                                                             <div class="d-flex justify-content-end flex-shrink-0">
-                                                                <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
-                                                                    <i class="ki-duotone ki-printer fs-3"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>                                                </a>
-
-                                                                <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm me-3">
-                                                                    <i class="ki-duotone ki-sms fs-3"><span class="path1"></span><span class="path2"></span></i>                                                </a>
 
                                                                 {% if request.user.account_type == 'admin' or request.user.account_type == 'moderator' %}
-                                                                    <a href="#" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-danger btn-sm">
+                                                                    <a href="" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-danger btn-sm me-3">
                                                                         <i class="ki-duotone ki-paper-clip fs-3"></i>
                                                                     </a>
                                                                 {% endif %}
+
+                                                                <a href="{% url 'user_link_page' link.subscription_uuid %}" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-primary btn-sm" title="Edit (Super User)">
+                                                                    <i class="ki-duotone ki-pencil">
+                                                                        <span class="path1"></span>
+                                                                        <span class="path2"></span>
+                                                                    </i>
+                                                                </a>
 
                                                             </div>
                                                         </td>
