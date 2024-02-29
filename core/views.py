@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import update_session_auth_hash
-from django.http import HttpResponse
+from django.http import HttpResponse, Http404
 from django.contrib import messages
 from core.models import UserAccount, Subscription
 from core.forms import UserCreationForm, AdminUserCreationForm, AdminUserEditForm, UserEditForm, \
@@ -13,22 +13,66 @@ from django.utils import timezone
 from datetime import timedelta
 
 
+# util functions
+
+def is_admin_or_moderator(user):
+    return user.account_type in ('admin', 'moderator')
+
+
+def is_allowed_to_edit(user, target_user):
+    return user.account_type == 'admin' or \
+           (user.account_type == 'moderator' and target_user.account_type == 'user') or \
+           (user.account_type == 'moderator' and target_user.username == user.username) or \
+           target_user.username == user.username
+
+
+def has_permission(request, user):
+    return (
+        request.user.account_type == 'admin' or
+        (request.user.account_type == 'moderator' and user.account_type == 'user') or
+        (request.user.account_type == 'moderator' and user.username == request.user.username) or
+        user.username == request.user.username
+    )
+
+
+def redirect_based_on_user_type(user):
+    if is_admin_or_moderator(user):
+        return redirect('panel-admin')
+    else:
+        return redirect('panel-user', username=user.username)
+
+
+def handle_form_errors(request, form):
+    for field, errors in form.errors.items():
+        for error in errors:
+            messages.error(request, f'Error in {field}: {error}')
+
+
+def get_subscription_links(user):
+    try:
+        links = Subscription.objects.filter(assigned_to=user)
+        return links.filter(is_active=True)
+    except ObjectDoesNotExist:
+        return None
+
+
+
+def handle_object_does_not_exist(request):
+    messages.error(request, 'No subscription links were located.')
+    raise Http404("No subscription links were located.")
+
+# view methods
+
+
 def index(request) -> HttpResponse:
-    user_ip = request.META.get('REMOTE_ADDR', None)
-    print(user_ip)
     if request.user.is_authenticated:
-        if request.user.account_type == 'admin' or request.user.account_type == 'moderator':
-            return redirect('panel-admin')
-        else:
-            return redirect('panel-user', username=request.user.username)
+        return redirect_based_on_user_type(request.user)
     return redirect('sign-in')
 
 
 def user_sign_in(request) -> HttpResponse:
     if request.user.is_authenticated:
-        if request.user.account_type in ('admin', 'moderator'):
-            return redirect('panel-admin')
-        return redirect('panel-user', username=request.user.username)
+        return redirect_based_on_user_type(request.user)
 
     user_ip = request.META['REMOTE_ADDR']
     request.session['user_ip'] = user_ip
@@ -41,7 +85,7 @@ def user_sign_in(request) -> HttpResponse:
         password = request.POST.get('password')
 
         try:
-            user = UserAccount.objects.get(email=email)
+            user = get_object_or_404(UserAccount, email=email)
             user = authenticate(request, username=user.username, password=password)
 
             if user is not None:
@@ -90,7 +134,7 @@ def user_sign_out(request) -> HttpResponse:
 
 @login_required(login_url='/auth/sign-in')
 def panel_admin(request) -> HttpResponse:
-    if request.user.account_type in ('admin', 'moderator'):
+    if is_admin_or_moderator(request.user):
         context = {
             'request': request,
             'page_title': ['User Management', 'Overview'],
@@ -221,7 +265,7 @@ def panel_admin_create_link(request, username: str) -> HttpResponse:
 
 @login_required(login_url='/auth/sign-in')
 def panel_admin_edit_link(request, shorten_uuid_link: str) -> HttpResponse:
-    if request.user.account_type in ['admin', 'moderator']:
+    if is_admin_or_moderator(request.user):
 
         context = {
             'request': request,
@@ -253,19 +297,15 @@ def panel_admin_edit_link(request, shorten_uuid_link: str) -> HttpResponse:
 
 @login_required(login_url='/auth/sign-in')
 def panel_admin_delete_user(request, username: str) -> HttpResponse:
-    if request.user.account_type == ('admin' or 'moderator'):
+    if is_admin_or_moderator(request.user):
 
         user = UserAccount.objects.get(username=username)
 
-        if request.user.account_type == 'admin':
+        if is_allowed_to_edit(request.user, user):
             user.delete()
             return redirect('panel-admin-user-lists')
 
-        if request.user.account_type == 'moderator' and user.account_type == 'user':
-            user.delete()
-            return redirect('panel-admin-user-lists')
-
-    return error_403(request, username)
+    raise PermissionDenied
 
 
 @login_required(login_url='/auth/sign-in')
@@ -274,7 +314,7 @@ def panel_user_profile_overview(request, username: str) -> HttpResponse:
         'request': request,
     }
 
-    if request.user.username == username or request.user.account_type in ['admin', 'moderator']:
+    if request.user.username == username or is_admin_or_moderator(request.user):
         user = get_object_or_404(UserAccount, username=username)
         context['page_title'] = ['Users', 'Profile', 'User Profile']
         context['user'] = user
@@ -283,7 +323,7 @@ def panel_user_profile_overview(request, username: str) -> HttpResponse:
         context['password_reset_form'] = UserPasswordChangeForm(user)
 
         return render(request, 'panel/components/page/user-profile.html', context)
-
+    
     return redirect('sign-in')
 
 
@@ -294,10 +334,7 @@ def panel_user_edit(request, username: str) -> HttpResponse:
     if request.method == 'POST':
         form = UserEditForm(request.POST, instance=user)
         if form.is_valid():
-            if request.user.account_type == 'admin' or \
-                    (request.user.account_type == 'moderator' and user.account_type == 'user') or \
-                    (request.user.account_type == 'moderator' and user.username == request.user.username) or \
-                    user.username == request.user.username:
+            if has_permission(request, user):
 
                 user_form = form.save(commit=False)
                 user_form.email = user_form.email.lower() \
@@ -312,9 +349,7 @@ def panel_user_edit(request, username: str) -> HttpResponse:
                 messages.success(request, 'Your Profile was successfully updated!')
 
         else:
-            for field, errors in form.errors.items():
-                for error in errors:
-                    messages.error(request, f'Error in {field}: {error}')
+            handle_form_errors(request, form)
 
         return redirect('panel-user-profile', username=username)
 
@@ -338,9 +373,7 @@ def panel_user_change_email(request, username):
                 update_session_auth_hash(request, user)
                 messages.success(request, 'Your E-mail was successfully updated!')
         else:
-            for field, errors in form.errors.items():
-                for error in errors:
-                    messages.error(request, f'Error in {field}: {error}')
+            handle_form_errors(request, form)
 
         return redirect('panel-user-profile', username=username)
 
@@ -366,9 +399,7 @@ def panel_user_reset_password(request, username: str) -> HttpResponse:
                 update_session_auth_hash(request, user)
                 messages.success(request, 'Your password was successfully updated!')
         else:
-            for field, errors in form.errors.items():
-                for error in errors:
-                    messages.error(request, f'Error in {field}: {error}')
+            handle_form_errors(request, form)
 
         return redirect('panel-user-profile', username=username)
 
@@ -397,7 +428,7 @@ def user_view_links(request, username: str) -> HttpResponse:
 
         return render(request, 'panel/components/page/user-view-links.html', context)
 
-    return error_404(request, username)
+    raise Http404("No subscription links were located.")
 
 
 @login_required(login_url='/auth/sign-in')
@@ -422,9 +453,7 @@ def user_view_single_link(request, shorten_uuid_link) -> HttpResponse:
             return render(request, 'panel/components/page/user-view-link-activation.html', context)
 
     except ObjectDoesNotExist:
-        messages.error(request, 'No subscription links were located.')
-
-    return error_404(request, shorten_uuid_link)
+        handle_object_does_not_exist(request)
 
 
 @login_required(login_url='/auth/sign-in')
@@ -440,9 +469,7 @@ def user_view_single_link_expose(request, shorten_uuid_link) -> HttpResponse:
             return redirect('user_link_page', shorten_uuid_link=shorten_uuid_link)
 
     except ObjectDoesNotExist:
-        messages.error(request, 'No subscription links were located.')
-
-    return error_404(request, shorten_uuid_link)
+        handle_object_does_not_exist(request)
 
 
 @login_required(login_url='/auth/sign-in')
@@ -458,9 +485,7 @@ def user_view_single_link_restrict(request, shorten_uuid_link) -> HttpResponse:
             return redirect('user_link_page', shorten_uuid_link=shorten_uuid_link)
 
     except ObjectDoesNotExist:
-        messages.error(request, 'No subscription links were located.')
-
-    return error_404(request, shorten_uuid_link)
+        handle_object_does_not_exist(request)
 
 
 def user_view_single_link_show(request, shorten_uuid_link) -> HttpResponse:
@@ -479,9 +504,7 @@ def user_view_single_link_show(request, shorten_uuid_link) -> HttpResponse:
             link.save()
             return HttpResponse(link_scraper(link.subscription_link))
         else:
-            return HttpResponse("first error")
+            raise Http404("No subscription link were located.")
 
     except ObjectDoesNotExist:
-        messages.error(request, 'No subscription links were located.')
-
-    return HttpResponse("second error")
+        handle_object_does_not_exist(request)
