@@ -1,5 +1,3 @@
-from urllib.parse import urljoin
-
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect, get_object_or_404
@@ -8,14 +6,16 @@ from django.contrib.auth import update_session_auth_hash
 from django.http import HttpResponse
 from django.contrib import messages
 from core.models import UserAccount, Subscription
-from core.forms import UserCreationForm, AdminUserCreationForm, AdminUserEditForm, UserEditForm, UserPasswordChangeForm, \
-    UserEmailChangeForm, SubscriptionForm, SubscriptionEditForm
+from core.forms import UserCreationForm, AdminUserCreationForm, AdminUserEditForm, UserEditForm, \
+    UserPasswordChangeForm, UserEmailChangeForm, SubscriptionForm, SubscriptionEditForm
 from core.utils.utils import generate_qr_code, link_scraper
 from django.utils import timezone
 from datetime import timedelta
 
 
 def index(request) -> HttpResponse:
+    user_ip = request.META.get('REMOTE_ADDR', None)
+    print(user_ip)
     if request.user.is_authenticated:
         if request.user.account_type == 'admin' or request.user.account_type == 'moderator':
             return redirect('panel-admin')
@@ -294,11 +294,11 @@ def panel_user_edit(request, username: str) -> HttpResponse:
     if request.method == 'POST':
         form = UserEditForm(request.POST, instance=user)
         if form.is_valid():
-            if (request.user.account_type == 'admin' or
-                    (request.user.account_type == 'moderator' and user.account_type == 'user') or
-                    (request.user.account_type == 'moderator' and user.username == request.user.username) or
-                    user.username == request.user.username
-            ):
+            if request.user.account_type == 'admin' or \
+                    (request.user.account_type == 'moderator' and user.account_type == 'user') or \
+                    (request.user.account_type == 'moderator' and user.username == request.user.username) or \
+                    user.username == request.user.username:
+
                 user_form = form.save(commit=False)
                 user_form.email = user_form.email.lower() \
                     if user_form.email != "" else user_form.email
@@ -330,11 +330,10 @@ def panel_user_change_email(request, username):
         form = UserEmailChangeForm(request.POST, instance=user)
 
         if form.is_valid():
-            if (request.user.account_type == 'admin' or
-                    (request.user.account_type == 'moderator' and user.account_type == 'user') or
-                    (request.user.account_type == 'moderator' and user.username == request.user.username) or
-                    user.username == request.user.username
-            ):
+            if request.user.account_type == 'admin' or \
+                    (request.user.account_type == 'moderator' and user.account_type == 'user') or \
+                    (request.user.account_type == 'moderator' and user.username == request.user.username) or \
+                    user.username == request.user.username:
                 form.save()
                 update_session_auth_hash(request, user)
                 messages.success(request, 'Your E-mail was successfully updated!')
