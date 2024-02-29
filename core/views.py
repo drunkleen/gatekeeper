@@ -21,17 +21,17 @@ def is_admin_or_moderator(user):
 
 def is_allowed_to_edit(user, target_user):
     return user.account_type == 'admin' or \
-           (user.account_type == 'moderator' and target_user.account_type == 'user') or \
-           (user.account_type == 'moderator' and target_user.username == user.username) or \
-           target_user.username == user.username
+        (user.account_type == 'moderator' and target_user.account_type == 'user') or \
+        (user.account_type == 'moderator' and target_user.username == user.username) or \
+        target_user.username == user.username
 
 
 def has_permission(request, user):
     return (
-        request.user.account_type == 'admin' or
-        (request.user.account_type == 'moderator' and user.account_type == 'user') or
-        (request.user.account_type == 'moderator' and user.username == request.user.username) or
-        user.username == request.user.username
+            request.user.account_type == 'admin' or
+            (request.user.account_type == 'moderator' and user.account_type == 'user') or
+            (request.user.account_type == 'moderator' and user.username == request.user.username) or
+            user.username == request.user.username
     )
 
 
@@ -56,10 +56,10 @@ def get_subscription_links(user):
         return None
 
 
-
 def handle_object_does_not_exist(request):
     messages.error(request, 'No subscription links were located.')
     raise Http404("No subscription links were located.")
+
 
 # view methods
 
@@ -323,7 +323,7 @@ def panel_user_profile_overview(request, username: str) -> HttpResponse:
         context['password_reset_form'] = UserPasswordChangeForm(user)
 
         return render(request, 'panel/components/page/user-profile.html', context)
-    
+
     return redirect('sign-in')
 
 
@@ -335,7 +335,6 @@ def panel_user_edit(request, username: str) -> HttpResponse:
         form = UserEditForm(request.POST, instance=user)
         if form.is_valid():
             if has_permission(request, user):
-
                 user_form = form.save(commit=False)
                 user_form.email = user_form.email.lower() \
                     if user_form.email != "" else user_form.email
