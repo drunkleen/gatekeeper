@@ -9,7 +9,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from core.models import UserAccount, Subscription
 from core.forms import UserCreationForm, AdminUserCreationForm, AdminUserEditForm, UserEditForm, UserPasswordChangeForm, \
-    UserEmailChangeForm, SubscriptionForm
+    UserEmailChangeForm, SubscriptionForm, SubscriptionEditForm
 from core.utils.utils import generate_qr_code, link_scraper
 from django.utils import timezone
 from datetime import timedelta
@@ -188,7 +188,7 @@ def panel_admin_create_link(request, username: str) -> HttpResponse:
 
         context = {
             'request': request,
-            'page_title': ['User Management', 'User List', 'Edit User', 'Create Link'],
+            'page_title': ['User Management', 'User List', 'Create Link'],
         }
 
         user = get_object_or_404(UserAccount, username=username)
@@ -211,6 +211,38 @@ def panel_admin_create_link(request, username: str) -> HttpResponse:
         context['form'] = form
         context['user'] = user
         return render(request, 'panel/components/page/admin-create-link.html', context)
+
+    messages.error(request, 'Action Not Allowed')
+    return redirect('panel-user', username=request.user.username)
+
+
+@login_required(login_url='/auth/sign-in')
+def panel_admin_edit_link(request, shorten_uuid_link: str) -> HttpResponse:
+    if request.user.account_type in ['admin', 'moderator']:
+
+        context = {
+            'request': request,
+            'page_title': ['User Management', 'User List', 'Edit Link'],
+        }
+
+        link = get_object_or_404(Subscription, subscription_uuid=shorten_uuid_link)
+
+        if request.method == 'POST':
+            form = SubscriptionEditForm(request.POST, instance=link)
+            if form.is_valid():
+                link_instance = form.save(commit=False)
+                link_instance.save()
+
+                messages.success(
+                    request,
+                    f'Link with the id [{link.subscription_uuid}] was successfully updated.'
+                )
+                return redirect('user-view-links', username=link.assigned_to.username)
+
+        form = SubscriptionEditForm(instance=link)
+        context['form'] = form
+        context['user'] = link.assigned_to
+        return render(request, 'panel/components/page/admin-edit-link.html', context)
 
     messages.error(request, 'Action Not Allowed')
     return redirect('panel-user', username=request.user.username)

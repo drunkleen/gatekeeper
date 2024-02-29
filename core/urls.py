@@ -11,9 +11,11 @@ urlpatterns = [
 
     path('panel/admin/', views.panel_admin, name='panel-admin'),
     path('panel/admin/user-list', views.panel_admin_user_list, name='panel-admin-user-lists'),
-    path('panel/admin/create-link/<str:username>', views.panel_admin_create_link, name='admin-create-link'),
     path('panel/admin/edit-user/<str:username>', views.panel_admin_edit_user, name='admin-edit-user'),
     path('panel/admin/delete-user/<str:username>', views.panel_admin_delete_user, name='admin-delete-user'),
+
+    path('panel/admin/create-link/<str:username>', views.panel_admin_create_link, name='admin-create-link'),
+    path('panel/admin/edit-link/<str:shorten_uuid_link>', views.panel_admin_edit_link, name='admin-edit-link'),
 
     path('panel/user/<str:username>', views.panel_user_profile_overview, name='panel-user'),
     path('panel/user/profile/<str:username>', views.panel_user_profile_overview, name='panel-user-profile'),
@@ -22,6 +24,7 @@ urlpatterns = [
          views.panel_user_change_email, name='user-change-email'),
     path('panel/user/panel_user_reset_password/<str:username>',
          views.panel_user_reset_password, name='user-reset-password'),
+
     path('panel/user/link/<str:username>', views.user_view_links, name='user-view-links'),
     path('panel/user/user-link/<str:shorten_uuid_link>', views.user_view_single_link, name='user_link_page'),
     path('panel/user/user-link/expose/<str:shorten_uuid_link>',

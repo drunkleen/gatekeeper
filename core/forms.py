@@ -242,7 +242,7 @@ class UserEditForm(forms.ModelForm):
 class SubscriptionForm(forms.ModelForm):
     class Meta:
         model = Subscription
-        fields = ['subscription_title', 'subscription_link', 'expose', 'is_active', 'created_by', 'assigned_to']
+        fields = ['subscription_title', 'subscription_link', 'created_by', 'assigned_to']
 
     def __init__(self, *args, **kwargs):
         super(SubscriptionForm, self).__init__(*args, **kwargs)
@@ -258,13 +258,6 @@ class SubscriptionForm(forms.ModelForm):
             'autocomplete': "off",
         })
 
-        self.fields['is_active'].widget.attrs.update({
-            'class': 'form-check-input w-45px h-30px',
-            'autocomplete': "off",
-        })
-
-        self.fields['expose'].required = False
-        self.fields['is_active'].required = False
         self.fields['created_by'].required = False
         self.fields['assigned_to'].required = False
 
@@ -273,3 +266,30 @@ class SubscriptionForm(forms.ModelForm):
         instance.created_by = self.cleaned_data['assigned_to']
         instance.save()
         return instance
+
+
+class SubscriptionEditForm(forms.ModelForm):
+    class Meta:
+        model = Subscription
+        fields = ['subscription_title', 'subscription_link', 'expose']
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['subscription_title'].widget.attrs.update({
+            'class': 'form-control form-control-solid mb-3 mb-lg-0',
+            'placeholder': 'Title',
+            'autocomplete': "off",
+        })
+        self.fields['subscription_link'].widget.attrs.update({
+            'class': 'form-control form-control-solid mb-3 mb-lg-0',
+            'placeholder': 'Link',
+            'autocomplete': "off",
+        })
+
+        self.fields['expose'].widget.attrs.update({
+            'class': 'form-check-input w-45px h-30px',
+            'autocomplete': "off",
+        })
+
+

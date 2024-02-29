@@ -65,7 +65,7 @@ class Subscription(models.Model):
         ordering = ['-updated_at', '-created_at']
 
     def save(self, *args, **kwargs):
-        if not self.id:
+        if not self.created_by:
             self.created_by = self.assigned_to
         super(Subscription, self).save(*args, **kwargs)
 

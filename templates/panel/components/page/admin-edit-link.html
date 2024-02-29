@@ -15,7 +15,7 @@
                 </div>
 
                 <div id="kt_account_settings_profile_details" class="collapse show">
-                    <form class="form fv-plugins-bootstrap5 fv-plugins-framework" method="POST" action="{% url 'admin-create-link' user.username %}" novalidate="novalidate">
+                    <form class="form fv-plugins-bootstrap5 fv-plugins-framework" method="POST" action="#" novalidate="novalidate">
                     {% csrf_token %}
                         <div class="card-body border-top p-9">
 
@@ -36,6 +36,19 @@
                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                             </div>
 
+                            <div class="row mb-0">
+                                <label class="col-lg-4 col-form-label fw-semibold fs-6">Link expose</label>
+
+                                <div class="col-lg-8 d-flex align-items-center">
+                                    <div class="form-check form-check-danger form-switch form-check-custom fv-row">
+                                        {{ form.expose }}
+                                        <label class="form-check-label" for="allowmarketing"></label>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
 
 
 
@@ -43,7 +56,7 @@
 
                         <div class="card-footer d-flex justify-content-end py-6 px-9">
                             <a href="{% url 'panel-admin-user-lists' %}" class="btn btn-light btn-active-light-danger me-2">Discard</a>
-                            <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Create Link</button>
+                            <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save Changes</button>
                         </div>
                         <input type="hidden"></form>
                 </div>
