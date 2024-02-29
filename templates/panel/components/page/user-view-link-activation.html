@@ -43,15 +43,18 @@
 
                                 <div class="d-flex my-4">
 
+                                    
+                                    <button class="btn btn-sm btn-secondary text-hover-primary me-2" onclick="copyText()">
+                                        <i class="ki-outline ki-copy  fs-1">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                    </button>
+                                
                                     {% if link.expose %}
+                                        
                                         <button class="btn btn-sm btn-secondary text-hover-primary me-2" onclick="toggleAllQRCode()">
                                             <i class="bi-qr-code fs-1">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
-                                        </button>
-                                        <button class="btn btn-sm btn-secondary text-hover-primary me-2" onclick="copyText()">
-                                            <i class="ki-outline ki-copy  fs-1">
                                                 <span class="path1"></span>
                                                 <span class="path2"></span>
                                             </i>
@@ -62,8 +65,8 @@
                                                 <span class="path2"></span>
                                             </i>
                                         </a>
+                                        
                                         <a href="{% url 'user_link_page_restrict' link.subscription_uuid %}" class="btn btn-sm btn-danger">Restrict Link</a>
-                                        <input type="text" value="{{ scheme_host }}{% url 'user_link_page_show' link.subscription_uuid %}" id="textInput" hidden />
 
                                     {% else %}
                                         <a href="{% url 'user_link_page_expose' link.subscription_uuid %}" class="btn btn-sm btn-primary">Expose Link</a>
@@ -104,35 +107,37 @@
                         </div>
                     </div>
 
-                    {% if link.expose %}
+
                     <div class="card-border-0 d-flex flex-column flex-center" id="qrcode1" style="display: none;">
                         <button onclick="copyText()" id="qrcode2" class="mt-10 mb-10 text-center symbol symbol-200px symbol-lg-200px flex-center text-center" style="display: none;">
                             <img src="data:image/png;base64,{{ qrcode }}" alt="Your Image" style="border-radius: 10px;">
                         </button>
                     </div>
 
-                    <script>
-                        function toggleAllQRCode() {
-                            const qrcodeDivs = document.querySelectorAll('[id^="qrcode"]');
-                            qrcodeDivs.forEach(function (qrcodeDiv) {
-                                qrcodeDiv.style.display = (qrcodeDiv.style.display === 'none' || qrcodeDiv.style.display === '') ? 'block' : 'none';
-                            });
-                        }
+                    
 
-                        function copyText() {
-                            const text = document.getElementById("textInput").value;
-
-                            navigator.clipboard.writeText(text).then(function() {
-                            }).catch(function(err) {
-                                console.error('Unable to copy text', err);
-                            });
-                        }
-                    </script>
-                    {% endif %}
 
                 </div>
             </div>
         </div>
     </div>
+
+    <script>
+        function toggleAllQRCode() {
+            const qrcodeDivs = document.querySelectorAll('[id^="qrcode"]');
+            qrcodeDivs.forEach(function (qrcodeDiv) {
+                qrcodeDiv.style.display = (qrcodeDiv.style.display === 'none' || qrcodeDiv.style.display === '') ? 'block' : 'none';
+            });
+        }
+
+        function copyText() {
+            const text = "{{ scheme_host }}{% url 'user_link_page_show' link.subscription_uuid %}"
+
+            navigator.clipboard.writeText(text).then(function() {
+            }).catch(function(err) {
+                console.error('Unable to copy text', err);
+            });
+        }
+    </script>
 
 {% endblock content-wrapper %}

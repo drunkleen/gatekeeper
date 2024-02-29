@@ -30,6 +30,9 @@ def user_sign_in(request) -> HttpResponse:
             return redirect('panel-admin')
         return redirect('panel-user', username=request.user.username)
 
+    user_ip = request.META['REMOTE_ADDR']
+    request.session['user_ip'] = user_ip
+
     context = {
         'page_title': ['Sign In'],
     }
@@ -462,19 +465,24 @@ def user_view_single_link_restrict(request, shorten_uuid_link) -> HttpResponse:
 
 
 def user_view_single_link_show(request, shorten_uuid_link) -> HttpResponse:
+    user_ip = request.META['REMOTE_ADDR']
+    stored_ip = request.session.get('user_ip', None)
+
     try:
+
         link = Subscription.objects.get(subscription_uuid=shorten_uuid_link)
 
         if link.expose or \
+                ((stored_ip and user_ip) == stored_ip) or \
                 (request.user.account_type == 'moderator' and link.assigned_to.account_type == 'user') or \
                 request.user.account_type == 'admin':
             link.use_count += 1
             link.save()
             return HttpResponse(link_scraper(link.subscription_link))
         else:
-            return error_404(request, shorten_uuid_link)
+            return HttpResponse("first error")
 
     except ObjectDoesNotExist:
         messages.error(request, 'No subscription links were located.')
 
-    return error_404(request, shorten_uuid_link)
+    return HttpResponse("second error")
