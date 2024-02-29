@@ -274,7 +274,7 @@ def panel_user_profile_overview(request, username: str) -> HttpResponse:
         'request': request,
     }
 
-    if request.user.username == username:
+    if request.user.username == username or request.user.account_type in ['admin', 'moderator']:
         user = get_object_or_404(UserAccount, username=username)
         context['page_title'] = ['Users', 'Profile', 'User Profile']
         context['user'] = user
