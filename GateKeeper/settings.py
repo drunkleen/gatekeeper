@@ -13,6 +13,7 @@ SECRET_KEY = 'django-insecure-wb&sxlqctelb)@c)x5=a71k$bz&958%1os_-qhwa8%@ow%@@57
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
+DJANGO_PORT = os.environ.get('PORT', '2087')
 
 AUTH_USER_MODEL = 'core.UserAccount'
 

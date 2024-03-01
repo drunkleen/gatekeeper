@@ -1,8 +1,9 @@
 services:
   gatekkeeper:
     build: .
-    command: python manage.py runserver 0.0.0.0:2087
+    command: python manage.py runserver 0.0.0.0:${SERVER_PORT}
+    restart: always
+    env_file: .env
+    network_mode: host
     volumes:
-      - ./app:/app
-    ports:
-      - "2087:2087"
+      - /var/lib/gatekeeper:/var/lib/gatekeeper
