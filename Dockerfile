@@ -7,7 +7,6 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 COPY . /app
-
 RUN apt-get remove -y curl unzip gcc python3-dev
 
 RUN pip install --no-cache-dir -r requirements.txt

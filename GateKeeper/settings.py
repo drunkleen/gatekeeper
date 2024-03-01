@@ -1,19 +1,32 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
+import binascii
+
+print("Loading settings.py...")
 
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+print("\nSettings | BASE_DIR:", BASE_DIR)
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-wb&sxlqctelb)@c)x5=a71k$bz&958%1os_-qhwa8%@ow%@@57'
+SECRET_KEY = os.environ.get(
+    'SECRET_KEY', f'random-securet-key-{int(binascii.hexlify(os.urandom(64)), 16)}#'
+)
 
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DEBUG', 'False') == 'True'
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
-DJANGO_PORT = os.environ.get('PORT', '2087')
+print("Settings | DEBUG:", DEBUG)
+
+ALLOWED_HOSTS = os.environ.get(
+    'ALLOWED_HOSTS', ''
+).strip().replace(" ", "").split(',')
+
+print("Settings | ALLOWED_HOSTS:", ALLOWED_HOSTS)
+
+SERVER_PORT = os.environ.get('PORT', '2087')
+print("Settings | SERVER_PORT:", SERVER_PORT)
 
 AUTH_USER_MODEL = 'core.UserAccount'
 
@@ -61,20 +74,19 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'GateKeeper.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'data', 'db.sqlite3'),
     }
 }
 
+print("Settings | DATABASES_ENGINE:", DATABASES.get('default').get('ENGINE'))
+print("Settings | DATABASES_NAME:", DATABASES.get('default').get('NAME'))
 
-# Password validation
-# https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -92,30 +104,22 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-# Internationalization
-# https://docs.djangoproject.com/en/5.0/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
-
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    ]
+]
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
+
+print("Settings | STATIC_URL:", STATIC_URL)
+print("Settings | STATICFILES_DIRS:", STATICFILES_DIRS)
+print("Settings | STATIC_ROOT:", STATIC_ROOT)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

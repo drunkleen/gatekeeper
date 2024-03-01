@@ -1,5 +1,6 @@
 services:
-  gatekkeeper:
+  gatekeeper:
+    container_name: GateKeeper
     build: .
     command: python manage.py runserver 0.0.0.0:${SERVER_PORT}
     restart: always
@@ -7,3 +8,7 @@ services:
     network_mode: host
     volumes:
       - /var/lib/gatekeeper:/var/lib/gatekeeper
+      - gatekeeper_data:/app/data
+
+volumes:
+  gatekeeper_data:

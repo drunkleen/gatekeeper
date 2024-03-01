@@ -31,6 +31,12 @@ class UserAccount(AbstractUser):
     class Meta:
         ordering = ['-updated_at', '-created_at']
 
+    def save(self, *args, **kwargs):
+        if not self.pk:
+            self.is_staff = False
+            self.is_superuser = False
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return str(self.username)
 
