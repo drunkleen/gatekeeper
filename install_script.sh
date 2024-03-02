@@ -155,6 +155,7 @@ install_gatekeeper() {
   mkdir -p "$APP_DIR"
 
   git clone $GK_REPO $APP_DIR
+  cp $APP_DIR/.env.example $APP_DIR/.env
   colorized_echo green "Gate-Keeper Project saved in $APP_DIR"
 
   $COMPOSE -f "$APP_DIR/docker_compose.yml" -p "$APP_NAME" up --build --remove-orphans -d
