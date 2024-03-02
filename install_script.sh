@@ -184,7 +184,12 @@ update_gatekeeper() {
 uninstall_gatekeeper() {
   if [ -d "$APP_DIR" ]; then
     colorized_echo yellow "Removing directory: $APP_DIR"
-    rm -r "$APP_DIR"
+    rm -rf "$APP_DIR"
+  fi
+
+  if [ -d "$DATA_DIR" ]; then
+      colorized_echo yellow "Removing directory: $DATA_DIR"
+      rm -rf "$DATA_DIR"
   fi
 }
 
