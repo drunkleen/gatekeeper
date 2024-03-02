@@ -23,6 +23,25 @@
     <link href="{% static 'panel/css/style.bundle.css' %}" rel="stylesheet" type="text/css" />
     <!--end::Global Stylesheets Bundle-->
     <script>// Frame-busting to prevent site from being loaded within a frame without permission (click-jacking) if (window.top != window.self) { window.top.location.replace(window.self.location.href); }</script>
+
+    <script>
+        function copyToClipboard(textToCopy) {
+            // Create a temporary text area element
+            const textArea = document.createElement("textarea");
+            textArea.value = textToCopy;
+            document.body.appendChild(textArea);
+            textArea.select();
+
+            try {
+                document.execCommand("copy");
+            } catch (err) {
+                console.error("Unable to copy text to clipboard:", err);
+            } finally {
+                document.body.removeChild(textArea);
+            }
+        }
+    </script>
+
 </head>
 
 {% endblock content %}
