@@ -1,6 +1,6 @@
 services:
   gatekeeper:
-    container_name: GateKeeper
+    container_name: gatekeeper
     build: .
     command:
       - sh
