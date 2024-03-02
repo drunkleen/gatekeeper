@@ -294,8 +294,8 @@ case "$1" in
     down_gatekeeper
     ;;
   "restart")
-    up_gatekeeper
     down_gatekeeper
+    up_gatekeeper
     show_gatekeeper_logs
     ;;
   "logs")
