@@ -41,6 +41,31 @@ class UserAccount(AbstractUser):
         return str(self.username)
 
 
+class PanelConnection(models.Model):
+    connection_name = models.CharField(max_length=64, null=False, blank=False)
+
+    panel_marzban = 'Marzban'
+    panel_alireza = 'x-ui alireza0'
+    panel_sanaei = '3x-ui MHSanaei'
+    panel_choice = (
+        (panel_marzban, 'Marzban'),
+        (panel_alireza, 'x-ui alireza0'),
+        (panel_sanaei, '3x-ui MHSanaei')
+    )
+    panel_name = models.CharField(choices=panel_choice, default=panel_marzban, max_length=32)
+
+    ssh_ip = models.CharField(max_length=64, null=True, blank=True)
+    ssh_password = models.CharField(max_length=256, null=True, blank=True)
+    is_active = models.BooleanField(default=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ['-updated_at']
+
+    def __str__(self):
+        return str(self.connection_name)
+
+
 class Subscription(models.Model):
     subscription_uuid = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
     subscription_title = models.CharField(
@@ -54,6 +79,11 @@ class Subscription(models.Model):
     use_count = models.IntegerField(null=False, default=0)
     expose = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
+
+    panel_connection = models.ForeignKey(
+        PanelConnection, on_delete=models.CASCADE,
+        null=True, blank=False, related_name="panel"
+    )
 
     created_by = models.ForeignKey(
         UserAccount, on_delete=models.CASCADE,
