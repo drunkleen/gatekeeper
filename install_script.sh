@@ -300,7 +300,7 @@ case "$1" in
     show_gatekeeper_logs
     ;;
   "install")
-    install_gatekeeper
+    install_command
     ;;
   "update")
     update_gatekeeper
