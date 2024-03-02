@@ -151,6 +151,22 @@ uninstall_gatekeeper_script() {
 
 install_gatekeeper() {
   GK_REPO="https://github.com/drunkleen/gatekeeper"
+  mkdir -p "$DATA_DIR"
+  mkdir -p "$APP_DIR"
+
+  git clone $GK_REPO $APP_DIR
+  colorized_echo green "Gate-Keeper Project saved in $APP_DIR"
+
+  $COMPOSE -f "$APP_DIR/docker_compose.yml" -p "$APP_NAME" up --build --remove-orphans -d
+
+  $COMPOSE -f "$APP_DIR/docker_compose.yml" -p "$APP_NAME" logs -f
+
+  colorized_echo green "Gate-Keeper updated and running successfully"
+}
+
+
+update_gatekeeper() {
+  GK_REPO="https://github.com/drunkleen/gatekeeper"
   cd $DATA_DIR
   git fetch origin master
   git pull origin master
@@ -163,22 +179,6 @@ install_gatekeeper() {
   $COMPOSE -f "$APP_DIR/docker_compose.yml" -p "$APP_NAME" logs -f
 
   colorized_echo green "Gate-Keeper installed and running successfully"
-}
-
-
-update_gatekeeper() {
-    GK_REPO="https://github.com/drunkleen/gatekeeper"
-      mkdir -p "$DATA_DIR"
-      mkdir -p "$APP_DIR"
-
-      git clone $GK_REPO $APP_DIR
-      colorized_echo green "Gate-Keeper Project saved in $APP_DIR"
-
-      $COMPOSE -f "$APP_DIR/docker_compose.yml" -p "$APP_NAME" up --build --remove-orphans -d
-
-      $COMPOSE -f "$APP_DIR/docker_compose.yml" -p "$APP_NAME" logs -f
-
-      colorized_echo green "Gate-Keeper updated and running successfully"
 }
 
 
