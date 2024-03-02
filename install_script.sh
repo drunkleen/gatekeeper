@@ -302,11 +302,14 @@ case "$1" in
   "install")
     install_gatekeeper
     ;;
+  "update")
+    update_gatekeeper
+    ;;
   "uninstall")
     uninstall_command
     ;;
   *)
-    colorized_echo red "Usage: $0 {up | down | restart | logs | install | uninstall}"
+    colorized_echo red "Usage: $0 {up | down | restart | logs | install | update | uninstall}"
     exit 1
     ;;
 esac
