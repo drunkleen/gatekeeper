@@ -162,24 +162,22 @@ install_gatekeeper() {
 
   $COMPOSE -f "$APP_DIR/docker_compose.yml" -p "$APP_NAME" logs -f
 
-  colorized_echo green "Gate-Keeper updated and running successfully"
+  colorized_echo green "Gate-Keeper installed and running successfully"
 }
 
 
 update_gatekeeper() {
-  GK_REPO="https://github.com/drunkleen/gatekeeper"
+  GK_REPO="git@github.com:drunkleen/gatekeeper.git"
   cd $DATA_DIR
-  git fetch origin master
-  git pull origin master
+  git pull $GK_REPO master
 
-  git clone $GK_REPO $APP_DIR
-  colorized_echo green "Gate-Keeper Project saved in $APP_DIR"
+  colorized_echo green "Gate-Keeper Repo Updated successfully"
 
   $COMPOSE -f "$APP_DIR/docker_compose.yml" -p "$APP_NAME" up --build --remove-orphans -d
 
   $COMPOSE -f "$APP_DIR/docker_compose.yml" -p "$APP_NAME" logs -f
 
-  colorized_echo green "Gate-Keeper installed and running successfully"
+  colorized_echo green "Gate-Keeper updated and running successfully"
 }
 
 
@@ -274,6 +272,7 @@ uninstall_command() {
   fi
 
   rm -rf $APP_DIR
+
 }
 
 
