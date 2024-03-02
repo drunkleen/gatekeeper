@@ -16,6 +16,7 @@ urlpatterns = [
 
     path('panel/admin/create-link/<str:username>', views.panel_admin_create_link, name='admin-create-link'),
     path('panel/admin/edit-link/<str:shorten_uuid_link>', views.panel_admin_edit_link, name='admin-edit-link'),
+    path('panel/admin/delete-link/<str:shorten_uuid_link>', views.panel_admin_delete_link, name='admin-delete-link'),
 
     path('panel/user/<str:username>', views.panel_user_profile_overview, name='panel-user'),
     path('panel/user/profile/<str:username>', views.panel_user_profile_overview, name='panel-user-profile'),

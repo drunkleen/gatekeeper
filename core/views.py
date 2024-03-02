@@ -26,6 +26,12 @@ def is_allowed_to_edit(user, target_user):
         target_user.username == user.username
 
 
+def is_allowed_to_delete(user, target_user):
+    return user.account_type == 'admin' or \
+        (user.account_type == 'moderator' and target_user.account_type == 'user') or \
+        (user.account_type == 'moderator' and target_user.username == user.username)
+
+
 def has_permission(request, user):
     return (
             request.user.account_type == 'admin' or
@@ -293,6 +299,19 @@ def panel_admin_edit_link(request, shorten_uuid_link: str) -> HttpResponse:
 
     messages.error(request, 'Action Not Allowed')
     return redirect('panel-user', username=request.user.username)
+
+
+@login_required(login_url='/auth/sign-in')
+def panel_admin_delete_link(request, shorten_uuid_link: str) -> HttpResponse:
+    if is_admin_or_moderator(request.user):
+
+        link = get_object_or_404(Subscription, subscription_uuid=shorten_uuid_link)
+
+        if is_allowed_to_delete(request.user, link.assigned_to):
+            link.delete()
+            return redirect('user-view-links', username=link.assigned_to.username)
+
+    raise PermissionDenied
 
 
 @login_required(login_url='/auth/sign-in')
