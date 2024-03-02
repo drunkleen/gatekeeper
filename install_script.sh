@@ -276,7 +276,8 @@ uninstall_command() {
       down_gatekeeper
   fi
 
-  rm -rf $APP_DIR
+  rm -rf /var/lib/gatekeeper
+  rm -rf /opt/gatekeeper
 
 }
 
