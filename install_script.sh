@@ -273,7 +273,7 @@ uninstall_command() {
       down_gatekeeper
   fi
 
-  rm -rf $DATA_DIR
+  rm -rf $APP_DIR
 }
 
 
