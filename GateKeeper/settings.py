@@ -1,32 +1,31 @@
 import os
 from pathlib import Path
 from dotenv import load_dotenv
-import binascii
-
-print("Loading settings.py...")
-
-load_dotenv()
+import random
+import string
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-print("\nSettings | BASE_DIR:", BASE_DIR)
+DOTENV_PATH = os.path.join(BASE_DIR, '.env')
+load_dotenv(DOTENV_PATH)
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get(
-    'SECRET_KEY', f'random-securet-key-{int(binascii.hexlify(os.urandom(64)), 16)}#'
-)
+if not os.environ.get('SECRET_KEY'):
+    new_secret_key = ''.join(random.choices(string.ascii_letters + string.digits, k=50))
+    with open(DOTENV_PATH, 'a') as env_file:
+        env_file.write(f'\nSECRET_KEY={new_secret_key}\n')
+    SECRET_KEY = new_secret_key
+else:
+    SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
-print("Settings | DEBUG:", DEBUG)
+
+DEBUG = os.environ.get('DEBUG', 'False').capitalize() == 'True'
 
 ALLOWED_HOSTS = os.environ.get(
     'ALLOWED_HOSTS', ''
 ).strip().replace(" ", "").split(',')
 
-print("Settings | ALLOWED_HOSTS:", ALLOWED_HOSTS)
-
-SERVER_PORT = os.environ.get('PORT', '2087')
-print("Settings | SERVER_PORT:", SERVER_PORT)
+SERVER_PORT = os.environ.get('SERVER_PORT', '2087')
 
 AUTH_USER_MODEL = 'core.UserAccount'
 
@@ -84,9 +83,6 @@ DATABASES = {
     }
 }
 
-print("Settings | DATABASES_ENGINE:", DATABASES.get('default').get('ENGINE'))
-print("Settings | DATABASES_NAME:", DATABASES.get('default').get('NAME'))
-
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -116,10 +112,5 @@ STATICFILES_DIRS = [
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
-
-
-print("Settings | STATIC_URL:", STATIC_URL)
-print("Settings | STATICFILES_DIRS:", STATICFILES_DIRS)
-print("Settings | STATIC_ROOT:", STATIC_ROOT)
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

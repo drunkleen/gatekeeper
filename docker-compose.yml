@@ -2,7 +2,10 @@ services:
   gatekeeper:
     container_name: GateKeeper
     build: .
-    command: python manage.py runserver 0.0.0.0:${SERVER_PORT}
+    command:
+      - sh
+      - -c
+      - "python manage.py migrate && python manage.py runserver 0.0.0.0:${SERVER_PORT}"
     restart: always
     env_file: .env
     network_mode: host
