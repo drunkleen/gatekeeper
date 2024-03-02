@@ -262,26 +262,10 @@ uninstall_command() {
 
   detect_compose
   if is_gatekeeper_up; then
-      down_marzban
+      down_gatekeeper
   fi
 
-
-  detect_os
-  if ! command -v jq >/dev/null 2>&1; then
-    install_package jq
-  fi
-  if ! command -v git >/dev/null 2>&1; then
-    install_package git
-  fi
-  if ! command -v curl >/dev/null 2>&1; then
-    install_package curl
-  fi
-  if ! command -v docker >/dev/null 2>&1; then
-    install_docker
-  fi
-  detect_compose
-  install_gatekeeper_script
-  install_gatekeeper
+  rm -rf $DATA_DIR
 }
 
 
