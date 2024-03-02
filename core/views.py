@@ -85,7 +85,7 @@ def user_sign_in(request) -> HttpResponse:
         password = request.POST.get('password')
 
         try:
-            user = get_object_or_404(UserAccount, email=email)
+            user = UserAccount.objects.get(email=email)
             user = authenticate(request, username=user.username, password=password)
 
             if user is not None:
