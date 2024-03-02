@@ -210,17 +210,20 @@ is_gatekeeper_up() {
 
 
 up_gatekeeper() {
-    $COMPOSE -f "$APP_DIR/docker_compose.yml" -p "$APP_NAME" up -d --remove-orphans
+  detect_compose
+  $COMPOSE -f "$APP_DIR/docker_compose.yml" -p "$APP_NAME" up -d --remove-orphans
 }
 
 
 down_gatekeeper() {
-    $COMPOSE -f "$APP_DIR/docker_compose.yml" -p "$APP_NAME" down
+  detect_compose
+  $COMPOSE -f "$APP_DIR/docker_compose.yml" -p "$APP_NAME" down
 }
 
 
 show_gatekeeper_logs() {
-    $COMPOSE -f "$APP_DIR/docker_compose.yml" -p "$APP_NAME" logs
+  detect_compose
+  $COMPOSE -f "$APP_DIR/docker_compose.yml" -p "$APP_NAME" logs
 }
 
 
@@ -243,6 +246,11 @@ install_command() {
   detect_compose
   install_gatekeeper_script
   install_gatekeeper
+}
+
+
+createadmin() {
+  docker exec -it gatekeeper sh -c "cd /app/ && python ./cli.py createadmin"
 }
 
 
@@ -269,9 +277,14 @@ uninstall_command() {
 }
 
 
+
 case "$1" in
+  "createadmin")
+    createadmin
+    ;;
   "up")
     up_gatekeeper
+    show_gatekeeper_logs
     ;;
   "down")
     down_gatekeeper
@@ -286,9 +299,11 @@ case "$1" in
     ;;
   "install")
     install_command
+    show_gatekeeper_logs
     ;;
   "update")
     update_gatekeeper
+    show_gatekeeper_logs
     ;;
   "uninstall")
     uninstall_command
@@ -298,3 +313,5 @@ case "$1" in
     exit 1
     ;;
 esac
+
+
