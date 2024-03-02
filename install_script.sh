@@ -11,7 +11,6 @@ APP_DIR="$INSTALL_DIR/$APP_NAME"
 DATA_DIR="/var/lib/$APP_NAME"
 
 
-
 colorized_echo() {
   local color=$1
   local text=$2
@@ -43,7 +42,6 @@ check_running_as_root() {
   fi
 }
 
-
 # Detect the operating system
 detect_os() {
   if [ -f /etc/lsb-release ]; then
@@ -63,16 +61,17 @@ detect_os() {
 
 detect_and_update_package_manager() {
   colorized_echo blue "Updating package manager"
-  if [[ "$OS" == "Ubuntu"* ]] || [[ "$OS" == "Debian"* ]]; then
+  detect_os
+  if [[ "$OS" == "Ubuntu"* ]] || [[ "$OS" == "Ubuntu Linux"* ]]|| [[ "$OS" == "Debian"* ]]; then
     PKG_MANAGER="apt-get"
     $PKG_MANAGER update
     elif [[ "$OS" == "CentOS"* ]] || [[ "$OS" == "AlmaLinux"* ]]; then
     PKG_MANAGER="yum"
     $PKG_MANAGER update -y
     $PKG_MANAGER install -y epel-release
-    elif [ "$OS" == "Fedora"* ]; then
+    elif [ "$OS" == "Fedora"* ] || [[ "$OS" == "Fedora Linux"* ]]; then
     PKG_MANAGER="dnf"
-    $PKG_MANAGER update
+    $PKG_MANAGER update -y
     elif [ "$OS" == "Arch" ]; then
     PKG_MANAGER="pacman"
     $PKG_MANAGER -Sy
@@ -84,7 +83,6 @@ detect_and_update_package_manager() {
 
 
 detect_compose() {
-  # Check if docker compose command exists
   if docker compose >/dev/null 2>&1; then
     COMPOSE='docker compose'
     elif docker-compose >/dev/null 2>&1; then
@@ -103,11 +101,11 @@ install_package () {
 
   PACKAGE=$1
   colorized_echo blue "Installing $PACKAGE"
-  if [[ "$OS" == "Ubuntu"* ]] || [[ "$OS" == "Debian"* ]]; then
+  if [[ "$OS" == "Ubuntu"* ]] || [[ "$OS" == "Ubuntu Linux"* ]]|| [[ "$OS" == "Debian"* ]]; then
     $PKG_MANAGER -y install "$PACKAGE"
     elif [[ "$OS" == "CentOS"* ]] || [[ "$OS" == "AlmaLinux"* ]]; then
     $PKG_MANAGER install -y "$PACKAGE"
-    elif [ "$OS" == "Fedora"* ]; then
+    elif [ "$OS" == "Fedora"* ] || [[ "$OS" == "Fedora Linux"* ]]; then
     $PKG_MANAGER install -y "$PACKAGE"
     elif [ "$OS" == "Arch" ]; then
     $PKG_MANAGER -S --noconfirm "$PACKAGE"
@@ -126,7 +124,7 @@ install_docker() {
 
 
 install_gatekeeper_script() {
-  FETCH_REPO="drunkleen/Gate-Keeper"
+  FETCH_REPO="drunkleen/gatekeeper"
   SCRIPT_URL="https://github.com/$FETCH_REPO/raw/master/install_script.sh"
   colorized_echo blue "Installing Gate-Keeper script"
   curl -sSL $SCRIPT_URL | install -m 755 /dev/stdin /usr/local/bin/gatekeeper
@@ -134,47 +132,181 @@ install_gatekeeper_script() {
 }
 
 
-install_gatekeeper() {
-  GK_REPO = "https://github.com/drunkleen/Gate-Keeper"
+update_gatekeeper_script() {
+  FETCH_REPO="drunkleen/gatekeeper"
+  SCRIPT_URL="https://github.com/$FETCH_REPO/raw/master/install_script.sh"
+  colorized_echo blue "Updating Gate-Keeper script"
+  curl -sSL $SCRIPT_URL | install -m 755 /dev/stdin /usr/local/bin/gatekeeper
+  colorized_echo green "Gate-Keeper script updated successfully"
+}
 
-  mkdir -p "$DATA_DIR"
-  mkdir -p "$APP_DIR"
+
+uninstall_gatekeeper_script() {
+  if [ -f "/usr/local/bin/gatekeeper" ]; then
+    colorized_echo yellow "Removing Gate-Keeper script"
+    rm "/usr/local/bin/gatekeeper"
+  fi
+}
+
+
+install_gatekeeper() {
+  GK_REPO="https://github.com/drunkleen/gatekeeper"
+  cd $DATA_DIR
+  git fetch origin master
+  git pull origin master
 
   git clone $GK_REPO $APP_DIR
   colorized_echo green "Gate-Keeper Project saved in $APP_DIR"
 
-  $COMPOSE -f "$APP_DIR/docker-compose.yml" -p "$APP_NAME" up --build --remove-orphans -d
+  $COMPOSE -f "$APP_DIR/docker_compose.yml" -p "$APP_NAME" up --build --remove-orphans -d
 
-  $COMPOSE -f "$APP_DIR/docker-compose.yml" -p "$APP_NAME" logs -f
+  $COMPOSE -f "$APP_DIR/docker_compose.yml" -p "$APP_NAME" logs -f
 
   colorized_echo green "Gate-Keeper installed and running successfully"
 }
 
 
-install_command() {
-    check_running_as_root
+update_gatekeeper() {
+    GK_REPO="https://github.com/drunkleen/gatekeeper"
+      mkdir -p "$DATA_DIR"
+      mkdir -p "$APP_DIR"
 
-    detect_os
-    if ! command -v jq >/dev/null 2>&1; then
-        install_package jq
-    fi
-    if ! command -v git >/dev/null 2>&1; then
-        install_package git
-    fi
-    if ! command -v curl >/dev/null 2>&1; then
-        install_package curl
-    fi
-    if ! command -v docker >/dev/null 2>&1; then
-        install_docker
-    fi
-    detect_compose
-    install_gatekeeper_script
-    install_gatekeeper
+      git clone $GK_REPO $APP_DIR
+      colorized_echo green "Gate-Keeper Project saved in $APP_DIR"
+
+      $COMPOSE -f "$APP_DIR/docker_compose.yml" -p "$APP_NAME" up --build --remove-orphans -d
+
+      $COMPOSE -f "$APP_DIR/docker_compose.yml" -p "$APP_NAME" logs -f
+
+      colorized_echo green "Gate-Keeper updated and running successfully"
 }
 
-sudo mv $APP_DIR/install_script.sh /usr/local/bin/gatekeeper
+
+uninstall_gatekeeper() {
+  if [ -d "$APP_DIR" ]; then
+    colorized_echo yellow "Removing directory: $APP_DIR"
+    rm -r "$APP_DIR"
+  fi
+}
 
 
+is_gatekeeper_installed() {
+    if [ -d $APP_DIR ]; then
+        return 0
+    else
+        return 1
+    fi
+}
 
 
+is_gatekeeper_up() {
+  if [ -z "$($COMPOSE -f "gatekeeper" ps -q -a)" ]; then
+    return 1
+  else
+    return 0
+  fi
+}
 
+
+up_gatekeeper() {
+    $COMPOSE -f "$APP_DIR/docker_compose.yml" -p "$APP_NAME" up -d --remove-orphans
+}
+
+
+down_gatekeeper() {
+    $COMPOSE -f "$APP_DIR/docker_compose.yml" -p "$APP_NAME" down
+}
+
+
+show_gatekeeper_logs() {
+    $COMPOSE -f "$APP_DIR/docker_compose.yml" -p "$APP_NAME" logs
+}
+
+
+install_command() {
+  check_running_as_root
+
+  detect_os
+  if ! command -v jq >/dev/null 2>&1; then
+    install_package jq
+  fi
+  if ! command -v git >/dev/null 2>&1; then
+    install_package git
+  fi
+  if ! command -v curl >/dev/null 2>&1; then
+    install_package curl
+  fi
+  if ! command -v docker >/dev/null 2>&1; then
+    install_docker
+  fi
+  detect_compose
+  install_gatekeeper_script
+  install_gatekeeper
+}
+
+
+uninstall_command() {
+  check_running_as_root
+
+  if ! is_gatekeeper_installed; then
+    colorized_echo red "Gate-Keeper not installed!"
+    exit 1
+  fi
+
+  read -p "Do you really want to uninstall Gate-Keeper? (y/n) "
+  if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+    colorized_echo red "Aborted"
+    exit 1
+  fi
+
+  detect_compose
+  if is_gatekeeper_up; then
+      down_marzban
+  fi
+
+
+  detect_os
+  if ! command -v jq >/dev/null 2>&1; then
+    install_package jq
+  fi
+  if ! command -v git >/dev/null 2>&1; then
+    install_package git
+  fi
+  if ! command -v curl >/dev/null 2>&1; then
+    install_package curl
+  fi
+  if ! command -v docker >/dev/null 2>&1; then
+    install_docker
+  fi
+  detect_compose
+  install_gatekeeper_script
+  install_gatekeeper
+}
+
+
+case "$1" in
+  "up")
+    up_gatekeeper
+    ;;
+  "down")
+    down_gatekeeper
+    ;;
+  "restart")
+    up_gatekeeper
+    down_gatekeeper
+    show_gatekeeper_logs
+    ;;
+  "logs")
+    show_gatekeeper_logs
+    ;;
+  "install")
+    install_gatekeeper
+    ;;
+  "uninstall")
+    uninstall_command
+    ;;
+  *)
+    colorized_echo red "Usage: $0 {up | down | restart | logs | install | uninstall}"
+    exit 1
+    ;;
+esac
