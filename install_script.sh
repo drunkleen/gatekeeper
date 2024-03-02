@@ -168,7 +168,7 @@ install_gatekeeper() {
 
 update_gatekeeper() {
   GK_REPO="git@github.com:drunkleen/gatekeeper.git"
-  cd $DATA_DIR
+  cd $APP_DIR
   git pull $GK_REPO master
 
   colorized_echo green "Gate-Keeper Repo Updated successfully"
