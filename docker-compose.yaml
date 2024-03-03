@@ -1,5 +1,6 @@
 services:
   gatekeeper:
+    container_name: gatekeeper
     image: drunkleen/gatekeeper:latest
     restart: always
     env_file: .env
