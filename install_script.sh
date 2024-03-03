@@ -7,7 +7,7 @@ if [ -z "$APP_NAME" ]; then
 fi
 APP_DIR="$INSTALL_DIR/$APP_NAME"
 DATA_DIR="/var/lib/$APP_NAME"
-COMPOSE_FILE="$APP_DIR/docker_compose.yml"
+COMPOSE_FILE="$APP_DIR/docker-compose.yaml"
 
 colorized_echo() {
   local color=$1
@@ -136,8 +136,8 @@ install_gatekeeper() {
   mkdir -p "$APP_DIR"
 
   colorized_echo blue "Fetching compose file"
-  curl -sL "$FILES_URL_PREFIX/docker_compose.yml" -o "$APP_DIR/docker_compose.yml"
-  colorized_echo green "File saved in $APP_DIR/docker_compose.yml"
+  curl -sL "$FILES_URL_PREFIX/docker-compose.yaml" -o "$APP_DIR/docker-compose.yaml"
+  colorized_echo green "File saved in $APP_DIR/docker-compose.yaml"
 
   colorized_echo blue "Fetching .env file"
   curl -sL "$FILES_URL_PREFIX/.env.example" -o "$APP_DIR/.env"
