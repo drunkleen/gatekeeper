@@ -191,6 +191,7 @@ class AdminConnectionCreationForm(forms.ModelForm):
         self.fields['panel_password'].widget.attrs.update({
             'class': 'form-control form-control-solid mb-3 mb-lg-0',
             'placeholder': 'Panel Password',
+            'type': 'password',
             'autocomplete': "off",
         })
 

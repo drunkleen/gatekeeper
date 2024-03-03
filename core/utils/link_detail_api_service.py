@@ -19,7 +19,6 @@ PATH_API_MHSANAEI = "/panel/api/inbounds"
 PATH_GET_TRAFFIC = 'getClientTraffics/'
 
 
-# def get_user_info(panel_url: str, email: str, panel_name: str, panel_username: str, panel_password: str):
 def get_user_info(link: Subscription):
     session = requests.Session()
 

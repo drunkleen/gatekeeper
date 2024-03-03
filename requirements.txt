@@ -1,6 +1,7 @@
 asgiref==3.7.2
 beautifulsoup4==4.12.3
 certifi==2024.2.2
+cffi==1.16.0
 charset-normalizer==3.3.2
 Django==5.0.2
 django-cron==0.6.0
@@ -8,6 +9,7 @@ django-qrcode==0.3
 humanize==4.9.0
 idna==3.6
 pillow==10.2.0
+pycparser==2.21
 pypng==0.20220715.0
 python-dotenv==1.0.1
 qrcode==7.4.2

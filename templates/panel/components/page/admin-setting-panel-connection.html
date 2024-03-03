@@ -32,7 +32,7 @@
                             <div class="modal-dialog modal-dialog-centered mw-650px">
                                 <div class="modal-content">
                                     <div class="modal-header" id="kt_modal_add_user_header">
-                                        <h2 class="fw-bold">Add User</h2>
+                                        <h2 class="fw-bold">Add Connection</h2>
                                         <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close">
                                             <i class="ki-duotone ki-cross fs-1">
                                                 <span class="path1"></span>
@@ -82,22 +82,55 @@
                                                     </div>
                                                 </div>
 
+                                                <div id="panel_info_status" hidden="">
+                                                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                        <label class="fw-semibold fs-6 mb-2">Panel IP</label>
+                                                            {{ connection_creation_form.panel_url }}
+                                                        <div class="fv-plugins-message-container invalid-feedback"></div>
+                                                    </div>
+                                                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                        <label class="fw-semibold fs-6 mb-2">Panel Username</label>
+                                                            {{ connection_creation_form.panel_user }}
+                                                        <div class="fv-plugins-message-container invalid-feedback"></div>
+                                                    </div>
+                                                    <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                        <label class="fw-semibold fs-6 mb-2">{{ connection_creation_form.panel_password.label }}</label>
+                                                        <input type="password"
+                                                               name="{{ connection_creation_form.panel_password.name }}"
+                                                               maxlength="256"
+                                                               class="form-control form-control-solid mb-3 mb-lg-0"
+                                                               placeholder="Panel Password"
+                                                               autocomplete="off"
+                                                               id="id_panel_password">
+                                                        <div class="fv-plugins-message-container invalid-feedback"></div>
+                                                    </div>
+                                                </div>
 
-                                                <div class="fv-row mb-7 fv-plugins-icon-container">
-                                                    <label class="fw-semibold fs-6 mb-2">Panel IP</label>
-                                                        {{ connection_creation_form.panel_url }}
-                                                    <div class="fv-plugins-message-container invalid-feedback"></div>
-                                                </div>
-                                                <div class="fv-row mb-7 fv-plugins-icon-container">
-                                                    <label class="fw-semibold fs-6 mb-2">Panel Username</label>
-                                                        {{ connection_creation_form.panel_user }}
-                                                    <div class="fv-plugins-message-container invalid-feedback"></div>
-                                                </div>
-                                                <div class="fv-row mb-7 fv-plugins-icon-container">
-                                                    <label class="fw-semibold fs-6 mb-2">Panel Password</label>
-                                                        {{ connection_creation_form.panel_password }}
-                                                    <div class="fv-plugins-message-container invalid-feedback"></div>
-                                                </div>
+
+                                                <script>
+                                                    const radioMarzban = document.getElementById('radio_marzban');
+                                                    const radioAlireza0 = document.getElementById('radio_alireza0');
+                                                    const radioSanaei = document.getElementById('radio_sanaei');
+                                                    const divPanelInfoStatus = document.getElementById('panel_info_status');
+
+                                                    function handleRadioChange(showPanel) {
+                                                        divPanelInfoStatus.hidden = !showPanel;
+                                                    }
+
+                                                    radioMarzban.addEventListener('change', function () {
+                                                        handleRadioChange(false);
+                                                    });
+
+                                                    radioAlireza0.addEventListener('change', function () {
+                                                        handleRadioChange(true);
+                                                    });
+
+                                                    radioSanaei.addEventListener('change', function () {
+                                                        handleRadioChange(true);
+                                                    });
+                                                </script>
+
+
 
                                             </div>
                                             <div class="text-center pt-15">
