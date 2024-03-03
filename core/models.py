@@ -54,8 +54,10 @@ class PanelConnection(models.Model):
     )
     panel_name = models.CharField(choices=panel_choice, default=panel_marzban, max_length=32)
 
-    ssh_ip = models.CharField(max_length=64, null=True, blank=True)
-    ssh_password = models.CharField(max_length=256, null=True, blank=True)
+    panel_url = models.CharField(max_length=64, null=True, blank=True)
+    panel_user = models.CharField(max_length=128, null=True, blank=True)
+    panel_password = models.CharField(max_length=256, null=True, blank=True)
+
     is_active = models.BooleanField(default=True)
     updated_at = models.DateTimeField(auto_now=True)
 

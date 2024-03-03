@@ -14,6 +14,13 @@ urlpatterns = [
     path('panel/admin/edit-user/<str:username>', views.panel_admin_edit_user, name='admin-edit-user'),
     path('panel/admin/delete-user/<str:username>', views.panel_admin_delete_user, name='admin-delete-user'),
 
+    path('panel/admin/panel-connection',
+        views.panel_admin_setting_panel_connection,
+        name='panel-admin-setting-panel-connection'),
+    path('panel/admin/panel-connection/<int:connection_id>',
+         views.panel_admin_setting_panel_deleted_connection,
+         name='panel-admin-setting-panel-deleted-connection'),
+
     path('panel/admin/create-link/<str:username>', views.panel_admin_create_link, name='admin-create-link'),
     path('panel/admin/edit-link/<str:shorten_uuid_link>', views.panel_admin_edit_link, name='admin-edit-link'),
     path('panel/admin/delete-link/<str:shorten_uuid_link>', views.panel_admin_delete_link, name='admin-delete-link'),

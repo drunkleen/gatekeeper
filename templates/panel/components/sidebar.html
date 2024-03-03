@@ -55,6 +55,45 @@
                             </div>
                         </div>
                     </div>
+
+
+                    <div data-kt-menu-trigger="click"
+                            {% if page_title|first == 'Panel Setting' %}
+                         class="menu-item here show menu-accordion"
+                            {% else %}
+                         class="menu-item here menu-accordion"
+                            {% endif %}
+                    >
+                        <span class="menu-link">
+                                            <span class="menu-icon">
+                                                <i class="ki-duotone ki-setting-4 fs-1">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                    <span class="path3"></span>
+                                                    <span class="path4"></span>
+                                                </i>
+                                            </span>
+                                            <span class="menu-title">Panel Setting</span>
+                                            <span class="menu-arrow"></span>
+                                        </span>
+                        <div class="menu-sub menu-sub-accordion">
+                            <div class="menu-item">
+                                {% if page_title|last == 'Panel Connection' %}
+                                    <a class="menu-link active" href="#">
+                                {% else %}
+                                    <a class="menu-link" href="{% url 'panel-admin-setting-panel-connection' %}">
+                                {% endif %}
+                                <span class="menu-bullet">
+                                        <span class="bullet bullet-dot"></span>
+                                    </span>
+                                <span class="menu-title">
+                                        Panel Connection
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
                 {% endif %}
 
                 <div data-kt-menu-trigger="click"

@@ -5,12 +5,14 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import update_session_auth_hash
 from django.http import HttpResponse, Http404
 from django.contrib import messages
-from core.models import UserAccount, Subscription
+from core.models import UserAccount, Subscription, PanelConnection
 from core.forms import UserCreationForm, AdminUserCreationForm, AdminUserEditForm, UserEditForm, \
-    UserPasswordChangeForm, UserEmailChangeForm, SubscriptionForm, SubscriptionEditForm
+    UserPasswordChangeForm, UserEmailChangeForm, SubscriptionForm, SubscriptionEditForm, AdminConnectionCreationForm
 from core.utils.utils import generate_qr_code, link_scraper
 from django.utils import timezone
 from datetime import timedelta
+
+from core.utils.link_detail_api_service import get_user_info
 
 
 # util functions
@@ -328,6 +330,39 @@ def panel_admin_delete_user(request, username: str) -> HttpResponse:
 
 
 @login_required(login_url='/auth/sign-in')
+def panel_admin_setting_panel_connection(request) -> HttpResponse:
+    if request.user.account_type == 'admin':
+        context = {
+            'request': request,
+            'page_title': ['Panel Setting', 'Panel Connection'],
+        }
+
+        if request.method == 'POST':
+            form = AdminConnectionCreationForm(request.POST)
+            if form.is_valid():
+                form.save()
+
+        panel_connections = PanelConnection.objects.all()
+        context['panel_connections'] = panel_connections
+
+        context['connection_creation_form'] = AdminConnectionCreationForm()
+
+        return render(request, 'panel/components/page/admin-setting-panel-connection.html', context)
+
+    return redirect('panel-user', username=request.user.username)
+
+
+@login_required(login_url='/auth/sign-in')
+def panel_admin_setting_panel_deleted_connection(request, connection_id: int) -> HttpResponse:
+    if request.user.account_type == 'admin':
+        panel_connection = get_object_or_404(PanelConnection, id=connection_id)
+        panel_connection.delete()
+        return redirect('panel-admin-setting-panel-connection')
+
+    raise PermissionDenied
+
+
+@login_required(login_url='/auth/sign-in')
 def panel_user_profile_overview(request, username: str) -> HttpResponse:
     context = {
         'request': request,
@@ -462,6 +497,10 @@ def user_view_single_link(request, shorten_uuid_link) -> HttpResponse:
                 request.user.account_type == 'admin':
             context['link'] = link
             context['scheme_host'] = request.scheme + '://' + request.get_host()
+
+            if link.panel_connection:
+                context['link_details'] = get_user_info(link)
+
             if link.expose:
                 qrcode_data = generate_qr_code(
                     f'{context.get("scheme_host")}/panel/user/user-link/show/{link.subscription_uuid}'

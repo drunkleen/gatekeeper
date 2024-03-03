@@ -87,19 +87,41 @@
 
                                             <div class="fw-semibold fs-6 text-gray-600">Latest Utilized</div>
                                         </div>
+                                        {% if link_details %}
+                                            <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="ki-duotone ki-arrow-down fs-2 text-success me-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                    </i>
+                                                    <div class="fs-5 fw-bold counted">{{ link_details.download }}</div>
+                                                </div>
 
-                                        <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                                            <div class="d-flex align-items-center">
-                                                <i class="ki-duotone ki-arrow-right fs-2 text-danger me-2">
-                                                    <span class="path1"></span>
-                                                    <span class="path2"></span>
-                                                </i>
-                                                <div class="fs-5 fw-bold counted">{{ link.use_count }}</div>
+                                                <div class="fw-semibold fs-6 text-gray-600">Download</div>
                                             </div>
 
-                                            <div class="fw-semibold fs-6 text-gray-600">Usage Count</div>
-                                        </div>
+                                            <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="ki-duotone ki-arrow-up fs-2 text-danger me-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                    </i>
+                                                    <div class="fs-5 fw-bold counted">{{ link_details.upload }}</div>
+                                                </div>
+                                                <div class="fw-semibold fs-6 text-gray-600">Upload</div>
+                                            </div>
 
+                                            <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
+                                                <div class="d-flex align-items-center">
+                                                    <i class="ki-duotone ki-arrow-right fs-2 text-primary me-2">
+                                                        <span class="path1"></span>
+                                                        <span class="path2"></span>
+                                                    </i>
+                                                    <div class="fs-5 fw-bold counted">{{ link_details.total }}</div>
+                                                </div>
+                                                <div class="fw-semibold fs-6 text-gray-600">Total</div>
+                                            </div>
+                                        {% endif %}
                                     </div>
                                 </div>
 

@@ -2,7 +2,7 @@ from django.forms import ModelForm
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import PasswordChangeForm
-from core.models import UserAccount, Subscription
+from core.models import UserAccount, Subscription, PanelConnection
 
 
 class UserEmailChangeForm(forms.ModelForm):
@@ -157,6 +157,50 @@ class AdminUserCreationForm(UserCreationForm):
         return user
 
 
+class AdminConnectionCreationForm(forms.ModelForm):
+    class Meta:
+        model = PanelConnection
+        fields = ("connection_name", "panel_name", "panel_url", "panel_user", "panel_password")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        self.fields['connection_name'].widget.attrs.update({
+            'class': 'form-control form-control-solid mb-3 mb-lg-0',
+            'placeholder': 'Connection Name',
+            'autocomplete': "off",
+        })
+
+        self.fields['panel_name'].widget.attrs.update({
+            'class': 'form-check form-check-custom form-check-solid',
+            'autocomplete': "off",
+        })
+
+        self.fields['panel_url'].widget.attrs.update({
+            'class': 'form-control form-control-solid mb-3 mb-lg-0',
+            'placeholder': 'IP',
+            'autocomplete': "off",
+        })
+
+        self.fields['panel_user'].widget.attrs.update({
+            'class': 'form-control form-control-solid mb-3 mb-lg-0',
+            'placeholder': 'Panel Username',
+            'autocomplete': "off",
+        })
+
+        self.fields['panel_password'].widget.attrs.update({
+            'class': 'form-control form-control-solid mb-3 mb-lg-0',
+            'placeholder': 'Panel Password',
+            'autocomplete': "off",
+        })
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        if commit:
+            user.save()
+        return user
+
+
 class AdminUserEditForm(forms.ModelForm):
     class Meta:
         model = UserAccount
@@ -242,7 +286,7 @@ class UserEditForm(forms.ModelForm):
 class SubscriptionForm(forms.ModelForm):
     class Meta:
         model = Subscription
-        fields = ['subscription_title', 'subscription_link', 'created_by', 'assigned_to']
+        fields = ['subscription_title', 'subscription_link', 'created_by', 'assigned_to', 'panel_connection']
 
     def __init__(self, *args, **kwargs):
         super(SubscriptionForm, self).__init__(*args, **kwargs)
@@ -252,6 +296,7 @@ class SubscriptionForm(forms.ModelForm):
             'placeholder': 'Title',
             'autocomplete': "off",
         })
+
         self.fields['subscription_link'].widget.attrs.update({
             'class': 'form-control form-control-solid mb-3 mb-lg-0',
             'placeholder': 'Link',
@@ -271,7 +316,7 @@ class SubscriptionForm(forms.ModelForm):
 class SubscriptionEditForm(forms.ModelForm):
     class Meta:
         model = Subscription
-        fields = ['subscription_title', 'subscription_link', 'expose']
+        fields = ['subscription_title', 'subscription_link', 'expose', 'panel_connection']
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -291,5 +336,3 @@ class SubscriptionEditForm(forms.ModelForm):
             'class': 'form-check-input w-45px h-30px',
             'autocomplete': "off",
         })
-
-
