@@ -38,6 +38,5 @@
 
 Run the following command
 ```bash
-sudo bash -c "$(curl -sSL https://raw.githubusercontent.com/drunkleen/gatekeeper/master/install_script.sh)" @
- install
+sudo bash -c "$(curl -sSL https://raw.githubusercontent.com/drunkleen/gatekeeper/master/install_script.sh)" @ install
 ```
