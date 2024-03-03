@@ -1,7 +1,7 @@
 <p align="center">
   <a href="https://github.com/drunkleen/gatekeeper/" target="_blank" rel="noopener noreferrer">
     <picture>
-      <img width="160" height="160" src="https://raw.githubusercontent.com/drunkleen/gatekeeper/master/static/panel/media/logos/Logo.png">
+      <img width="160" height="160" src="./static/panel/media/logos/Logo.png">
     </picture>
   </a>
 </p>
