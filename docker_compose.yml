@@ -1,11 +1,6 @@
 services:
   gatekeeper:
-    container_name: gatekeeper
-    build: .
-    command:
-      - sh
-      - -c
-      - "python manage.py migrate && python manage.py runserver 0.0.0.0:${SERVER_PORT}"
+    image: drunkleen/gatekeeper:latest
     restart: always
     env_file: .env
     network_mode: host
