@@ -130,8 +130,7 @@ If you'd like to contribute to the project, follow these steps:
 
 ## Donation
 
-If you have found GateKeeper valuable and would like to contribute to its ongoing development, your support is greatly appreciated. You can show your appreciation by making a donation through [طریق [PayPal](https://www.paypal.com/paypalme/RDarvishifar) یا هر یک از شبکه‌های رمزارز زیر حمایت خود را نشان دهید:
-](https://www.paypal.com/paypalme/RDarvishifar) or any of the following cryptocurrency networks:
+If you have found GateKeeper valuable and would like to contribute to its ongoing development, your support is greatly appreciated. You can show your appreciation by making a donation through [PayPal](https://www.paypal.com/paypalme/RDarvishifar) or any of the following cryptocurrency networks:
 
 - **Bitcoin (BTC):** `bc1qsmvxpn79g6wkel3w67k37r9nvzm5jnggeltxl6`
 - **ETH/BNB/MATIC (ERC20, BEP20):** `0x8613aD01910d17Bc922D95cf16Dc233B92cd32d6`
