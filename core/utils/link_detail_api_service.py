@@ -4,8 +4,8 @@ import requests
 from core.models import Subscription, PanelConnection
 
 
-def byte_to_gigabytes(byte):
-    gigabytes = byte / (1024 ** 3)
+def byte_to_gigabytes(byte_data):
+    gigabytes = byte_data / (1024 * 1024 * 1024)
     return gigabytes
 
 
@@ -14,7 +14,7 @@ headers = {
     'Accept': 'application/json'
 }
 PATH_API_alireza = "/xui/API/inbounds/"
-PATH_API_MHSANAEI = "/panel/api/inbounds"
+PATH_API_MHSANAEI = "/panel/api/inbounds/"
 
 PATH_GET_TRAFFIC = 'getClientTraffics/'
 
@@ -44,12 +44,14 @@ def get_user_info(link: Subscription):
 
     if link.panel_connection.panel_name == PanelConnection.panel_alireza:
         response = session.get(
-            f"{link.panel_connection.panel_url}{PATH_API_alireza}{PATH_GET_TRAFFIC}{link.assigned_to.email}",
+            f"{link.panel_connection.panel_url}{PATH_API_alireza}{PATH_GET_TRAFFIC}{link.user_email_in_xui_panel}",
             headers=headers
         )
     elif link.panel_connection.panel_name == PanelConnection.panel_sanaei:
+        a = f"{link.panel_connection.panel_url}{PATH_API_MHSANAEI}{PATH_GET_TRAFFIC}{link.user_email_in_xui_panel}"
+        print(a)
         response = session.get(
-            f"{link.panel_connection.panel_url}{PATH_API_MHSANAEI}{PATH_GET_TRAFFIC}{link.assigned_to.email}",
+            a,
             headers=headers
         )
     else:
@@ -64,3 +66,16 @@ def get_user_info(link: Subscription):
         }
     else:
         return None
+
+
+def connection_test(username, password, panel_url):
+    body = {"username": username, "password": password}
+    try:
+        response = requests.post(f"{panel_url}/login", data=json.dumps(body), headers=headers)
+
+        if response.status_code == 200:
+            return True
+        else:
+            return False
+    except:
+        return False

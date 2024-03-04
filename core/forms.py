@@ -287,7 +287,14 @@ class UserEditForm(forms.ModelForm):
 class SubscriptionForm(forms.ModelForm):
     class Meta:
         model = Subscription
-        fields = ['subscription_title', 'subscription_link', 'created_by', 'assigned_to', 'panel_connection']
+        fields = [
+            'subscription_title',
+            'subscription_link',
+            'created_by',
+            'assigned_to',
+            'panel_connection',
+            'user_email_in_xui_panel',
+        ]
 
     def __init__(self, *args, **kwargs):
         super(SubscriptionForm, self).__init__(*args, **kwargs)
@@ -304,6 +311,17 @@ class SubscriptionForm(forms.ModelForm):
             'autocomplete': "off",
         })
 
+        self.fields['panel_connection'].widget.attrs.update({
+            'class': 'form-control form-control-solid mb-3 mb-lg-0',
+        })
+
+        self.fields['user_email_in_xui_panel'].widget.attrs.update({
+            'class': 'form-control form-control-solid mb-3 mb-lg-0',
+            'placeholder': 'client email in xui panel',
+            'autocomplete': "off",
+        })
+
+        self.fields['user_email_in_xui_panel'].required = False
         self.fields['created_by'].required = False
         self.fields['assigned_to'].required = False
 
@@ -317,7 +335,13 @@ class SubscriptionForm(forms.ModelForm):
 class SubscriptionEditForm(forms.ModelForm):
     class Meta:
         model = Subscription
-        fields = ['subscription_title', 'subscription_link', 'expose', 'panel_connection']
+        fields = [
+            'subscription_title',
+            'subscription_link',
+            'expose',
+            'panel_connection',
+            'user_email_in_xui_panel',
+        ]
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -337,3 +361,15 @@ class SubscriptionEditForm(forms.ModelForm):
             'class': 'form-check-input w-45px h-30px',
             'autocomplete': "off",
         })
+
+        self.fields['panel_connection'].widget.attrs.update({
+            'class': 'form-control form-control-solid mb-3 mb-lg-0',
+        })
+
+        self.fields['user_email_in_xui_panel'].widget.attrs.update({
+            'class': 'form-control form-control-solid mb-3 mb-lg-0',
+            'placeholder': 'client email in xui panel',
+            'autocomplete': "off",
+        })
+
+        self.fields['user_email_in_xui_panel'].required = False

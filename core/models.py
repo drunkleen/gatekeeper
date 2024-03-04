@@ -84,7 +84,12 @@ class Subscription(models.Model):
 
     panel_connection = models.ForeignKey(
         PanelConnection, on_delete=models.CASCADE,
-        null=True, blank=False, related_name="panel"
+        null=True, blank=True, related_name="panel"
+    )
+
+    user_email_in_xui_panel = models.CharField(
+        max_length=512,
+        validators=[MaxLengthValidator(512)], null=True, blank=False
     )
 
     created_by = models.ForeignKey(

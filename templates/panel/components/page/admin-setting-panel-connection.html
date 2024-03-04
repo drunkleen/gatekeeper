@@ -51,6 +51,11 @@
                                                     <div class="fv-plugins-message-container invalid-feedback"></div>
                                                 </div>
 
+                                                <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                    <label class="fw-semibold fs-6 mb-2">Panel URL</label>
+                                                        {{ connection_creation_form.panel_url }}
+                                                    <div class="fv-plugins-message-container invalid-feedback"></div>
+                                                </div>
 
                                                 <div class="mb-7">
                                                     <label class="required fw-semibold fs-6 mb-5">Panel</label>
@@ -82,12 +87,8 @@
                                                     </div>
                                                 </div>
 
+                        
                                                 <div id="panel_info_status" hidden="">
-                                                    <div class="fv-row mb-7 fv-plugins-icon-container">
-                                                        <label class="fw-semibold fs-6 mb-2">Panel IP</label>
-                                                            {{ connection_creation_form.panel_url }}
-                                                        <div class="fv-plugins-message-container invalid-feedback"></div>
-                                                    </div>
                                                     <div class="fv-row mb-7 fv-plugins-icon-container">
                                                         <label class="fw-semibold fs-6 mb-2">Panel Username</label>
                                                             {{ connection_creation_form.panel_user }}
@@ -154,9 +155,9 @@
                         <thead>
                             <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
                                 <th class="w-10px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" style="width: 537.283px;" aria-label="ID: activate to sort column ascending">ID</th>
-                                <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" style="width: 537.283px;" aria-label="User: activate to sort column ascending">Name</th>
-                                <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" style="width: 318.033px;" aria-label="Type: activate to sort column ascending">Panel</th>
-                                <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" style="width: 318.033px;" aria-label="Last login: activate to sort column ascending">URL</th>
+                                <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" style="width: 537.283px;" aria-label="Name: activate to sort column ascending">Name</th>
+                                <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" style="width: 318.033px;" aria-label="Panel: activate to sort column ascending">Panel</th>
+                                <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" style="width: 318.033px;" aria-label="URL: activate to sort column ascending">URL</th>
                                 <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" style="width: 318.033px;" aria-label="Status: activate to sort column ascending">Status</th>
                                 <th class="min-w-125px sorting" tabindex="0" aria-controls="kt_table_users" rowspan="1" colspan="1" style="width: 413.783px;" aria-label="Last Update: activate to sort column ascending">Last Update</th>
                                 <th class="text-end min-w-100px sorting_disabled" rowspan="1" colspan="1" style="width: 261.833px;" aria-label="Actions">Actions</th>

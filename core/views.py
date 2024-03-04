@@ -12,7 +12,7 @@ from core.utils.utils import generate_qr_code, link_scraper
 from django.utils import timezone
 from datetime import timedelta
 
-from core.utils.link_detail_api_service import get_user_info
+from core.utils.link_detail_api_service import get_user_info, connection_test
 
 
 # util functions
@@ -340,7 +340,15 @@ def panel_admin_setting_panel_connection(request) -> HttpResponse:
         if request.method == 'POST':
             form = AdminConnectionCreationForm(request.POST)
             if form.is_valid():
-                form.save()
+                connection_form = form.save(commit=False)
+                connection_form.panel_url = connection_form.panel_url.rstrip('/')
+                if connection_form.panel_name != PanelConnection.panel_marzban:
+                    connection_form.is_active = connection_test(
+                        connection_form.panel_user,
+                        connection_form.panel_password,
+                        connection_form.panel_url,
+                    )
+                connection_form.save()
 
         panel_connections = PanelConnection.objects.all()
         context['panel_connections'] = panel_connections
@@ -501,9 +509,14 @@ def user_view_single_link(request, shorten_uuid_link) -> HttpResponse:
             if link.panel_connection:
                 context['link_details'] = get_user_info(link)
 
-            if link.expose:
+            if link.panel_connection.panel_name == PanelConnection.panel_marzban:
                 qrcode_data = generate_qr_code(
                     f'{context.get("scheme_host")}/panel/user/user-link/show/{link.subscription_uuid}'
+                )
+                context['qrcode'] = qrcode_data
+            else:
+                qrcode_data = generate_qr_code(
+                    link.subscription_link
                 )
                 context['qrcode'] = qrcode_data
 
@@ -559,7 +572,10 @@ def user_view_single_link_show(request, shorten_uuid_link) -> HttpResponse:
                 request.user.account_type == 'admin':
             link.use_count += 1
             link.save()
-            return HttpResponse(link_scraper(link.subscription_link))
+            if link.panel_connection.panel_name == PanelConnection.panel_marzban:
+                return HttpResponse(link_scraper(link.subscription_link))
+            else:
+                return HttpResponse(link.subscription_link)
         else:
             raise Http404("No subscription link were located.")
 
