@@ -12,7 +12,7 @@
     یک راه حل برای مدیریت و حفاظت از پنل و لینک‌های شما.
 </p>
 <p align="center">
-    <a href="./README.md">ENGLISH</a> | <a href="./README-fa.md">فارسی</a>
+    <a href="./README.md">ENGLISH</a> | <a href="./README-fa.md">فارسی</a> | <a href="./README-ru.md">Русский </a> | <a href="./README-zh.md">中文</a>
 </p>
 
 <br/>
