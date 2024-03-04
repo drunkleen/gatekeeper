@@ -29,6 +29,15 @@ SERVER_PORT = os.environ.get('SERVER_PORT', '2087')
 
 AUTH_USER_MODEL = 'core.UserAccount'
 
+# Email backend
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'mail@gmail.com'
+EMAIL_HOST_PASSWORD = 'app pass'
+
 # Application definition
 
 INSTALLED_APPS = [
