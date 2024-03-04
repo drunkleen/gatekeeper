@@ -80,6 +80,9 @@ For assistance with the GateKeeper script, execute the following command to acce
 gatekeeper --help
 ```
 
+| **Please note that when creating users with admin privileges in the user list, the default password is automatically set to `Gatekeeper2024@`.** |
+|--------------------------------------------------------------------------------------------------------------------------------------------------|
+
 ## Configuration
 
 Configure the settings by utilizing environment variables or by placing them in the `.env` file.
@@ -98,7 +101,6 @@ or `vim`, for instance.
 | EMAIL_USE_TLS       | Enabling TLS for email communication (default: `True`)                   |
 | EMAIL_HOST_USER     | Your email username/address (e.g., `example@gmail.com`)                  |
 | EMAIL_HOST_PASSWORD | Your email password (e.g., `password`).                                  |
-
 
 ## To-Do List
 
@@ -125,17 +127,19 @@ If you'd like to contribute to the project, follow these steps:
 4. Push to the branch: `git push origin feature/new-feature`.
 5. Open a pull request.
 
-
 ## Donation
-If you've found GateKeeper valuable and wish to contribute to its ongoing development, you can show your support by making a donation through [Paypal](https://www.paypal.com/paypalme/RDarvishifar) or any of the following cryptocurrency networks:
+
+If you've found GateKeeper valuable and wish to contribute to its ongoing development, you can show your support by
+making a donation through [Paypal](https://www.paypal.com/paypalme/RDarvishifar) or any of the following cryptocurrency
+networks:
 
 - USDT/TRON (TRC20): `TGNru3vuDfPh5zBJ31DKzcVVvFgfMK9J48`
 - ETH/BNB/MATIC (ERC20, BEP20): `0x8613aD01910d17Bc922D95cf16Dc233B92cd32d6`
 - Bitcoin (BTC): `bc1qsmvxpn79g6wkel3w67k37r9nvzm5jnggeltxl6`
 - Dogecoin (DOGE): `D8U25FjxdxdQ7pEH37cMSw8HXBdY1qZ7n3`
 
-
 ## Acknowledgment:
+
 This panel is built upon the SAUL HTML free template generously provided by "[KeenThemes](https://keenthemes.com/)".
 
 ## License
