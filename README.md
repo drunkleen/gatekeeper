@@ -9,7 +9,10 @@
 <h1 align="center">Gate Keeper</h1>
 
 <p align="center">
-    A solution to safeguard your subscription links.
+    A solution to manage and safeguard your panels and links.
+</p>
+<p align="center">
+    <a href="./README.md">ENGLISH</a> | <a href="./README-fa.md">فارسی</a>
 </p>
 
 <br/>
@@ -69,7 +72,7 @@ Upon successful installation:
 
 5. Generate an administrative account with the ```gatekeeper createadmin``` command.
 
-6. Access the GateKeeper dashboard via a web browser at `http://YOUR_SERVER_IP:8000/auth/sign-in` (replace
+6. Access the GateKeeper dashboard via a web browser at `http://YOUR_SERVER_IP:2087/auth/sign-in` (replace
 YOUR_SERVER_IP with your server's actual IP address).
 
 7. That concludes the process! Now, sign in to your dashboard using the credentials of your admin account.
@@ -104,8 +107,6 @@ or `vim`, for instance.
 
 ## To-Do List
 
-Use this checklist to keep track of the tasks you need to accomplish for your project.
-
 1. [x] **Fix Bash Script:** Address issues and optimize the existing Bash script.
 2. [ ] **Fix UI:** Resolve any user interface-related issues or enhance the design for a better user experience.
 3. [ ] **Add Multilanguage Support:** Implement translations for multiple languages to make your project more accessible.
@@ -129,7 +130,8 @@ If you'd like to contribute to the project, follow these steps:
 
 ## Donation
 
-If you have found GateKeeper valuable and would like to contribute to its ongoing development, your support is greatly appreciated. You can show your appreciation by making a donation through [Paypal](https://www.paypal.com/paypalme/RDarvishifar) or any of the following cryptocurrency networks:
+If you have found GateKeeper valuable and would like to contribute to its ongoing development, your support is greatly appreciated. You can show your appreciation by making a donation through [طریق [PayPal](https://www.paypal.com/paypalme/RDarvishifar) یا هر یک از شبکه‌های رمزارز زیر حمایت خود را نشان دهید:
+](https://www.paypal.com/paypalme/RDarvishifar) or any of the following cryptocurrency networks:
 
 - **Bitcoin (BTC):** `bc1qsmvxpn79g6wkel3w67k37r9nvzm5jnggeltxl6`
 - **ETH/BNB/MATIC (ERC20, BEP20):** `0x8613aD01910d17Bc922D95cf16Dc233B92cd32d6`
