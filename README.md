@@ -6,7 +6,7 @@
   </a>
 </p>
 
-<h1 align="center"/>Gate Keeper</h1>
+<h1 align="center">Gate Keeper</h1>
 
 <p align="center">
     A solution to safeguard your subscription links.
@@ -44,15 +44,15 @@ authorized users, ensuring enhanced security for your panels.
 
 - Comprehensive compatibility with three prominent
   panels: [Marzban](https://github.com/Gozargah/Marzban), [3x-ui MHSanaei](https://github.com/MHSanaei/3x-ui)
-  and [x-ui alireza0](https://github.com/alireza0/x-ui)
-- Enhanced link and user management capabilities
-- In-built QR code generator for seamless interaction
-- Robust protection for configuration/subscription links
+  and [x-ui alireza0](https://github.com/alireza0/x-ui).
+- Enhanced link and user management capabilities.
+- In-built QR code generator for seamless interaction.
+- Robust protection for configuration/subscription links.
 - And much more, ensuring a comprehensive feature set.
 
 ## Installation guide
 
-1- Run the following command
+1. Run the following command
 
 ```bash
 sudo bash -c "$(curl -sSL https://raw.githubusercontent.com/drunkleen/gatekeeper/master/install_script.sh)" @ install
@@ -60,19 +60,19 @@ sudo bash -c "$(curl -sSL https://raw.githubusercontent.com/drunkleen/gatekeeper
 
 Upon successful installation:
 
-2 - Terminate log viewing by closing the terminal or pressing `Ctrl+C`.
+2. Terminate log viewing by closing the terminal or pressing `Ctrl+C`.
 
-3 - Locate the configuration file at `/opt/gatekeeper/.env` and modify its contents as needed.
+3. Locate the configuration file at `/opt/gatekeeper/.env` and modify its contents as needed.
 
-4 - Restart the GateKeeper panel by executing the gatekeeper restart command after making modifications to
+4. Restart the GateKeeper panel by executing the gatekeeper restart command after making modifications to
 /opt/gatekeeper/.env.
 
-5 - Generate an administrative account with the ```gatekeeper createadmin``` command.
+5. Generate an administrative account with the ```gatekeeper createadmin``` command.
 
-6 - Access the GateKeeper dashboard via a web browser at `http://YOUR_SERVER_IP:8000/auth/sign-in` (replace
+6. Access the GateKeeper dashboard via a web browser at `http://YOUR_SERVER_IP:8000/auth/sign-in` (replace
 YOUR_SERVER_IP with your server's actual IP address).
 
-7 - That concludes the process! Now, sign in to your dashboard using the credentials of your admin account.
+7. That concludes the process! Now, sign in to your dashboard using the credentials of your admin account.
 
 For assistance with the GateKeeper script, execute the following command to access the help message.
 
@@ -106,16 +106,16 @@ or `vim`, for instance.
 
 Use this checklist to keep track of the tasks you need to accomplish for your project.
 
-- [x] **Fix Bash Script:** Address issues and optimize the existing Bash script.
-- [ ] **Fix UI:** Resolve any user interface-related issues or enhance the design for a better user experience.
-- [ ] **Add Multilanguage Support:** Implement translations for multiple languages to make your project more accessible.
-- [ ] **Remove Excess Data and Code:** Trim unnecessary elements in both data and code for better efficiency and
+1. [x] **Fix Bash Script:** Address issues and optimize the existing Bash script.
+2. [ ] **Fix UI:** Resolve any user interface-related issues or enhance the design for a better user experience.
+3. [ ] **Add Multilanguage Support:** Implement translations for multiple languages to make your project more accessible.
+4. [ ] **Remove Excess Data and Code:** Trim unnecessary elements in both data and code for better efficiency and
   readability.
-- [ ] **Refactor the Code:** Restructure and improve the overall codebase for maintainability and performance.
-- [ ] **Add Support for X-UI Panels:** Extend compatibility by incorporating support for additional UI panels.
-- [ ] **Implement Other Supports:** Evaluate and integrate additional features or supports that enhance the
+5. [ ] **Refactor the Code:** Restructure and improve the overall codebase for maintainability and performance.
+6. [ ] **Add Support for X-UI Panels:** Extend compatibility by incorporating support for additional UI panels.
+7. [ ] **Implement Other Supports:** Evaluate and integrate additional features or supports that enhance the
   functionality of your project.
-- [ ] **Documentation:** Provide instructions on how to set up, run and use the project.
+8. [ ] **Documentation:** Provide instructions on how to set up, run and use the project.
 
 ## How to Contribute
 
@@ -129,14 +129,17 @@ If you'd like to contribute to the project, follow these steps:
 
 ## Donation
 
-If you've found GateKeeper valuable and wish to contribute to its ongoing development, you can show your support by
-making a donation through [Paypal](https://www.paypal.com/paypalme/RDarvishifar) or any of the following cryptocurrency
-networks:
+If you have found GateKeeper valuable and would like to contribute to its ongoing development, your support is greatly appreciated. You can show your appreciation by making a donation through [Paypal](https://www.paypal.com/paypalme/RDarvishifar) or any of the following cryptocurrency networks:
 
-- USDT/TRON (TRC20): `TGNru3vuDfPh5zBJ31DKzcVVvFgfMK9J48`
-- ETH/BNB/MATIC (ERC20, BEP20): `0x8613aD01910d17Bc922D95cf16Dc233B92cd32d6`
-- Bitcoin (BTC): `bc1qsmvxpn79g6wkel3w67k37r9nvzm5jnggeltxl6`
-- Dogecoin (DOGE): `D8U25FjxdxdQ7pEH37cMSw8HXBdY1qZ7n3`
+- **Bitcoin (BTC):** `bc1qsmvxpn79g6wkel3w67k37r9nvzm5jnggeltxl6`
+- **ETH/BNB/MATIC (ERC20, BEP20):** `0x8613aD01910d17Bc922D95cf16Dc233B92cd32d6`
+- **USDT/TRON (TRC20):** `TGNru3vuDfPh5zBJ31DKzcVVvFgfMK9J48`
+- **Dogecoin (DOGE):** `D8U25FjxdxdQ7pEH37cMSw8HXBdY1qZ7n3`
+
+Your generous contribution ensures the continued improvement and maintenance of GateKeeper.
+
+Thank you for supporting the project!
+
 
 ## Acknowledgment:
 
