@@ -8,6 +8,7 @@ from django.contrib import messages
 from core.models import UserAccount, Subscription, PanelConnection
 from core.forms import UserCreationForm, AdminUserCreationForm, AdminUserEditForm, UserEditForm, \
     UserPasswordChangeForm, UserEmailChangeForm, SubscriptionForm, SubscriptionEditForm, AdminConnectionCreationForm
+from core.utils.mail_service import send_forget_password_email
 from core.utils.utils import generate_qr_code, link_scraper
 from django.utils import timezone
 from datetime import timedelta
@@ -73,6 +74,7 @@ def handle_object_does_not_exist(request):
 
 
 def index(request) -> HttpResponse:
+    send_forget_password_email(request)
     if request.user.is_authenticated:
         return redirect_based_on_user_type(request.user)
     return redirect('sign-in')
@@ -112,6 +114,9 @@ def user_sign_in(request) -> HttpResponse:
 
 
 def user_sign_up(request) -> HttpResponse:
+    if request.user.is_authenticated:
+        return redirect_based_on_user_type(request.user)
+
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
@@ -138,6 +143,32 @@ def user_sign_up(request) -> HttpResponse:
 def user_sign_out(request) -> HttpResponse:
     logout(request)
     return redirect('sign-in')
+
+
+def user_forget_password(request, reset_key) -> HttpResponse:
+    if request.user.is_authenticated:
+        return redirect_based_on_user_type(request.user)
+
+    context = {
+        'page_title': ['Forget Password'],
+    }
+
+    if request.method == 'POST':
+        try:
+            user = UserAccount.objects.get(email=request.POST.get("email"))
+
+            send_forget_password_email(request, user)
+
+            if user is not None:
+                login(request, user)
+                if user.account_type in ('admin', 'moderator'):
+                    return redirect('panel-admin')
+                return redirect('user-view-links', username=user.username)
+
+        except ObjectDoesNotExist:
+            messages.error(request, 'Invalid email')
+
+    return render(request, 'sign-in.html', context)
 
 
 @login_required(login_url='/auth/sign-in')
