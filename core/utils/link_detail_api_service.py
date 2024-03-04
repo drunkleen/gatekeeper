@@ -5,8 +5,16 @@ from core.models import Subscription, PanelConnection
 
 
 def byte_to_gigabytes(byte_data):
-    gigabytes = byte_data / (1024 * 1024 * 1024)
-    return gigabytes
+    gigabytes = byte_data / (1024 ** 3)
+    megabytes = byte_data / (1024 ** 2)
+    kilobytes = byte_data / 1024
+
+    if gigabytes >= 1:
+        return f"{gigabytes:.2f} GB"
+    elif megabytes >= 1:
+        return f"{megabytes:.2f} MB"
+    else:
+        return f"{kilobytes:.2f} KB"
 
 
 headers = {
@@ -32,9 +40,9 @@ def get_user_info(link: Subscription):
                 key, value = pair.split("=")
                 data[key] = int(value) if value.isdigit() else value
 
-            data['download'] = str(byte_to_gigabytes(data.get('download'))) + " GB"
-            data['upload'] = str(byte_to_gigabytes(data.get('upload'))) + " GB"
-            data['total'] = str(byte_to_gigabytes(data.get('total'))) + " GB"
+            data['download'] = str(byte_to_gigabytes(data.get('download')))
+            data['upload'] = str(byte_to_gigabytes(data.get('upload')))
+            data['total'] = str(byte_to_gigabytes(data.get('total')))
             return data
         else:
             return None
@@ -48,21 +56,18 @@ def get_user_info(link: Subscription):
             headers=headers
         )
     elif link.panel_connection.panel_name == PanelConnection.panel_sanaei:
-        a = f"{link.panel_connection.panel_url}{PATH_API_MHSANAEI}{PATH_GET_TRAFFIC}{link.user_email_in_xui_panel}"
-        print(a)
         response = session.get(
-            a,
+            f"{link.panel_connection.panel_url}{PATH_API_MHSANAEI}{PATH_GET_TRAFFIC}{link.user_email_in_xui_panel}",
             headers=headers
         )
     else:
         return None
 
-    print(json.loads(response.text))
-    if response.status_code == 200:
+    if response.status_code == 200 and response.json()['success']:
         return {
-            'upload': json.loads(response.text)['obj']['up'],
-            'download': json.loads(response.text)['obj']['down'],
-            'total': json.loads(response.text)['obj']['total'],
+            'upload': byte_to_gigabytes(json.loads(response.text)['obj']['up']),
+            'download': byte_to_gigabytes(json.loads(response.text)['obj']['down']),
+            'total': byte_to_gigabytes(json.loads(response.text)['obj']['total']),
             'expire': json.loads(response.text)['obj']['expiryTime'],
         }
     else:
