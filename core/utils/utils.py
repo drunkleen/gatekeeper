@@ -3,6 +3,8 @@ import base64
 import requests
 from io import BytesIO
 from bs4 import BeautifulSoup
+import random
+import string
 
 
 def generate_qr_code(link):
@@ -44,3 +46,7 @@ def link_scraper(url):
 
     except requests.RequestException as e:
         return e
+
+
+def generate_random_key():
+    return ''.join(random.choices(string.ascii_letters + string.digits, k=126))

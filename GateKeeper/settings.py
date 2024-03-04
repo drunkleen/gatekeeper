@@ -19,7 +19,7 @@ else:
     SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
 
-DEBUG = os.environ.get('DEBUG', 'False').capitalize() == 'True'
+DEBUG = os.environ.get('DEBUG', 'false').lower() == 'true'
 
 ALLOWED_HOSTS = os.environ.get(
     'ALLOWED_HOSTS', ''
@@ -31,12 +31,17 @@ AUTH_USER_MODEL = 'core.UserAccount'
 
 # Email backend
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'mail@gmail.com'
-EMAIL_HOST_PASSWORD = 'app pass'
+EMAIL_ACTIVE = os.environ.get('SET_EMAIL', 'false').lower() == 'true'
+
+if EMAIL_ACTIVE:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = os.environ.get('EMAIL_HOST')
+    EMAIL_PORT = os.environ.get('EMAIL_PORT')
+    EMAIL_USE_TLS = os.environ.get('EMAIL_USE_TLS').lower() == 'true'
+    EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
+
 
 # Application definition
 

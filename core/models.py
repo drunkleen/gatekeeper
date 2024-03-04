@@ -1,7 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import MaxLengthValidator
-import uuid
 from django.db import models
+from core.utils.utils import generate_random_key
+import uuid
 
 
 # Create your models here.
@@ -114,3 +115,32 @@ class Subscription(models.Model):
 
     def __str__(self):
         return str(f'{self.subscription_title} ({self.assigned_to})')
+
+
+class ResetPassword(models.Model):
+    user = models.OneToOneField(
+        UserAccount, on_delete=models.CASCADE,
+        null=False, blank=False, related_name="user"
+    )
+
+    key_token = models.CharField(
+        default=generate_random_key,
+        max_length=128, validators=[MaxLengthValidator(128)], unique=True, null=False, blank=False
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return str(self.user.username)
+
+    def save(self, *args, **kwargs):
+        existing_reset_password = ResetPassword.objects.filter(user=self.user).first()
+
+        if existing_reset_password:
+            existing_reset_password.delete()
+
+        super(ResetPassword, self).save(*args, **kwargs)
+

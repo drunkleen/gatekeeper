@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import update_session_auth_hash
 from django.http import HttpResponse, Http404
 from django.contrib import messages
-from core.models import UserAccount, Subscription, PanelConnection
+from core.models import UserAccount, Subscription, PanelConnection, ResetPassword
 from core.forms import UserCreationForm, AdminUserCreationForm, AdminUserEditForm, UserEditForm, \
     UserPasswordChangeForm, UserEmailChangeForm, SubscriptionForm, SubscriptionEditForm, AdminConnectionCreationForm
 from core.utils.mail_service import send_forget_password_email
@@ -14,6 +14,8 @@ from django.utils import timezone
 from datetime import timedelta
 
 from core.utils.link_detail_api_service import get_user_info, connection_test
+
+from GateKeeper.settings import EMAIL_ACTIVE
 
 
 # util functions
@@ -48,7 +50,7 @@ def redirect_based_on_user_type(user):
     if is_admin_or_moderator(user):
         return redirect('panel-admin')
     else:
-        return redirect('panel-user', username=user.username)
+        return redirect('user-view-links', username=user.username)
 
 
 def handle_form_errors(request, form):
@@ -74,7 +76,6 @@ def handle_object_does_not_exist(request):
 
 
 def index(request) -> HttpResponse:
-    send_forget_password_email(request)
     if request.user.is_authenticated:
         return redirect_based_on_user_type(request.user)
     return redirect('sign-in')
@@ -89,6 +90,7 @@ def user_sign_in(request) -> HttpResponse:
 
     context = {
         'page_title': ['Sign In'],
+        'EMAIL_ACTIVE': EMAIL_ACTIVE,
     }
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -110,7 +112,7 @@ def user_sign_in(request) -> HttpResponse:
     if 'logout' in request.GET and request.GET['logout'] == '1':
         messages.success(request, 'You have successfully logged out.')
 
-    return render(request, 'sign-in.html', context)
+    return render(request, 'login/sign-in.html', context)
 
 
 def user_sign_up(request) -> HttpResponse:
@@ -137,7 +139,7 @@ def user_sign_up(request) -> HttpResponse:
     }
     form = UserCreationForm()
     context['form'] = form
-    return render(request, 'sign-up.html', context)
+    return render(request, 'login/sign-up.html', context)
 
 
 def user_sign_out(request) -> HttpResponse:
@@ -145,9 +147,11 @@ def user_sign_out(request) -> HttpResponse:
     return redirect('sign-in')
 
 
-def user_forget_password(request, reset_key) -> HttpResponse:
+def user_forget_password(request) -> HttpResponse:
     if request.user.is_authenticated:
         return redirect_based_on_user_type(request.user)
+    if not EMAIL_ACTIVE:
+        raise PermissionDenied
 
     context = {
         'page_title': ['Forget Password'],
@@ -157,18 +161,56 @@ def user_forget_password(request, reset_key) -> HttpResponse:
         try:
             user = UserAccount.objects.get(email=request.POST.get("email"))
 
-            send_forget_password_email(request, user)
+            reset_password = ResetPassword.objects.create(
+                user=user,
+            )
+            reset_password.save()
 
-            if user is not None:
-                login(request, user)
-                if user.account_type in ('admin', 'moderator'):
-                    return redirect('panel-admin')
-                return redirect('user-view-links', username=user.username)
+            send_forget_password_email(request, user, reset_password.key_token)
+            messages.success(
+                request, 'Your password reset instructions have been sent to your email. Check your inbox now.'
+            )
 
         except ObjectDoesNotExist:
             messages.error(request, 'Invalid email')
 
-    return render(request, 'sign-in.html', context)
+    return render(request, 'login/forget-password.html', context)
+
+
+def user_reset_password(request, reset_key) -> HttpResponse:
+    if request.user.is_authenticated:
+        return redirect_based_on_user_type(request.user)
+    if not EMAIL_ACTIVE:
+        raise PermissionDenied
+
+    context = {
+        'page_title': ['Reset Password'],
+        "reset_key": reset_key,
+    }
+
+    reset_password = ResetPassword.objects.get(key_token=reset_key)
+
+    if request.method == 'POST':
+        try:
+            user = UserAccount.objects.get(id=reset_password.user.id)
+            password = request.POST.get('password')
+            password2 = request.POST.get('confirm-password')
+
+            if password == password2:
+                user.set_password(password)
+                user.save()
+
+                reset_password.delete()
+
+                user = authenticate(request, username=user.username, password=password)
+                if user is not None:
+                    login(request, user)
+                    return redirect_based_on_user_type(user)
+
+        except ObjectDoesNotExist:
+            messages.error(request, 'Could not change perform the password reset!')
+
+    return render(request, 'login/reset-password.html', context)
 
 
 @login_required(login_url='/auth/sign-in')
@@ -228,8 +270,8 @@ def panel_admin_user_list(request) -> HttpResponse:
         context['users'] = users
 
         return render(request, 'panel/components/page/users-list.html', context)
-    else:
-        return HttpResponse("404")
+
+    raise PermissionDenied
 
 
 @login_required(login_url='/auth/sign-in')
