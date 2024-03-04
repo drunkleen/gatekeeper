@@ -57,6 +57,7 @@ def get_user_info(link: Subscription):
     else:
         return None
 
+    print(json.loads(response.text))
     if response.status_code == 200:
         return {
             'upload': json.loads(response.text)['obj']['up'],
@@ -72,10 +73,6 @@ def connection_test(username, password, panel_url):
     body = {"username": username, "password": password}
     try:
         response = requests.post(f"{panel_url}/login", data=json.dumps(body), headers=headers)
-
-        if response.status_code == 200:
-            return True
-        else:
-            return False
+        return response.status_code == 200 and response.json()['success']
     except:
         return False

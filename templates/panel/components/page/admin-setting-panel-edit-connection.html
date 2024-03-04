@@ -1,0 +1,143 @@
+{% extends 'panel/components/wrapper.html' %}
+{% load custom_filters %}
+{% load static %}
+{% block content-wrapper %}
+
+    <div id="kt_app_content" class="app-content  flex-column-fluid ">
+
+        <div id="kt_app_content_container" class="app-container  container-fluid ">
+            <div class="card mb-5 mb-xl-10">
+                <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse" data-bs-target="#kt_account_profile_details" aria-expanded="true" aria-controls="kt_account_profile_details">
+                    <div class="card-title m-0">
+                        <h3 class="fw-bold m-0">Profile Details</h3>
+                    </div>
+
+                </div>
+
+                <div id="kt_account_settings_profile_details" class="collapse show">
+                    <form class="form fv-plugins-bootstrap5 fv-plugins-framework" method="POST" action="{% url 'panel-admin-setting-panel-edit-connection' panel_connection.id %}" novalidate="novalidate">
+                    {% csrf_token %}
+                        <div class="card-body border-top p-9">
+
+
+                            <div class="row mb-6">
+                                <label class="col-lg-4 col-form-label required fw-semibold fs-6">{{ connection_form.connection_name.label }}</label>
+
+                                <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                    {{ connection_form.connection_name }}
+                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                            </div>
+
+                            <div class="row mb-6">
+                                <label class="col-lg-4 col-form-label required fw-semibold fs-6">{{ connection_form.panel_url.label }}</label>
+
+                                <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                    {{ connection_form.panel_url }}
+                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                            </div>
+
+                            <div class="row mb-6">
+                                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Panel</label>
+                                <div class="separator separator-dashed my-5"></div>
+                                <div class="col-lg-4 fv-row fv-plugins-icon-container">
+                                    <div class="form-check form-check-custom form-check-solid">
+                                        <input class="form-check-input me-3" name="panel_name" type="radio" value="Marzban" id="radio_marzban"
+                                               {% if panel_connection.panel_name == "Marzban" %}checked="checked"{% endif %}
+                                        >
+                                        <label class="form-check-label" for="radio_marzban">
+                                            <div class="fw-bold text-gray-800">Marzban</div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 fv-row fv-plugins-icon-container">
+                                    <div class="form-check form-check-custom form-check-solid">
+                                        <input class="form-check-input me-3" name="panel_name" type="radio" value="x-ui alireza0" id="radio_alireza0"
+                                           {% if panel_connection.panel_name == "x-ui alireza0" %}checked="checked"{% endif %}
+                                        >
+                                        <label class="form-check-label" for="radio_alireza0">
+                                            <div class="fw-bold text-gray-800">x-ui alireza0</div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 fv-row fv-plugins-icon-container">
+                                    <div class="form-check form-check-custom form-check-solid">
+                                        <input class="form-check-input me-3" name="panel_name" type="radio" value="3x-ui MHSanaei" id="radio_sanaei"
+                                           {% if panel_connection.panel_name == "3x-ui MHSanaei" %}checked="checked"{% endif %}
+                                        >
+                                        <label class="form-check-label" for="radio_sanaei">
+                                            <div class="fw-bold text-gray-800">3x-ui MHSanaei</div>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="separator separator-dashed my-5"></div>
+                            </div>
+
+
+                            <div id="panel_info_status" 
+                            {% if panel_connection.panel_name == "Marzban" %}hidden="" {% endif %}>
+
+                                <div class="row mb-6">
+                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">{{ connection_form.panel_user.label }}</label>
+
+                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                        {{ connection_form.panel_user }}
+                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                                </div>
+
+                                <div class="row mb-6">
+                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">{{ connection_form.panel_password.label }}</label>
+
+                                    <div class="col-lg-8 fv-row fv-plugins-icon-container">
+                                        <input type="password"
+                                               name="{{ connection_form.panel_password.name }}"
+                                               maxlength="256"
+                                               class="form-control form-control-solid mb-3 mb-lg-0"
+                                               placeholder="Panel Password"
+                                               autocomplete="off"
+                                               id="id_panel_password">
+                                        <div class="fv-plugins-message-container invalid-feedback"></div>
+                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                                </div>
+
+
+                            </div>
+
+
+                            <script>
+                                const radioMarzban = document.getElementById('radio_marzban');
+                                const radioAlireza0 = document.getElementById('radio_alireza0');
+                                const radioSanaei = document.getElementById('radio_sanaei');
+                                const divPanelInfoStatus = document.getElementById('panel_info_status');
+
+                                function handleRadioChange(showPanel) {
+                                    divPanelInfoStatus.hidden = !showPanel;
+                                }
+
+                                radioMarzban.addEventListener('change', function () {
+                                    handleRadioChange(false);
+                                });
+
+                                radioAlireza0.addEventListener('change', function () {
+                                    handleRadioChange(true);
+                                });
+
+                                radioSanaei.addEventListener('change', function () {
+                                    handleRadioChange(true);
+                                });
+                            </script>
+                        
+
+                        </div>
+
+                        <div class="card-footer d-flex justify-content-end py-6 px-9">
+                            <a href="{% url 'panel-admin-setting-panel-connection' %}" class="btn btn-light btn-active-light-danger me-2">Discard</a>
+                            <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save Changes</button>
+                        </div>
+                        <input type="hidden"></form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock content-wrapper %}

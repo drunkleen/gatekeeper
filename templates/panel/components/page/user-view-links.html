@@ -144,11 +144,11 @@
                                                                 <div class="d-flex justify-content-end flex-shrink-0">
 
                                                                     {% if request.user.account_type == 'admin' or request.user.account_type == 'moderator' %}
-                                                                        <a href="{% url 'admin-edit-link' link.subscription_uuid %}" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-danger btn-sm me-3">
-                                                                            <i class="ki-duotone ki-message-edit">
-                                                                                <span class="path1"></span>
-                                                                                <span class="path2"></span>
-                                                                            </i>
+                                                                        <a href="{% url 'admin-delete-link' link.subscription_uuid %}" class="btn  btn-color-danger btn-bg-light btn-active-color-dark btn-sm me-3">
+                                                                            Delete
+                                                                        </a>
+                                                                        <a href="{% url 'admin-edit-link' link.subscription_uuid %}" class="btn  btn-color-primary btn-bg-light btn-active-color-dark btn-sm me-6">
+                                                                            Edit
                                                                         </a>
                                                                     {% endif %}
 
@@ -240,11 +240,11 @@
                                                             <div class="d-flex justify-content-end flex-shrink-0">
 
                                                                 {% if request.user.account_type == 'admin' or request.user.account_type == 'moderator' %}
-                                                                    <a href="{% url 'admin-edit-link' link.subscription_uuid %}" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-danger btn-sm me-3">
-                                                                        <i class="ki-duotone ki-message-edit">
-                                                                            <span class="path1"></span>
-                                                                            <span class="path2"></span>
-                                                                        </i>
+                                                                    <a href="{% url 'admin-delete-link' link.subscription_uuid %}" class="btn  btn-color-danger btn-bg-light btn-active-color-dark btn-sm me-3">
+                                                                        Delete
+                                                                    </a>
+                                                                    <a href="{% url 'admin-edit-link' link.subscription_uuid %}" class="btn  btn-color-primary btn-bg-light btn-active-color-dark btn-sm me-6">
+                                                                        Edit
                                                                     </a>
                                                                 {% endif %}
 
@@ -330,11 +330,11 @@
                                                             <div class="d-flex justify-content-end flex-shrink-0">
 
                                                                 {% if request.user.account_type == 'admin' or request.user.account_type == 'moderator' %}
-                                                                    <a href="{% url 'admin-edit-link' link.subscription_uuid %}" class="btn btn-icon btn-color-muted btn-bg-light btn-active-color-danger btn-sm me-3">
-                                                                        <i class="ki-duotone ki-message-edit">
-                                                                            <span class="path1"></span>
-                                                                            <span class="path2"></span>
-                                                                        </i>
+                                                                    <a href="{% url 'admin-delete-link' link.subscription_uuid %}" class="btn  btn-color-danger btn-bg-light btn-active-color-dark btn-sm me-3">
+                                                                        Delete
+                                                                    </a>
+                                                                    <a href="{% url 'admin-edit-link' link.subscription_uuid %}" class="btn  btn-color-primary btn-bg-light btn-active-color-dark btn-sm me-6">
+                                                                        Edit
                                                                     </a>
                                                                 {% endif %}
 

@@ -361,6 +361,38 @@ def panel_admin_setting_panel_connection(request) -> HttpResponse:
 
 
 @login_required(login_url='/auth/sign-in')
+def panel_admin_setting_panel_edit_connection(request, connection_id: int) -> HttpResponse:
+    if request.user.account_type == 'admin':
+        context = {
+            'request': request,
+            'page_title': ['Panel Setting', 'Edit Connection'],
+        }
+        panel_connection = get_object_or_404(PanelConnection, id=connection_id)
+
+        if request.method == 'POST':
+            form = AdminConnectionCreationForm(request.POST, instance=panel_connection)
+            if form.is_valid():
+                connection_form = form.save(commit=False)
+                connection_form.panel_url = connection_form.panel_url.rstrip('/')
+                if connection_form.panel_name != PanelConnection.panel_marzban:
+                    connection_form.is_active = connection_test(
+                        connection_form.panel_user,
+                        connection_form.panel_password,
+                        connection_form.panel_url,
+                    )
+                connection_form.save()
+                return redirect('panel-admin-setting-panel-connection')
+
+        connection_form = AdminConnectionCreationForm(instance=panel_connection)
+        context['panel_connection'] = panel_connection
+        context['connection_form'] = connection_form
+
+        return render(request, 'panel/components/page/admin-setting-panel-edit-connection.html', context)
+
+    raise PermissionDenied
+
+
+@login_required(login_url='/auth/sign-in')
 def panel_admin_setting_panel_deleted_connection(request, connection_id: int) -> HttpResponse:
     if request.user.account_type == 'admin':
         panel_connection = get_object_or_404(PanelConnection, id=connection_id)
