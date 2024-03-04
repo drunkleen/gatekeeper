@@ -33,12 +33,10 @@ def generate_qr_code(link):
 
 
 def link_scraper(url):
-    print(url)
     try:
         response = requests.get(url)
         if response.status_code == 200:
             soup = BeautifulSoup(response.text, 'html.parser')
-            print(soup)
 
             return soup.prettify()
         else:
