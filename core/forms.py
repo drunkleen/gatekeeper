@@ -160,7 +160,7 @@ class AdminUserCreationForm(UserCreationForm):
 class AdminConnectionCreationForm(forms.ModelForm):
     class Meta:
         model = PanelConnection
-        fields = ("connection_name", "panel_name", "panel_url", "panel_user", "panel_password")
+        fields = ("connection_name", "panel_name", "url", "username", "password")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -176,19 +176,19 @@ class AdminConnectionCreationForm(forms.ModelForm):
             'autocomplete': "off",
         })
 
-        self.fields['panel_url'].widget.attrs.update({
+        self.fields['url'].widget.attrs.update({
             'class': 'form-control form-control-solid mb-3 mb-lg-0',
             'placeholder': 'IP',
             'autocomplete': "off",
         })
 
-        self.fields['panel_user'].widget.attrs.update({
+        self.fields['username'].widget.attrs.update({
             'class': 'form-control form-control-solid mb-3 mb-lg-0',
             'placeholder': 'Panel Username',
             'autocomplete': "off",
         })
 
-        self.fields['panel_password'].widget.attrs.update({
+        self.fields['password'].widget.attrs.update({
             'class': 'form-control form-control-solid mb-3 mb-lg-0',
             'placeholder': 'Panel Password',
             'type': 'password',

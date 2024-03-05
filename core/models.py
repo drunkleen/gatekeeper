@@ -55,9 +55,11 @@ class PanelConnection(models.Model):
     )
     panel_name = models.CharField(choices=panel_choice, default=panel_marzban, max_length=32)
 
-    panel_url = models.CharField(max_length=64, null=True, blank=True)
-    panel_user = models.CharField(max_length=128, null=True, blank=True)
-    panel_password = models.CharField(max_length=256, null=True, blank=True)
+    url = models.CharField(max_length=64, null=True, blank=True)
+    username = models.CharField(max_length=128, null=True, blank=True)
+    password = models.CharField(max_length=256, null=True, blank=True)
+
+    session_cookie = models.CharField(max_length=1024, null=True, blank=True)
 
     is_active = models.BooleanField(default=True)
     updated_at = models.DateTimeField(auto_now=True)

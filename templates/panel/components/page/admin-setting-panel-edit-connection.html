@@ -29,10 +29,10 @@
                             </div>
 
                             <div class="row mb-6">
-                                <label class="col-lg-4 col-form-label required fw-semibold fs-6">{{ connection_form.panel_url.label }}</label>
+                                <label class="col-lg-4 col-form-label required fw-semibold fs-6">{{ connection_form.url.label }}</label>
 
                                 <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                    {{ connection_form.panel_url }}
+                                    {{ connection_form.url }}
                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                             </div>
 
@@ -77,19 +77,19 @@
                             {% if panel_connection.panel_name == "Marzban" %}hidden="" {% endif %}>
 
                                 <div class="row mb-6">
-                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">{{ connection_form.panel_user.label }}</label>
+                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">{{ connection_form.username.label }}</label>
 
                                     <div class="col-lg-8 fv-row fv-plugins-icon-container">
-                                        {{ connection_form.panel_user }}
+                                        {{ connection_form.username }}
                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                 </div>
 
                                 <div class="row mb-6">
-                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">{{ connection_form.panel_password.label }}</label>
+                                    <label class="col-lg-4 col-form-label required fw-semibold fs-6">{{ connection_form.password.label }}</label>
 
                                     <div class="col-lg-8 fv-row fv-plugins-icon-container">
                                         <input type="password"
-                                               name="{{ connection_form.panel_password.name }}"
+                                               name="{{ connection_form.password.name }}"
                                                maxlength="256"
                                                class="form-control form-control-solid mb-3 mb-lg-0"
                                                placeholder="Panel Password"

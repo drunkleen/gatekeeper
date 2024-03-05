@@ -414,13 +414,19 @@ def panel_admin_setting_panel_connection(request) -> HttpResponse:
             form = AdminConnectionCreationForm(request.POST)
             if form.is_valid():
                 connection_form = form.save(commit=False)
-                connection_form.panel_url = connection_form.panel_url.rstrip('/')
+                connection_form.url = connection_form.url.rstrip('/')
                 if connection_form.panel_name != PanelConnection.panel_marzban:
-                    connection_form.is_active = connection_test(
-                        connection_form.panel_user,
-                        connection_form.panel_password,
-                        connection_form.panel_url,
+
+                    session_panel_cookie, is_panel_active = connection_test(
+                        connection_form.username,
+                        connection_form.password,
+                        connection_form.url,
                     )
+                    if is_panel_active:
+                        connection_form.is_active = True
+                        connection_form.session_cookie = session_panel_cookie
+                    else:
+                        connection_form.is_active = False
                 connection_form.save()
 
         panel_connections = PanelConnection.objects.all()
@@ -446,13 +452,19 @@ def panel_admin_setting_panel_edit_connection(request, connection_id: int) -> Ht
             form = AdminConnectionCreationForm(request.POST, instance=panel_connection)
             if form.is_valid():
                 connection_form = form.save(commit=False)
-                connection_form.panel_url = connection_form.panel_url.rstrip('/')
+                connection_form.url = connection_form.url.rstrip('/')
                 if connection_form.panel_name != PanelConnection.panel_marzban:
-                    connection_form.is_active = connection_test(
-                        connection_form.panel_user,
-                        connection_form.panel_password,
-                        connection_form.panel_url,
+                    session_panel_cookie, is_panel_active = connection_test(
+                        connection_form.username,
+                        connection_form.password,
+                        connection_form.url,
                     )
+                    if is_panel_active:
+                        connection_form.is_active = True
+                        connection_form.session_cookie = session_panel_cookie
+                    else:
+                        connection_form.is_active = False
+
                 connection_form.save()
                 return redirect('panel-admin-setting-panel-connection')
 
