@@ -8,10 +8,7 @@ services:
     command:
       - sh
       - -c
-      - "python manage.py migrate && python manage.py runserver 0.0.0.0:${SERVER_PORT}"
+      - "python manage.py migrate > /dev/null && python manage.py runserver 0.0.0.0:${SERVER_PORT}"
     volumes:
       - /var/lib/gatekeeper:/var/lib/gatekeeper
-      - gatekeeper_data:/app/data
-
-volumes:
-  gatekeeper_data:
+      - /var/lib/gatekeeper/data:/app/data
