@@ -251,7 +251,7 @@ class AdminUserEditForm(forms.ModelForm):
 class UserEditForm(forms.ModelForm):
     class Meta:
         model = UserAccount
-        fields = ("first_name", "last_name", "username", "email")
+        fields = ("first_name", "last_name", "username")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -271,12 +271,6 @@ class UserEditForm(forms.ModelForm):
         self.fields['username'].widget.attrs.update({
             'class': 'form-control form-control-solid mb-3 mb-lg-0',
             'placeholder': 'Username',
-            'autocomplete': "off",
-        })
-
-        self.fields['email'].widget.attrs.update({
-            'class': 'form-control form-control-solid mb-3 mb-lg-0',
-            'placeholder': 'E-mail Address',
             'autocomplete': "off",
         })
 

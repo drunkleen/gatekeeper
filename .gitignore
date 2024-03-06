@@ -161,6 +161,4 @@ cython_debug/
 #.idea/
 .idea
 /.idea
-/core/migrations/
-/core/migrations/
 /staticfiles/

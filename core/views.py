@@ -497,7 +497,7 @@ def panel_user_profile_overview(request, username: str) -> HttpResponse:
         user = get_object_or_404(UserAccount, username=username)
         context['page_title'] = ['Users', 'Profile', 'User Profile']
         context['user'] = user
-        context['form'] = AdminUserEditForm(instance=user)
+        context['form'] = UserEditForm(instance=user)
         context['email_change_form'] = UserEmailChangeForm(instance=user)
         context['password_reset_form'] = UserPasswordChangeForm(user)
 
@@ -515,8 +515,6 @@ def panel_user_edit(request, username: str) -> HttpResponse:
         if form.is_valid():
             if has_permission(request, user):
                 user_form = form.save(commit=False)
-                user_form.email = user_form.email.lower() \
-                    if user_form.email != "" else user_form.email
                 user_form.username = user_form.username.lower() \
                     if user_form.username != "" else user_form.username
                 user_form.first_name = user_form.first_name.capitalize() \
@@ -526,6 +524,7 @@ def panel_user_edit(request, username: str) -> HttpResponse:
                 user_form.save()
                 messages.success(request, 'Your Profile was successfully updated!')
 
+                return redirect('panel-user-profile', username=user_form.username)
         else:
             handle_form_errors(request, form)
 

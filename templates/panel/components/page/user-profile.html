@@ -143,9 +143,6 @@
                                     <div class="card-body p-9">
                                         <form id="kt_account_profile_details_form" class="form fv-plugins-bootstrap5 fv-plugins-framework" method="POST" action="{% url 'edit-user' user.username %}" novalidate="novalidate">
                                             {% csrf_token %}
-                                            <input type="hidden" name="csrfmiddlewaretoken" value="QyCKKNdh9IPLwpke656snrE4DqgMHAXmgWdQEPFbD3nMDu5FlfBj3UQraqx1sM2Z">
-
-
                                                 <div class="row mb-6">
                                                     <label class="col-lg-4 col-form-label required fw-semibold fs-6">Full Name</label>
 
@@ -197,7 +194,6 @@
                                                 <div id="kt_signin_email_edit" class="flex-row-fluid d-none">
                                                     <form class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" method="POST" action="{% url 'user-change-email' user.username %}">
                                                         {% csrf_token %}
-                                                        <input type="hidden" name="csrfmiddlewaretoken" value="u7W4D23uE9a7jmSF7Qujuc48ylznSAcGUvxax4vo8uI8qrD6m0ZaaFgv5lQCDMhj">
                                                         <div class="row mb-6">
                                                             <div class="col-lg-6 mb-4 mb-lg-0">
                                                                 <div class="fv-row mb-0">
@@ -231,7 +227,6 @@
                                                 <div id="kt_signin_password_edit" class="flex-row-fluid d-none">
                                                     <form class="form fv-plugins-bootstrap5 fv-plugins-framework" novalidate="novalidate" action="{% url 'user-reset-password' user.username %}" method="POST">
                                                         {% csrf_token %}
-                                                        <input type="hidden" name="csrfmiddlewaretoken" value="u7W4D23uE9a7jmSF7Qujuc48ylznSAcGUvxax4vo8uI8qrD6m0ZaaFgv5lQCDMhj">
                                                         <div class="row mb-1">
                                                             <div class="col-lg-4">
                                                                 <div class="fv-row mb-0">
