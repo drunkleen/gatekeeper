@@ -27,6 +27,8 @@ ALLOWED_HOSTS = os.environ.get(
 
 SERVER_PORT = os.environ.get('SERVER_PORT', '2087')
 
+DEFAULT_USER_PASSWORD = os.environ.get('DEFAULT_USER_PASSWORD', 'Gatekeeper2024@')
+
 AUTH_USER_MODEL = 'core.UserAccount'
 
 # Email backend

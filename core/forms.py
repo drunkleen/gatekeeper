@@ -3,6 +3,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import PasswordChangeForm
 from core.models import UserAccount, Subscription, PanelConnection
+from GateKeeper.settings import DEFAULT_USER_PASSWORD
 
 
 class UserEmailChangeForm(forms.ModelForm):
@@ -151,7 +152,7 @@ class AdminUserCreationForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.set_password('Gatekeeper2024@')  # Set a fixed password
+        user.set_password(DEFAULT_USER_PASSWORD)  # Set a fixed password
         if commit:
             user.save()
         return user
