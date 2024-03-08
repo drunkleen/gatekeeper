@@ -256,6 +256,10 @@ createadmin() {
   docker exec -it $APP_NAME sh -c "cd /app/ && python ./cli.py createadmin"
 }
 
+open_shell() {
+  docker exec -it $APP_NAME sh -c "cd /app/ && python ./cli.py shell"
+}
+
 uninstall_command() {
   check_running_as_root
   if ! is_gatekeeper_installed; then
@@ -502,6 +506,7 @@ usage() {
   echo "  status          Show status"
   echo "  logs            Show logs"
   echo "  createadmin     Creates an admin account"
+  echo "  shell           Open GateKeeper Shell"
   echo "  install         Install GateKeeper"
   echo "  update          Update latest version"
   echo "  uninstall       Uninstall GateKeeper"
@@ -533,6 +538,10 @@ logs)
 createadmin)
   shift
   createadmin "$@"
+  ;;
+shell)
+  shift
+  open_shell "$@"
   ;;
 install)
   shift

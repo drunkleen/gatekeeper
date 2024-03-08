@@ -11,4 +11,5 @@ services:
       - "python manage.py migrate > /dev/null && python manage.py runserver 0.0.0.0:${SERVER_PORT}"
     volumes:
       - /var/lib/gatekeeper:/var/lib/gatekeeper
+      - /opt/gatekeeper/.env:/app/data/.env
       - /var/lib/gatekeeper/data:/app/data
