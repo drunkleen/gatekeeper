@@ -86,11 +86,11 @@ class UserManagement:
                 self.console.print("Account not found!", style="bright_orange")
             else:
                 self.print_user_list("Selected account", [account])
-                self.console.print("Are you sure you want to delete this account? (Y/N)", style="bright_yellow", end="")
+                self.console.print("Are you sure you want to delete this account (Y/N)? ", style="bright_yellow", end="")
                 user_choice = input()
                 if user_choice.lower() == "y" or user_choice.lower() == "yes":
                     account.delete()
-                    self.console.print("Account has been deleted.", style="bright_green")
+                    self.console.print("Account has been deleted.")
                 
         except KeyboardInterrupt:
             sys.exit()
@@ -106,11 +106,11 @@ class UserManagement:
                 self.console.print("Account not found!", style="bright_orange")
             else:
                 self.print_user_list("Selected account", [account])
-                self.console.print("Are you sure you want to delete this account? (Y/N)", style="bright_yellow", end="")
+                self.console.print("Are you sure you want to delete this account (Y/N)? ", style="bright_yellow", end="")
                 user_choice = input()
                 if user_choice.lower() == "y" or user_choice.lower() == "yes":
                     account.delete()
-                    self.console.print("Account has been deleted.", style="bright_green")
+                    self.console.print("Account has been deleted.")
                 
         except KeyboardInterrupt:
             sys.exit()
@@ -203,25 +203,25 @@ class Shell:
                 self.console.print("GareKeeper:~$ ", style='bright_green', end="")
                 user_input = input()
                 
-                if user_input in ("/q", "quit"):
+                if user_input == "/q" or user_input == "quit":
                     sys.exit()
                     
-                elif user_input in ("/va", "admin view"):
+                elif user_input == "/va"or user_input == "admin view":
                     self.userManagement.get_all_admins()
                     
-                elif user_input in ("/va", "admin create"):
+                elif user_input == "/va" or user_input == "admin create":
                     self.userManagement.create_admin()
                         
-                elif user_input in ("/vm", "mod view"):
+                elif user_input == "/vm" or user_input == "mod view":
                     self.userManagement.get_all_mods()
                     
-                elif user_input in ("/cm", "mod create"):
+                elif user_input == "/cm" or user_input == "mod create":
                     self.userManagement.create_moderator()
                         
-                elif user_input in ("/vu", "user view"):
+                elif user_input == "/vu" or user_input ==  "user view":
                     self.userManagement.get_all_users()
                     
-                elif user_input in ("/cu", "user create"):
+                elif user_input == "/cu" or user_input == "user create":
                     self.userManagement.create_user()
                     
                 elif "/rmid" in user_input or "del account id" in user_input:
