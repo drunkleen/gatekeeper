@@ -29,8 +29,8 @@ HELP = [
 class UserManagement:
     def __init__(self) -> None:
         self.console = Console()
-        
-        
+
+
     def get_input(self, field_name: str, message: str, min_input_len: int):
         while True:
             user_input = input(message)
@@ -91,7 +91,7 @@ class UserManagement:
                 if user_choice.lower() == "y" or user_choice.lower() == "yes":
                     account.delete()
                     self.console.print("Account has been deleted.")
-                
+
         except KeyboardInterrupt:
             sys.exit()
 
@@ -111,7 +111,7 @@ class UserManagement:
                 if user_choice.lower() == "y" or user_choice.lower() == "yes":
                     account.delete()
                     self.console.print("Account has been deleted.")
-                
+
         except KeyboardInterrupt:
             sys.exit()
 
@@ -121,11 +121,11 @@ class UserManagement:
 
     def create_admin(self):
         self.create_account(UserAccount.type_admin)
-        
+
 
     def create_moderator(self):
         self.create_account(UserAccount.type_moderator)
-        
+
 
     def create_user(self):
         self.create_account(UserAccount.type_user)
@@ -135,7 +135,7 @@ class UserManagement:
         try:
             admins = UserAccount.objects.all().filter(account_type=UserAccount.type_admin).order_by("id")
             self.print_user_list("Admin List", admins)
-            
+
         except Exception as e:
             print(f"an error occurred while doing the task\n{e}")
 
@@ -144,7 +144,7 @@ class UserManagement:
         try:
             mods = UserAccount.objects.all().filter(account_type=UserAccount.type_moderator).order_by("id")
             self.print_user_list("Moderator List", mods)
-            
+
         except Exception as e:
             print(f"an error occurred while doing the task\n{e}")
 
@@ -153,7 +153,7 @@ class UserManagement:
         try:
             users = UserAccount.objects.all().filter(account_type=UserAccount.type_user).order_by("id")
             self.print_user_list("User List", users)
-            
+
         except Exception as e:
             print(f"an error occurred while doing the task\n{e}")
 
@@ -166,8 +166,8 @@ class UserManagement:
 
         for row in query:
             if row.is_active:
-                table.add_row(str(row.id), 
-                            row.username, 
+                table.add_row(str(row.id),
+                            row.username,
                             row.first_name,
                             row.last_name,
                             row.email,
@@ -175,8 +175,8 @@ class UserManagement:
                             'Active',
                             style='bright_green')
             else:
-                table.add_row(str(row.id), 
-                            row.username, 
+                table.add_row(str(row.id),
+                            row.username,
                             row.first_name,
                             row.last_name,
                             row.email,
@@ -184,52 +184,48 @@ class UserManagement:
                             'Inactive',
                             style='bright_yellow')
 
-        
+
         self.console.print(table)
-
-
-
-# Edeko
 
 
 class Shell:
     def __init__(self) -> None:
         self.userManagement = UserManagement()
         self.console = Console()
-    
+
     def start_shell(self):
         try:
             while True:
                 self.console.print("GareKeeper:~$ ", style='bright_green', end="")
                 user_input = input()
-                
+
                 if user_input == "/q" or user_input == "quit":
                     sys.exit()
-                    
+
                 elif user_input == "/va"or user_input == "admin view":
                     self.userManagement.get_all_admins()
-                    
+
                 elif user_input == "/va" or user_input == "admin create":
                     self.userManagement.create_admin()
-                        
+
                 elif user_input == "/vm" or user_input == "mod view":
                     self.userManagement.get_all_mods()
-                    
+
                 elif user_input == "/cm" or user_input == "mod create":
                     self.userManagement.create_moderator()
-                        
+
                 elif user_input == "/vu" or user_input ==  "user view":
                     self.userManagement.get_all_users()
-                    
+
                 elif user_input == "/cu" or user_input == "user create":
                     self.userManagement.create_user()
-                    
+
                 elif "/rmid" in user_input or "del account id" in user_input:
                     self.userManagement.delete_account_by_id(int(user_input.split(" ")[-1]))
-                    
+
                 elif "/rmu" in user_input or "del account username" in user_input:
                     self.userManagement.delete_account_by_username(user_input.split(" ")[-1])
-                
+
                 else:
                     table = Table(title="Need help?")
                     columns = ["short", "Command options", "Action"]
@@ -241,11 +237,11 @@ class Shell:
                     self.console.print(table)
         except KeyboardInterrupt:
             sys.exit()
-        
+
 
 if __name__ == "__main__":
-    
-    
+
+
     if len(sys.argv) > 1 and sys.argv[1] == "createadmin":
         userManagement = UserManagement()
         userManagement.create_admin()
@@ -253,5 +249,5 @@ if __name__ == "__main__":
     elif len(sys.argv) > 1 and sys.argv[1] == "shell":
         shell = Shell()
         shell.start_shell()
-        
+
 

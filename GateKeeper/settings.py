@@ -18,11 +18,10 @@ if not os.environ.get('SECRET_KEY'):
 else:
     SECRET_KEY = os.environ.get('SECRET_KEY', '')
 
-
 DEBUG = os.environ.get('DEBUG', 'false').lower() == 'true'
 
 ALLOWED_HOSTS = os.environ.get(
-    'ALLOWED_HOSTS', ''
+    'ALLOWED_HOSTS', '*'
 ).strip().replace(" ", "").split(',')
 
 SERVER_PORT = os.environ.get('SERVER_PORT', '2087')
@@ -45,7 +44,6 @@ if EMAIL_ACTIVE:
     EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 
 EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER', '')
-
 
 # Application definition
 
@@ -101,7 +99,6 @@ DATABASES = {
     }
 }
 
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -116,7 +113,6 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
