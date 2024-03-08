@@ -635,15 +635,21 @@ def user_view_single_link(request, shorten_uuid_link) -> HttpResponse:
             context['link'] = link
             context['scheme_host'] = request.scheme + '://' + request.get_host()
 
-            if link.panel_connection.is_active:
+            if not link.panel_connection:
+                qrcode_data = generate_qr_code(
+                    link.subscription_link
+                )
+                context['qrcode'] = qrcode_data
+                
+            elif link.panel_connection.panel_name == PanelConnection.panel_marzban:
                 context['link_details'] = get_user_info(link)
-
-            if link.panel_connection.panel_name and link.panel_connection.panel_name == PanelConnection.panel_marzban:
                 qrcode_data = generate_qr_code(
                     f'{context.get("scheme_host")}/panel/user/user-link/show/{link.subscription_uuid}'
                 )
                 context['qrcode'] = qrcode_data
+                
             else:
+                context['link_details'] = get_user_info(link)
                 qrcode_data = generate_qr_code(
                     link.subscription_link
                 )
