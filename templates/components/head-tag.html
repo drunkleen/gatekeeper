@@ -2,15 +2,15 @@
 {% block content %}
 
 <head><base href=""/>
-    <title>Gate Keeper - {{ page_title|last }}</title>
+    <title>{{ custom_app_name }} - {{ page_title|last }}</title>
     <meta charset="utf-8" />
-    <meta name="description" content="Gate Keeper - Make Your Links Safe" />
+    <meta name="description" content="{{ custom_app_name }}r - Make Your Links Safe" />
     <meta name="keywords" content="bootstrap, bootstrap 5, bootstrap admin, bootstrap dashboard" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta property="og:locale" content="en_US" />
     <meta property="og:type" content="article" />
-    <meta property="og:title" content="Gate Keeper" />
-    <meta property="og:site_name" content="Gate Keeper" />
+    <meta property="og:title" content="{{ custom_app_name }}" />
+    <meta property="og:site_name" content="{{ custom_app_name }}" />
     <link rel="shortcut icon" href="{% static 'panel/media/logos/favicon.ico' %}" />
     <!--begin::Fonts(mandatory for all pages)-->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" />

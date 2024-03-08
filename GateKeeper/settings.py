@@ -27,6 +27,8 @@ ALLOWED_HOSTS = os.environ.get(
 
 SERVER_PORT = os.environ.get('SERVER_PORT', '2087')
 
+CUSTOM_APP_NAME = os.environ.get('CUSTOM_APP_NAME', 'Gate Keeper')
+
 DEFAULT_USER_PASSWORD = os.environ.get('DEFAULT_USER_PASSWORD', 'Gatekeeper2024@')
 
 AUTH_USER_MODEL = 'core.UserAccount'

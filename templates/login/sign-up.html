@@ -10,7 +10,7 @@
                         <a href="#" class="py-2 py-lg-20">
                             <img alt="Logo" src="{% static 'panel/media/logos/default-dark.png' %}" class="h-50px h-lg-100px" />
                         </a>
-                        <h1 class="d-none d-lg-block fw-bold text-white fs-2qx pb-5 pb-md-10">Welcome to Gate Keeper</h1>
+                        <h1 class="d-none d-lg-block fw-bold text-white fs-2qx pb-5 pb-md-10">Welcome to {{ custom_app_name }}</h1>
                         <p class="d-none d-lg-block fw-semibold fs-2 text-white">
                             a panel you can trust
                             <br />
@@ -28,8 +28,44 @@
                             <div class="mb-10 text-center">
                                 <h1 class="text-dark mb-3">Create an Account</h1>
                                 <div class="text-gray-400 fw-semibold fs-4">Already have an account?
-                                    <a href="{% url 'sign-in' %}" class="link-primary fw-bold">Sign in here</a></div>
+                                    <a href="{% url 'sign-in' %}" class="link-primary fw-bold">Sign in here</a>
+                                </div>
                             </div>
+
+
+                            {% if messages %}
+                                {% for message in messages %}
+
+                                    <div
+                                            {% if message.tags  == 'error'%}
+                                                class="notice d-flex bg-light-danger mb-4 rounded border-danger border border-dashed p-6"
+                                            {% elif message.tags == 'success' %}
+                                                class="notice d-flex bg-light-success mb-4 rounded border-success border border-dashed p-6"
+                                            {% else %}
+                                                class="notice d-flex bg-light-primary mb-4 rounded border-primary border border-dashed p-6"
+                                            {% endif %}>
+                                        <i
+                                                {% if message.tags == 'error' %}
+                                                    class="ki-duotone ki-cross-circle fs-2tx text-danger me-4"
+                                                {% elif message.tags == 'success' %}
+                                                    class="ki-duotone ki-user-tick fs-2tx text-success me-4"
+                                                {% else %}
+                                                    class="ki-duotone ki-question fs-2tx text-primary me-4"
+                                                {% endif %}
+                                        >
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                        </i>
+                                        <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+                                            <div class="mb-3 mb-md-0 fw-semibold">
+                                                <div class="fs-5 text-gray-700 pe-7">{{ message }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endif %}
+
+
                             <div class="row fv-row mb-7">
                                 <div class="col-xl-6">
                                     <label class="form-label fw-bold text-dark fs-6">First Name</label>
@@ -75,7 +111,7 @@
 
                             <div class="text-center">
                                 <button type="submit" id="kt_sign_up_submit" class="btn btn-lg btn-primary">
-                                    <span class="indicator-label">Submit</span>
+                                    <span class="indicator-label">Create new account</span>
                                     <span class="indicator-progress">Please wait...
 										<span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                 </button>

@@ -15,7 +15,7 @@ from datetime import timedelta
 
 from core.utils.link_detail_api_service import get_user_info, connection_test
 
-from GateKeeper.settings import EMAIL_ACTIVE
+from GateKeeper.settings import EMAIL_ACTIVE, CUSTOM_APP_NAME
 
 
 # util functions
@@ -89,6 +89,7 @@ def user_sign_in(request) -> HttpResponse:
     request.session['user_ip'] = user_ip
 
     context = {
+        'custom_app_name': CUSTOM_APP_NAME,
         'page_title': ['Sign In'],
         'EMAIL_ACTIVE': EMAIL_ACTIVE,
     }
@@ -135,6 +136,7 @@ def user_sign_up(request) -> HttpResponse:
             return redirect('panel-user', username=request.user.username)
 
     context = {
+        'custom_app_name': CUSTOM_APP_NAME,
         'page_title': ['Sign Up'],
     }
     form = UserCreationForm()
@@ -154,6 +156,7 @@ def user_forget_password(request) -> HttpResponse:
         raise PermissionDenied
 
     context = {
+        'custom_app_name': CUSTOM_APP_NAME,
         'page_title': ['Forget Password'],
     }
 
@@ -184,6 +187,7 @@ def user_reset_password(request, reset_key) -> HttpResponse:
         raise PermissionDenied
 
     context = {
+        'custom_app_name': CUSTOM_APP_NAME,
         'page_title': ['Reset Password'],
         "reset_key": reset_key,
     }
@@ -217,6 +221,7 @@ def user_reset_password(request, reset_key) -> HttpResponse:
 def panel_admin(request) -> HttpResponse:
     if is_admin_or_moderator(request.user):
         context = {
+            'custom_app_name': CUSTOM_APP_NAME,
             'request': request,
             'page_title': ['User Management', 'Overview'],
         }
@@ -241,6 +246,7 @@ def panel_admin(request) -> HttpResponse:
 def panel_admin_user_list(request) -> HttpResponse:
     if request.user.account_type in ('admin', 'moderator'):
         context = {
+            'custom_app_name': CUSTOM_APP_NAME,
             'request': request,
             'page_title': ['User Management', 'User List'],
         }
@@ -279,6 +285,7 @@ def panel_admin_edit_user(request, username: str) -> HttpResponse:
     if request.user.account_type in ['admin', 'moderator']:
 
         context = {
+            'custom_app_name': CUSTOM_APP_NAME,
             'request': request,
             'page_title': ['User Management', 'User List', 'Edit User'],
         }
@@ -315,6 +322,7 @@ def panel_admin_create_link(request, username: str) -> HttpResponse:
     if request.user.account_type in ['admin', 'moderator']:
 
         context = {
+            'custom_app_name': CUSTOM_APP_NAME,
             'request': request,
             'page_title': ['User Management', 'User List', 'Create Link'],
         }
@@ -349,6 +357,7 @@ def panel_admin_edit_link(request, shorten_uuid_link: str) -> HttpResponse:
     if is_admin_or_moderator(request.user):
 
         context = {
+            'custom_app_name': CUSTOM_APP_NAME,
             'request': request,
             'page_title': ['User Management', 'User List', 'Edit Link'],
         }
@@ -406,6 +415,7 @@ def panel_admin_delete_user(request, username: str) -> HttpResponse:
 def panel_admin_setting_panel_connection(request) -> HttpResponse:
     if request.user.account_type == 'admin':
         context = {
+            'custom_app_name': CUSTOM_APP_NAME,
             'request': request,
             'page_title': ['Panel Setting', 'Panel Connection'],
         }
@@ -443,6 +453,7 @@ def panel_admin_setting_panel_connection(request) -> HttpResponse:
 def panel_admin_setting_panel_edit_connection(request, connection_id: int) -> HttpResponse:
     if request.user.account_type == 'admin':
         context = {
+            'custom_app_name': CUSTOM_APP_NAME,
             'request': request,
             'page_title': ['Panel Setting', 'Edit Connection'],
         }
@@ -496,6 +507,7 @@ def panel_user_profile_overview(request, username: str) -> HttpResponse:
     if request.user.username == username or is_admin_or_moderator(request.user):
         user = get_object_or_404(UserAccount, username=username)
         context['page_title'] = ['Users', 'Profile', 'User Profile']
+        context['custom_app_name'] = CUSTOM_APP_NAME
         context['user'] = user
         context['form'] = UserEditForm(instance=user)
         context['email_change_form'] = UserEmailChangeForm(instance=user)
@@ -587,7 +599,7 @@ def panel_user_reset_password(request, username: str) -> HttpResponse:
 @login_required(login_url='/auth/sign-in')
 def user_view_links(request, username: str) -> HttpResponse:
     context = {
-
+        'custom_app_name': CUSTOM_APP_NAME,
         'page_title': ['Link Control', 'View Links'],
         'request': request,
     }
@@ -611,6 +623,7 @@ def user_view_links(request, username: str) -> HttpResponse:
 @login_required(login_url='/auth/sign-in')
 def user_view_single_link(request, shorten_uuid_link) -> HttpResponse:
     context = {
+        'custom_app_name': CUSTOM_APP_NAME,
         'page_title': ['Link Control', 'View Links'],
         'request': request,
     }
@@ -622,7 +635,7 @@ def user_view_single_link(request, shorten_uuid_link) -> HttpResponse:
             context['link'] = link
             context['scheme_host'] = request.scheme + '://' + request.get_host()
 
-            if link.panel_connection:
+            if link.panel_connection.is_active:
                 context['link_details'] = get_user_info(link)
 
             if link.panel_connection.panel_name and link.panel_connection.panel_name == PanelConnection.panel_marzban:
