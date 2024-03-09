@@ -68,12 +68,12 @@ Upon successful installation:
 3. Locate the configuration file at `/opt/gatekeeper/.env` and modify its contents as needed.
 
 4. Restart the GateKeeper panel by executing the gatekeeper restart command after making modifications to
-/opt/gatekeeper/.env.
+   /opt/gatekeeper/.env.
 
 5. Generate an administrative account with the ```gatekeeper createadmin``` command.
 
 6. Access the GateKeeper dashboard via a web browser at `http://YOUR_SERVER_IP:2087/auth/sign-in` (replace
-YOUR_SERVER_IP with your server's actual IP address).
+   YOUR_SERVER_IP with your server's actual IP address).
 
 7. That concludes the process! Now, sign in to your dashboard using the credentials of your admin account.
 
@@ -93,29 +93,32 @@ Configure the settings by utilizing environment variables or by placing them in 
 To achieve this, open the `.env` file located at `/opt/gatekeeper/` using your preferred text editor, such as `nano`
 or `vim`, for instance.
 
-| Variable            | Description                                                              |
-|---------------------|--------------------------------------------------------------------------|
-| DEBUG               | Enable debug mode for development (default: `False`)                     |
-| ALLOWED_HOSTS       | Specify the host for application binding (default: `any`)                |
-| SERVER_PORT         | Assign the application to this port (default: `2087`)                    |
-| SET_EMAIL           | Whether you're want to use an email for sending mails (default: `False`) |
-| EMAIL_HOST          | Your email host (e.g., `smtp.gmail.com`)                                 |
-| EMAIL_PORT          | Your email port (e.g., `587`)                                            |
-| EMAIL_USE_TLS       | Enabling TLS for email communication (default: `True`)                   |
-| EMAIL_HOST_USER     | Your email username/address (e.g., `example@gmail.com`)                  |
-| EMAIL_HOST_PASSWORD | Your email password (e.g., `password`).                                  |
+| Variable              | Description                                                                      |
+|-----------------------|----------------------------------------------------------------------------------|
+| DEBUG                 | Enable debug mode for development (default: `False`)                             |
+| ALLOWED_HOSTS         | Specify the host for application binding (default: `any`)                        |
+| SERVER_PORT           | Assign the application to this port (default: `2087`)                            |
+| CUSTOM_APP_NAME       | Set custom name for the panel (default: `GateKeeper`)                            |
+| DEFAULT_USER_PASSWORD | Set custom password for the new users made by admin (default: `Gatekeeper2024@`) |
+| SET_EMAIL             | Whether you're want to use an email for sending mails (default: `False`)         |
+| EMAIL_HOST            | Your email host (e.g., `smtp.gmail.com`)                                         |
+| EMAIL_PORT            | Your email port (e.g., `587`)                                                    |
+| EMAIL_USE_TLS         | Enabling TLS for email communication (default: `True`)                           |
+| EMAIL_HOST_USER       | Your email username/address (e.g., `example@gmail.com`)                          |
+| EMAIL_HOST_PASSWORD   | Your email password (e.g., `password`).                                          |
 
 ## To-Do List
 
 1. [x] **Fix Bash Script:** Address issues and optimize the existing Bash script.
 2. [ ] **Fix UI:** Resolve any user interface-related issues or enhance the design for a better user experience.
-3. [ ] **Add Multilanguage Support:** Implement translations for multiple languages to make your project more accessible.
+3. [ ] **Add Multilanguage Support:** Implement translations for multiple languages to make your project more
+   accessible.
 4. [ ] **Remove Excess Data and Code:** Trim unnecessary elements in both data and code for better efficiency and
-  readability.
+   readability.
 5. [ ] **Refactor the Code:** Restructure and improve the overall codebase for maintainability and performance.
 6. [ ] **Add Support for X-UI Panels:** Extend compatibility by incorporating support for additional UI panels.
 7. [ ] **Implement Other Supports:** Evaluate and integrate additional features or supports that enhance the
-  functionality of your project.
+   functionality of your project.
 8. [ ] **Documentation:** Provide instructions on how to set up, run and use the project.
 
 ## How to Contribute
@@ -130,7 +133,9 @@ If you'd like to contribute to the project, follow these steps:
 
 ## Donation
 
-If you have found GateKeeper valuable and would like to contribute to its ongoing development, your support is greatly appreciated. You can show your appreciation by making a donation through [PayPal](https://www.paypal.com/paypalme/RDarvishifar) or any of the following cryptocurrency networks:
+If you have found GateKeeper valuable and would like to contribute to its ongoing development, your support is greatly
+appreciated. You can show your appreciation by making a donation
+through [PayPal](https://www.paypal.com/paypalme/RDarvishifar) or any of the following cryptocurrency networks:
 
 - **Bitcoin (BTC):** `bc1qsmvxpn79g6wkel3w67k37r9nvzm5jnggeltxl6`
 - **ETH/BNB/MATIC (ERC20, BEP20):** `0x8613aD01910d17Bc922D95cf16Dc233B92cd32d6`
@@ -140,7 +145,6 @@ If you have found GateKeeper valuable and would like to contribute to its ongoin
 Your generous contribution ensures the continued improvement and maintenance of GateKeeper.
 
 Thank you for supporting the project!
-
 
 ## Acknowledgment:
 

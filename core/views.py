@@ -238,7 +238,7 @@ def panel_admin(request) -> HttpResponse:
         except UserAccount.DoesNotExist:
             pass
 
-        return render(request, 'panel/components/page/overview.html', context)
+        return render(request, 'panel/pages/overview.html', context)
     return redirect('panel-user', username=request.user.username)
 
 
@@ -269,13 +269,13 @@ def panel_admin_user_list(request) -> HttpResponse:
                 add_user_form = AdminUserCreationForm()
                 context['add_user_form'] = add_user_form
                 context['users'] = users
-                return render(request, 'panel/components/page/users-list.html', context)
+                return render(request, 'panel/pages/users-list.html', context)
 
         add_user_form = AdminUserCreationForm()
         context['add_user_form'] = add_user_form
         context['users'] = users
 
-        return render(request, 'panel/components/page/users-list.html', context)
+        return render(request, 'panel/pages/users-list.html', context)
 
     raise PermissionDenied
 
@@ -311,7 +311,7 @@ def panel_admin_edit_user(request, username: str) -> HttpResponse:
 
         form = AdminUserEditForm(instance=user)
         context['form'] = form
-        return render(request, 'panel/components/page/admin-edit-user.html', context)
+        return render(request, 'panel/pages/admin-edit-user.html', context)
 
     messages.error(request, 'Action Not Allowed')
     return redirect('panel-user', username=request.user.username)
@@ -346,7 +346,7 @@ def panel_admin_create_link(request, username: str) -> HttpResponse:
         form = SubscriptionForm()
         context['form'] = form
         context['user'] = user
-        return render(request, 'panel/components/page/admin-create-link.html', context)
+        return render(request, 'panel/pages/admin-create-link.html', context)
 
     messages.error(request, 'Action Not Allowed')
     return redirect('panel-user', username=request.user.username)
@@ -379,7 +379,7 @@ def panel_admin_edit_link(request, shorten_uuid_link: str) -> HttpResponse:
         form = SubscriptionEditForm(instance=link)
         context['form'] = form
         context['user'] = link.assigned_to
-        return render(request, 'panel/components/page/admin-edit-link.html', context)
+        return render(request, 'panel/pages/admin-edit-link.html', context)
 
     messages.error(request, 'Action Not Allowed')
     return redirect('panel-user', username=request.user.username)
@@ -444,7 +444,7 @@ def panel_admin_setting_panel_connection(request) -> HttpResponse:
 
         context['connection_creation_form'] = AdminConnectionCreationForm()
 
-        return render(request, 'panel/components/page/admin-setting-panel-connection.html', context)
+        return render(request, 'panel/pages/admin-setting-panel-connection.html', context)
 
     return redirect('panel-user', username=request.user.username)
 
@@ -483,7 +483,7 @@ def panel_admin_setting_panel_edit_connection(request, connection_id: int) -> Ht
         context['panel_connection'] = panel_connection
         context['connection_form'] = connection_form
 
-        return render(request, 'panel/components/page/admin-setting-panel-edit-connection.html', context)
+        return render(request, 'panel/pages/admin-setting-panel-edit-connection.html', context)
 
     raise PermissionDenied
 
@@ -513,7 +513,7 @@ def panel_user_profile_overview(request, username: str) -> HttpResponse:
         context['email_change_form'] = UserEmailChangeForm(instance=user)
         context['password_reset_form'] = UserPasswordChangeForm(user)
 
-        return render(request, 'panel/components/page/user-profile.html', context)
+        return render(request, 'panel/pages/user-profile.html', context)
 
     return redirect('sign-in')
 
@@ -615,7 +615,7 @@ def user_view_links(request, username: str) -> HttpResponse:
         except ObjectDoesNotExist:
             messages.error(request, 'No subscription links were located.')
 
-        return render(request, 'panel/components/page/user-view-links.html', context)
+        return render(request, 'panel/pages/user-view-links.html', context)
 
     raise Http404("No subscription links were located.")
 
@@ -655,7 +655,7 @@ def user_view_single_link(request, shorten_uuid_link) -> HttpResponse:
                 )
                 context['qrcode'] = qrcode_data
 
-            return render(request, 'panel/components/page/user-view-link-activation.html', context)
+            return render(request, 'panel/pages/user-view-link-activation.html', context)
 
     except ObjectDoesNotExist:
         handle_object_does_not_exist(request)

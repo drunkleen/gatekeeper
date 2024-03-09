@@ -89,17 +89,19 @@ gatekeeper --help
 
 为此，使用您喜欢的文本编辑器（如`nano`或`vim`）打开位于`/opt/gatekeeper/`的`.env`文件。
 
-| 变量                  | 描述                                   |
-|---------------------|--------------------------------------|
-| DEBUG               | 为开发启用调试模式（默认：`False`）                |
-| ALLOWED_HOSTS       | 指定应用绑定的主机（默认：`any`）                  |
-| SERVER_PORT         | 分配应用到该端口（默认：`2087`）                  |
-| SET_EMAIL           | 是否要使用电子邮件发送邮件（默认：`False`）            |
-| EMAIL_HOST          | 您的电子邮件主机（例如，`smtp.gmail.com`）        |
-| EMAIL_PORT          | 您的电子邮件端口（例如，`587`）                   |
-| EMAIL_USE_TLS       | 启用TLS以进行电子邮件通信（默认：`True`）            |
-| EMAIL_HOST_USER     | 您的电子邮件用户名/地址（例如，`example@gmail.com`） |
-| EMAIL_HOST_PASSWORD | 您的电子邮件密码（例如，`password`）。             |
+| 变量                    | 描述                                      |
+|-----------------------|-----------------------------------------|
+| DEBUG                 | 为开发启用调试模式（默认：`False`）                   |
+| ALLOWED_HOSTS         | 指定应用绑定的主机（默认：`any`）                     |
+| SERVER_PORT           | 分配应用到该端口（默认：`2087`）                     |
+| CUSTOM_APP_NAME       | 设置面板的自定义名称（默认：`GateKeeper`）             |
+| DEFAULT_USER_PASSWORD | 设置管理员创建的新用户的自定义密码（默认：`Gatekeeper2024@`） |
+| SET_EMAIL             | 是否要使用电子邮件发送邮件（默认：`False`）               |
+| EMAIL_HOST            | 您的电子邮件主机（例如，`smtp.gmail.com`）           |
+| EMAIL_PORT            | 您的电子邮件端口（例如，`587`）                      |
+| EMAIL_USE_TLS         | 启用TLS以进行电子邮件通信（默认：`True`）               |
+| EMAIL_HOST_USER       | 您的电子邮件用户名/地址（例如，`example@gmail.com`）    |
+| EMAIL_HOST_PASSWORD   | 您的电子邮件密码（例如，`password`）。                |
 
 ## 待办事项清单
 

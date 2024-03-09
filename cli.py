@@ -11,25 +11,23 @@ django.setup()
 from core.models import UserAccount
 from GateKeeper.settings import DEFAULT_USER_PASSWORD
 
+HELP = """    Short   Command                               Description
+    
+    /q      quit                                  Exit GateKeeper shell
+    /h      help                                  Get help
+    /va     admin view                            Show admin list
+    /ca     admin create                          Create new admin account
+    /vm     mod view                              Show moderator list
+    /cm     mod create                            Create new moderator account
+    /vu     user view                             Show user list
+    /cu     user create                           Create new user account
+    /rmid   del account id [ID]                   Remove account by id
+    /rmu    del account username [Username]       Remove account by username"""
 
-
-HELP = [
-    ["/q", "quit", "Exit GateKeeper shell"],
-    ["/h", "help", "Get help"],
-    ["/va", "admin view", "Show admin list"],
-    ["/ca", "admin create", "Create new admin account"],
-    ["/vm", "mod view", "Show moderator list"],
-    ["/cm", "mod create", "Create new moderator account"],
-    ["/vu", "user view", "Show user list"],
-    ["/cu", "user create", "Create new user account"],
-    ["/rmid", "del account id [ID]", "Remove account by id"],
-    ["/rmu", "del account username [Username]", "Remove account by username"],
-]
 
 class UserManagement:
     def __init__(self) -> None:
         self.console = Console()
-
 
     def get_input(self, field_name: str, message: str, min_input_len: int):
         while True:
@@ -39,7 +37,6 @@ class UserManagement:
             print(f"{field_name} is not acceptable! please try again.")
         return user_input
 
-
     def get_password(self):
         while True:
             password = getpass("Enter password: ")
@@ -48,7 +45,6 @@ class UserManagement:
                 break
             print("Passwords does not match! please try again.")
         return password
-
 
     def create_account(self, user_type):
         username = self.get_input("Username", "Enter username: ", 4)
@@ -78,7 +74,6 @@ class UserManagement:
 
         print(f"{user_type} user '{username}' created successfully.")
 
-
     def delete_account_by_id(self, account_id):
         try:
             account = UserAccount.objects.get(id=account_id)
@@ -86,7 +81,8 @@ class UserManagement:
                 self.console.print("Account not found!", style="bright_orange")
             else:
                 self.print_user_list("Selected account", [account])
-                self.console.print("Are you sure you want to delete this account (Y/N)? ", style="bright_yellow", end="")
+                self.console.print("Are you sure you want to delete this account (Y/N)? ", style="bright_yellow",
+                                   end="")
                 user_choice = input()
                 if user_choice.lower() == "y" or user_choice.lower() == "yes":
                     account.delete()
@@ -97,7 +93,6 @@ class UserManagement:
 
         except Exception as e:
             print(f"an error occurred while creating the account\n{e}")
-
 
     def delete_account_by_username(self, account_username):
         try:
@@ -106,7 +101,8 @@ class UserManagement:
                 self.console.print("Account not found!", style="bright_orange")
             else:
                 self.print_user_list("Selected account", [account])
-                self.console.print("Are you sure you want to delete this account (Y/N)? ", style="bright_yellow", end="")
+                self.console.print("Are you sure you want to delete this account (Y/N)? ", style="bright_yellow",
+                                   end="")
                 user_choice = input()
                 if user_choice.lower() == "y" or user_choice.lower() == "yes":
                     account.delete()
@@ -118,18 +114,14 @@ class UserManagement:
         except Exception as e:
             print(f"an error occurred while creating the account\n{e}")
 
-
     def create_admin(self):
         self.create_account(UserAccount.type_admin)
-
 
     def create_moderator(self):
         self.create_account(UserAccount.type_moderator)
 
-
     def create_user(self):
         self.create_account(UserAccount.type_user)
-
 
     def get_all_admins(self):
         try:
@@ -139,7 +131,6 @@ class UserManagement:
         except Exception as e:
             print(f"an error occurred while doing the task\n{e}")
 
-
     def get_all_mods(self):
         try:
             mods = UserAccount.objects.all().filter(account_type=UserAccount.type_moderator).order_by("id")
@@ -147,7 +138,6 @@ class UserManagement:
 
         except Exception as e:
             print(f"an error occurred while doing the task\n{e}")
-
 
     def get_all_users(self):
         try:
@@ -157,8 +147,7 @@ class UserManagement:
         except Exception as e:
             print(f"an error occurred while doing the task\n{e}")
 
-
-    def print_user_list(self,title:str, query:list):
+    def print_user_list(self, title: str, query: list):
         table = Table(title=title)
         columns = ["ID", "Usernamee", "First Name", "Last Name", "Email", "Type", "Status"]
         for column in columns:
@@ -167,23 +156,22 @@ class UserManagement:
         for row in query:
             if row.is_active:
                 table.add_row(str(row.id),
-                            row.username,
-                            row.first_name,
-                            row.last_name,
-                            row.email,
-                            row.type_admin,
-                            'Active',
-                            style='bright_green')
+                              row.username,
+                              row.first_name,
+                              row.last_name,
+                              row.email,
+                              row.type_admin,
+                              'Active',
+                              style='bright_green')
             else:
                 table.add_row(str(row.id),
-                            row.username,
-                            row.first_name,
-                            row.last_name,
-                            row.email,
-                            row.type_admin,
-                            'Inactive',
-                            style='bright_yellow')
-
+                              row.username,
+                              row.first_name,
+                              row.last_name,
+                              row.email,
+                              row.type_admin,
+                              'Inactive',
+                              style='bright_yellow')
 
         self.console.print(table)
 
@@ -202,7 +190,11 @@ class Shell:
                 if user_input == "/q" or user_input == "quit":
                     sys.exit()
 
-                elif user_input == "/va"or user_input == "admin view":
+                elif user_input == "/h" or user_input == "help":
+                    # for HELP in HELPS:
+                    self.console.print(HELP)
+
+                elif user_input == "/va" or user_input == "admin view":
                     self.userManagement.get_all_admins()
 
                 elif user_input == "/va" or user_input == "admin create":
@@ -214,7 +206,7 @@ class Shell:
                 elif user_input == "/cm" or user_input == "mod create":
                     self.userManagement.create_moderator()
 
-                elif user_input == "/vu" or user_input ==  "user view":
+                elif user_input == "/vu" or user_input == "user view":
                     self.userManagement.get_all_users()
 
                 elif user_input == "/cu" or user_input == "user create":
@@ -227,20 +219,14 @@ class Shell:
                     self.userManagement.delete_account_by_username(user_input.split(" ")[-1])
 
                 else:
-                    table = Table(title="Need help?")
-                    columns = ["short", "Command options", "Action"]
-                    for column in columns:
-                        table.add_column(column)
-
-                    for row in HELP:
-                        table.add_row(*row)
-                    self.console.print(table)
+                    pass
         except KeyboardInterrupt:
+            sys.exit()
+        except EOFError:
             sys.exit()
 
 
 if __name__ == "__main__":
-
 
     if len(sys.argv) > 1 and sys.argv[1] == "createadmin":
         userManagement = UserManagement()
@@ -249,5 +235,3 @@ if __name__ == "__main__":
     elif len(sys.argv) > 1 and sys.argv[1] == "shell":
         shell = Shell()
         shell.start_shell()
-
-
