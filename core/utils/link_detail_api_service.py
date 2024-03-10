@@ -24,6 +24,8 @@ headers = {
 PATH_API_alireza = "/xui/API/inbounds/"
 PATH_API_MHSANAEI = "/panel/api/inbounds/"
 
+PATH_POST_ONLINE = "onlines"
+
 PATH_GET_TRAFFIC = 'getClientTraffics/'
 
 
@@ -47,6 +49,37 @@ def set_new_session(session_data: Subscription):
     if is_panel_active:
         panel_connection = PanelConnection.objects.get(session_data.panel_connection)
         panel_connection.save()
+
+
+def get_all_online_users():
+    try:
+        online_users = {}
+        panels = PanelConnection.objects.all()
+        for panel in panels:
+            if panel.panel_name == PanelConnection.panel_marzban:
+                continue
+            elif panel.is_active:
+                response = None
+                headers['Cookie'] = panel.session_cookie
+                if panel.panel_name == PanelConnection.panel_alireza:
+                    response = requests.post(
+                        f"{panel.url}{PATH_API_alireza}{PATH_POST_ONLINE}",
+                        headers=headers
+                    )
+                elif panel.panel_name == PanelConnection.panel_sanaei:
+                    response = requests.post(
+                        f"{panel.url}{PATH_API_MHSANAEI}{PATH_POST_ONLINE}",
+                        headers=headers
+                    )
+                if response.status_code == 200 and response.json()['success']:
+                    if response.json()['obj']:
+                        online_users[panel.connection_name] = len(response.json()['obj'])
+                    else:
+                        online_users[panel.connection_name] = 0
+        return online_users
+
+    except PanelConnection.DoesNotExist:
+        return None
 
 
 def get_user_info(link: Subscription):

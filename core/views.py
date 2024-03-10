@@ -12,8 +12,9 @@ from core.utils.mail_service import send_forget_password_email
 from core.utils.utils import generate_qr_code, link_scraper
 from django.utils import timezone
 from datetime import timedelta
+import psutil
 
-from core.utils.link_detail_api_service import get_user_info, connection_test
+from core.utils.link_detail_api_service import get_user_info, connection_test, get_all_online_users
 
 from GateKeeper.settings import EMAIL_ACTIVE, CUSTOM_APP_NAME
 
@@ -234,10 +235,13 @@ def panel_admin(request) -> HttpResponse:
             context['last_24_h_active_users_count'] = len(users.filter(last_login__gte=last_24_h))
             context['last_week_active_users_count'] = len(users.filter(last_login__gte=last_week))
             context['overall_active_users_count'] = len(users.filter(last_login__isnull=False))
-
+            context['panel_online_users'] = get_all_online_users()
         except UserAccount.DoesNotExist:
             pass
+        context["cpu_percent"] = psutil.cpu_percent(interval=1)
+        context["ram_percent"] = psutil.virtual_memory().percent
 
+        print(context)
         return render(request, 'panel/pages/overview.html', context)
     return redirect('panel-user', username=request.user.username)
 
@@ -640,14 +644,14 @@ def user_view_single_link(request, shorten_uuid_link) -> HttpResponse:
                     link.subscription_link
                 )
                 context['qrcode'] = qrcode_data
-                
+
             elif link.panel_connection.panel_name == PanelConnection.panel_marzban:
                 context['link_details'] = get_user_info(link)
                 qrcode_data = generate_qr_code(
                     f'{context.get("scheme_host")}/panel/user/user-link/show/{link.subscription_uuid}'
                 )
                 context['qrcode'] = qrcode_data
-                
+
             else:
                 context['link_details'] = get_user_info(link)
                 qrcode_data = generate_qr_code(
