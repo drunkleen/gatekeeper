@@ -17976,7 +17976,7 @@ var KTTimelineWidget1 = function () {
                 group: 'ui',
                 start: moment(now).add(30, 'minutes'),
                 end: moment(now).add(2.5, 'hours'),
-                content: 'Landing pages',
+                content: 'Landing page',
                 progress: "55%",
                 color: 'danger',
                 users: [
@@ -18637,7 +18637,7 @@ var KTTimelineWidget4 = function () {
                 group: 'ui',
                 start: moment(now).add(30, 'minutes'),
                 end: moment(now).add(2.5, 'hours'),
-                content: 'Landing pages',
+                content: 'Landing page',
                 progress: "55%",
                 color: 'danger',
                 users: [

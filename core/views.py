@@ -241,7 +241,6 @@ def panel_admin(request) -> HttpResponse:
         context["cpu_percent"] = psutil.cpu_percent(interval=1)
         context["ram_percent"] = psutil.virtual_memory().percent
 
-        print(context)
         return render(request, 'panel/pages/overview.html', context)
     return redirect('panel-user', username=request.user.username)
 

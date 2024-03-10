@@ -31,7 +31,7 @@ if (document.readyState === "loading") {
 	KTComponents.init();
  }
 
- // Init pages loader
+ // Init page loader
 window.addEventListener("load", function() {
     KTApp.hidePageLoading();
 });
@@ -649,14 +649,14 @@ var KTApp = function () {
 	}
 
     var showPageLoading = function() {
-        document.body.classList.add('pages-loading');
-        document.body.setAttribute('data-kt-app-pages-loading', "on");
+        document.body.classList.add('page-loading');
+        document.body.setAttribute('data-kt-app-page-loading', "on");
     }
 
     var hidePageLoading = function() {
-        // CSS3 Transitions only after pages load(.pages-loading or .app-pages-loading class added to body tag and remove with JS on pages load)
-        document.body.classList.remove('pages-loading');
-        document.body.removeAttribute('data-kt-app-pages-loading');
+        // CSS3 Transitions only after page load(.page-loading or .app-page-loading class added to body tag and remove with JS on page load)
+        document.body.classList.remove('page-loading');
+        document.body.removeAttribute('data-kt-app-page-loading');
     }
 
     return {
@@ -7443,7 +7443,7 @@ var KTAppLayoutBuilder = function() {
 					);
 
 					setTimeout(function() {
-						location.reload(); // reload pages
+						location.reload(); // reload page
 					}, 1500);
 				},
 				error: function(response) {
@@ -7537,13 +7537,13 @@ var KTAppLayoutBuilder = function() {
 					return;
 					
 					toastr.success(
-						"Preview has been successfully reset and the pages will be reloaded.",
+						"Preview has been successfully reset and the page will be reloaded.", 
 						"Reset Preview!", 
 						{timeOut: 0, extendedTimeOut: 0, closeButton: true, closeDuration: 0}
 					);
 
 					setTimeout(function() {
-						location.reload(); // reload pages
+						location.reload(); // reload page
 					}, 1500);
 				},
 				error: function(response) {

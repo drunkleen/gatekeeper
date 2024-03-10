@@ -328,7 +328,7 @@ jQuery.extend = jQuery.fn.extend = function() {
 
 jQuery.extend( {
 
-	// Unique for each copy of jQuery on the pages
+	// Unique for each copy of jQuery on the page
 	expando: "jQuery" + ( version + Math.random() ).replace( /\D/g, "" ),
 
 	// Assume jQuery is ready without the ready module
@@ -1374,7 +1374,7 @@ setDocument = Sizzle.setDocument = function( node ) {
 
 			// Support: Safari 8+, iOS 8+
 			// https://bugs.webkit.org/show_bug.cgi?id=136851
-			// In-pages `selector#id sibling-combinator selector` fails
+			// In-page `selector#id sibling-combinator selector` fails
 			if ( !el.querySelectorAll( "a#" + expando + "+*" ).length ) {
 				rbuggyQSA.push( ".#.+[+~]" );
 			}
@@ -5229,7 +5229,7 @@ jQuery.event = {
 			eventHandle = elemData.handle = function( e ) {
 
 				// Discard the second event of a jQuery.event.trigger() and
-				// when an event is called after a pages has unloaded
+				// when an event is called after a page has unloaded
 				return typeof jQuery !== "undefined" && jQuery.event.triggered !== e.type ?
 					jQuery.event.dispatch.apply( elem, arguments ) : undefined;
 			};
@@ -10355,7 +10355,7 @@ jQuery.parseHTML = function( data, context, keepScripts ) {
 
 
 /**
- * Load a url into a pages
+ * Load a url into a page
  */
 jQuery.fn.load = function( url, params, callback ) {
 	var selector, type, response,
@@ -13806,7 +13806,7 @@ S2.define('jquery',[],function () {
     console.error(
       'Select2: An instance of jQuery or a jQuery-compatible library was not ' +
       'found. Make sure that you are including jQuery before Select2 on your ' +
-      'web pages.'
+      'web page.'
     );
   }
 
@@ -19578,9 +19578,9 @@ S2.define('select2/selection/stopPropagation',[
             } else {
                 this.onmousewheel = handler;
             }
-            // Store the line height and pages height for this particular element
+            // Store the line height and page height for this particular element
             $.data(this, 'mousewheel-line-height', special.getLineHeight(this));
-            $.data(this, 'mousewheel-pages-height', special.getPageHeight(this));
+            $.data(this, 'mousewheel-page-height', special.getPageHeight(this));
         },
 
         teardown: function() {
@@ -19593,7 +19593,7 @@ S2.define('select2/selection/stopPropagation',[
             }
             // Clean up the data we added to the element
             $.removeData(this, 'mousewheel-line-height');
-            $.removeData(this, 'mousewheel-pages-height');
+            $.removeData(this, 'mousewheel-page-height');
         },
 
         getLineHeight: function(elem) {
@@ -19666,18 +19666,18 @@ S2.define('select2/selection/stopPropagation',[
         // No change actually happened, no reason to go any further
         if ( deltaY === 0 && deltaX === 0 ) { return; }
 
-        // Need to convert lines and pages to pixels if we aren't already in pixels
+        // Need to convert lines and page to pixels if we aren't already in pixels
         // There are three delta modes:
         //   * deltaMode 0 is by pixels, nothing to do
         //   * deltaMode 1 is by lines
-        //   * deltaMode 2 is by pages
+        //   * deltaMode 2 is by page
         if ( orgEvent.deltaMode === 1 ) {
             var lineHeight = $.data(this, 'mousewheel-line-height');
             delta  *= lineHeight;
             deltaY *= lineHeight;
             deltaX *= lineHeight;
         } else if ( orgEvent.deltaMode === 2 ) {
-            var pageHeight = $.data(this, 'mousewheel-pages-height');
+            var pageHeight = $.data(this, 'mousewheel-page-height');
             delta  *= pageHeight;
             deltaY *= pageHeight;
             deltaX *= pageHeight;
@@ -20580,7 +20580,7 @@ const localization = {
             var isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
             /* TODO: investigate this further
         
-              Currently, there is weird positioning behavior in safari causing pages
+              Currently, there is weird positioning behavior in safari causing page
               to scroll up. https://github.com/chmln/flatpickr/issues/563
         
               However, most browsers are not Safari and positioning is expensive when used
@@ -28437,7 +28437,7 @@ const localization = {
 
         outsideClick: function(e) {
             var target = $(e.target);
-            // if the pages is clicked anywhere except within the daterangerpicker/button
+            // if the page is clicked anywhere except within the daterangerpicker/button
             // itself then call this.hide()
             if (
                 // ie modal dialog fix
@@ -33462,7 +33462,7 @@ var tns=function(){var t=window,Ai=t.requestAnimationFrame||t.webkitRequestAnima
                 // 'supportsPassive' is only true if a browser also supports touch-action: none in CSS.
                 // iOS safari does not, so it doesn't get to benefit from passive scrolling. iOS does support
                 // touch-action: manipulation, but that allows panning, which breaks
-                // sliders after zooming/on non-responsive pages.
+                // sliders after zooming/on non-responsive page.
                 // See: https://bugs.webkit.org/show_bug.cgi?id=133112
                 if (!supportsPassive) {
                     e.preventDefault();
@@ -35263,7 +35263,7 @@ var tns=function(){var t=window,Ai=t.requestAnimationFrame||t.webkitRequestAnima
 	 * @param {Element} anchor       The anchor element to scroll to
 	 * @param {Number}  headerHeight Height of a fixed header, if any
 	 * @param {Number}  offset       Number of pixels by which to offset scroll
-	 * @param {Boolean} clip         If true, adjust scroll distance to prevent abrupt stops near the bottom of the pages
+	 * @param {Boolean} clip         If true, adjust scroll distance to prevent abrupt stops near the bottom of the page
 	 * @returns {Number}
 	 */
 	var getEndLocation = function (anchor, headerHeight, offset, clip) {
@@ -35358,12 +35358,12 @@ var tns=function(){var t=window,Ai=t.requestAnimationFrame||t.webkitRequestAnima
 	 */
 	var adjustFocus = function (anchor, endLocation, isNum) {
 
-		// Is scrolling to top of pages, blur
+		// Is scrolling to top of page, blur
 		if (anchor === 0) {
 			document.body.focus();
 		}
 
-		// Don't run if scrolling to a number on the pages
+		// Don't run if scrolling to a number on the page
 		if (isNum) return;
 
 		// Otherwise, bring anchor element into focus
@@ -35443,7 +35443,7 @@ var tns=function(){var t=window,Ai=t.requestAnimationFrame||t.webkitRequestAnima
 			var isNum = Object.prototype.toString.call(anchor) === '[object Number]' ? true : false;
 			var anchorElem = isNum || !anchor.tagName ? null : anchor;
 			if (!isNum && !anchorElem) return;
-			var startLocation = window.pageYOffset; // Current location on the pages
+			var startLocation = window.pageYOffset; // Current location on the page
 			if (_settings.header && !fixedHeader) {
 				// Get the fixed header if not already set
 				fixedHeader = document.querySelector(_settings.header);
@@ -35457,8 +35457,8 @@ var tns=function(){var t=window,Ai=t.requestAnimationFrame||t.webkitRequestAnima
 			var start, percentage, position;
 
 			/**
-			 * Stop the scroll animation when it reaches its target (or the bottom/top of pages)
-			 * @param {Number} position Current position on the pages
+			 * Stop the scroll animation when it reaches its target (or the bottom/top of page)
+			 * @param {Number} position Current position on the page
 			 * @param {Number} endLocation Scroll to location
 			 * @param {Number} animationInterval How much to scroll on this loop
 			 */
@@ -35550,7 +35550,7 @@ var tns=function(){var t=window,Ai=t.requestAnimationFrame||t.webkitRequestAnima
 			toggle = event.target.closest(selector);
 			if (!toggle || toggle.tagName.toLowerCase() !== 'a' || event.target.closest(settings.ignore)) return;
 
-			// Only run if link is an anchor and points to the current pages
+			// Only run if link is an anchor and points to the current page
 			if (toggle.hostname !== window.location.hostname || toggle.pathname !== window.location.pathname || !/#/.test(toggle.href)) return;
 
 			// Get an escaped version of the hash
@@ -42932,7 +42932,7 @@ var defaultOptions = {
   /**
    * This is the element the hidden input field (which is used when clicking on the
    * dropzone to trigger file selection) will be appended to. This might
-   * be important in case you use frameworks to switch the content of your pages.
+   * be important in case you use frameworks to switch the content of your page.
    *
    * Can be a selector string, or an element directly.
    */
@@ -57305,7 +57305,7 @@ var Syntax = function (_Module) {
     var _this2 = _possibleConstructorReturn(this, (Syntax.__proto__ || Object.getPrototypeOf(Syntax)).call(this, quill, options));
 
     if (typeof _this2.options.highlight !== 'function') {
-      throw new Error('Syntax module requires highlight.js. Please include the library on the pages before Quill.');
+      throw new Error('Syntax module requires highlight.js. Please include the library on the page before Quill.');
     }
     var timer = null;
     _this2.quill.on(_quill2.default.events.SCROLL_OPTIMIZE, function () {
