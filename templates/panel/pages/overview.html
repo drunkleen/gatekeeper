@@ -1,0 +1,158 @@
+{% extends 'panel/components/wrapper.html' %}
+{% load custom_filters %}
+{% load static %}
+{% block content-wrapper %}
+
+
+
+    <div id="kt_app_content" class="app-content  flex-column-fluid ">
+        <div id="kt_app_content_container" class="app-container  container-fluid ">
+            <div class="row g-5 g-xl-10 mb-xl-10">
+
+
+                <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-4 mb-md-5 mb-xl-10">
+                    <div class="card card-flush h-md-50 mb-5 mb-xl-10" style="--darkreader-border--bs-card-border-color: 0">
+
+                        <div class="card-header pt-5">
+                            <div class="card-title d-flex flex-column">
+                                <div class="d-flex align-items-center">
+                                    <span class="fs-2hx fw-bold text-dark me-2 lh-1 ls-n2">Server Stats</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body pt-2 pb-4 d-flex align-items-center flex-column mt-3" id="cpu_usage">
+                        </div>
+                        <div class="card-body pt-2 pb-4 d-flex align-items-center flex-column mt-3" id="ram_usage">
+                        </div>
+                        <div class="card-body pt-2 pb-4 d-flex align-items-center flex-column mt-3" id="cpu_usage">
+                        </div>
+                        <div class="card-body pt-2 pb-4 d-flex align-items-center flex-column mt-3" id="cpu_usage">
+                        </div>
+                        <div class="card-body pt-2 pb-4 d-flex align-items-center flex-column mt-3" id="cpu_usage">
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-4 mb-md-5 mb-xl-10">
+                    <div class="card card-flush h-md-50 mb-5 mb-xl-10" style="--darkreader-border--bs-card-border-color: 0">
+                        <div class="card-header pt-5">
+                            <div class="card-title d-flex flex-column">
+                                <div class="d-flex align-items-center">
+                                    <span class="fs-2hx fw-bold text-dark me-2 lh-1 ls-n2">
+                                        Online Users
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body pt-2 pb-4 d-flex align-items-center">
+                            <div class="d-flex flex-column content-justify-center w-100">
+                                {% if panel_online_users %}
+                                    {% for panel_name, online_count in panel_online_users.items %}
+                                    <div class="d-flex fs-6 fw-semibold align-items-center">
+                                        {% if online_count <= 0 %}
+                                        <div class="bullet w-8px h-6px rounded-2 bg-danger me-3"></div>
+                                        {% else %}
+                                        <div class="bullet w-8px h-6px rounded-2 bg-success me-3"></div>
+                                        {% endif %}
+                                        <div class="text-gray-700 flex-grow-1 me-4">{{ panel_name }}</div>
+                                        <div class="fw-bolder text-gray-700 text-xxl-end">{{ online_count }}</div>
+                                    </div>
+                                    {% endfor %}
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 col-lg-12 col-xl-12 col-xxl-4 mb-md-5 mb-xl-10">
+                    <div class="card card-flush h-md-50 mb-5 mb-xl-10" style="--darkreader-border--bs-card-border-color: 0">
+                        <div class="card-header pt-5">
+                            <div class="card-title d-flex flex-column">
+                                <div class="d-flex align-items-center">
+                                    <span class="fs-2hx fw-bold text-dark me-2 lh-1 ls-n2">User Base</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body pt-2 pb-4 d-flex align-items-center">
+
+
+                            <div class="d-flex flex-column content-justify-center w-100">
+
+                                <div class="d-flex fs-6 fw-semibold align-items-center">
+
+                                    <div class="bullet w-8px h-6px rounded-2 bg-danger me-3"></div>
+
+                                    <div class="text-gray-700 flex-grow-1 me-4">Today</div>
+
+                                    <div class="fw-bolder text-gray-700 text-xxl-end">{{ last_24_h_active_users_count }}</div>
+
+                                </div>
+
+                                <div class="d-flex fs-6 fw-semibold align-items-center my-3">
+
+                                    <div class="bullet w-8px h-6px rounded-2 bg-primary me-3"></div>
+
+
+                                    <div class="text-gray-700 flex-grow-1 me-4">This Week</div>
+
+                                    <div class="fw-bolder text-gray-700 text-xxl-end">{{ last_week_active_users_count }}</div>
+                                </div>
+
+                                <div class="d-flex fs-6 fw-semibold align-items-center">
+                                    <div class="bullet w-8px h-6px rounded-2 me-3" style="background-color: #E4E6EF"></div>
+
+                                    <div class="text-gray-700 flex-grow-1 me-4">Over all active users</div>
+
+                                    <div class=" fw-bolder text-gray-700 text-xxl-end">{{ overall_active_users_count }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+
+    const renderProgressBar = function (progress) {
+        if (progress > 70) {
+            return '<div class="bg-danger rounded h-5px" role="progressbar" style="width: ' + progress + '%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">';
+        } else if (progress > 40) {
+            return '<div class="bg-warning rounded h-5px" role="progressbar" style="width: ' + progress + '%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">';
+        } else {
+            return '<div class="bg-success rounded h-5px" role="progressbar" style="width: ' + progress + '%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">';
+        }
+    }
+
+    const renderState = function(usage, title) {
+        return `<div class="d-flex justify-content-between w-100 mt-auto mb-2" id="cpu_percent_text">
+            <span class="fw-semibold fs-6 text-gray-700">` + title + `</span>
+            <span class="fw-bold fs-6">` + usage + `%</span>
+        </div>
+        <div class="h-5px mx-3 w-100 bg-light mb-3">
+            ` + renderProgressBar(usage) + `
+        </div>`;
+    }
+
+    const cpu_percent = {{ cpu_percent }}
+    const ram_percent = {{ ram_percent }}
+
+    const serverStatsSet = function () {
+        const cpuUsage = document.getElementById('cpu_usage');
+        cpuUsage.innerHTML = renderState(cpu_percent, 'CPU Usage');
+        const ramUsage = document.getElementById('ram_usage');
+        ramUsage.innerHTML = renderState(ram_percent, 'RAM Usage');
+    }
+
+    serverStatsSet();
+
+    </script>
+{% endblock content-wrapper %}

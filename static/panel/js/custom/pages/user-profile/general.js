@@ -122,7 +122,7 @@ var KTProfileGeneral = function () {
             
             if ( localStorage.getItem('nav-initialized') === "1") {
                 window.scroll({
-                    top: parseInt(profileNav.getAttribute("data-kt-page-scroll-position")),
+                    top: parseInt(profileNav.getAttribute("data-kt-pages-scroll-position")),
                     behavior: 'smooth'
                 });
             }

@@ -36,7 +36,7 @@ var KTCreateAccount = function () {
 			}
 		});
 
-		// Validation before going to next page
+		// Validation before going to next pages
 		stepperObj.on('kt.stepper.next', function (stepper) {
 			console.log('stepper.next');
 
