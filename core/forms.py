@@ -107,6 +107,8 @@ class UserCreationForm(UserCreationForm):
             'autocomplete': "off",
         })
 
+        self.fields['last_name'].required = False
+
 
 class AdminUserCreationForm(UserCreationForm):
     class Meta:

@@ -145,11 +145,10 @@ def user_sign_up(request) -> HttpResponse:
             user_form.last_name = user_form.last_name.capitalize()
             user_form.email = user_form.email.lower()
             user_form.username = user_form.username.lower()
-            form.save()
+            user_form.save()
 
-            login(request, user_form)
-
-            return redirect('panel-user', username=request.user.username)
+            messages.success(request, 'Congratulations on creating your account!')
+            return redirect('sign-in')
 
     context = {
         'custom_app_name': CUSTOM_APP_NAME,

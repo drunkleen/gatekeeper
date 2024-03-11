@@ -22,7 +22,7 @@ class UserAccount(AbstractUser):
         (type_admin, 'admin')
     )
     account_type = models.CharField(choices=type_user_choice, default=type_user, max_length=64)
-    last_login_ip = models.GenericIPAddressField()
+    last_login_ip = models.GenericIPAddressField(default="0.0.0.0")
     is_active = models.BooleanField(default=True)
 
     updated_at = models.DateTimeField(auto_now=True)
