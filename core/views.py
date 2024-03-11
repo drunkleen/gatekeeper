@@ -5,14 +5,29 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth import update_session_auth_hash
 from django.http import HttpResponse, Http404
 from django.contrib import messages
-from core.models import UserAccount, Subscription, PanelConnection, ResetPassword
-from core.forms import UserCreationForm, AdminUserCreationForm, AdminUserEditForm, UserEditForm, \
-    UserPasswordChangeForm, UserEmailChangeForm, SubscriptionForm, SubscriptionEditForm, AdminConnectionCreationForm
 from core.utils.mail_service import send_forget_password_email
 from core.utils.utils import generate_qr_code, link_scraper
 from django.utils import timezone
 from datetime import timedelta
 import psutil
+
+from core.models import (
+    UserAccount,
+    Subscription,
+    PanelConnection,
+    ResetPassword,
+)
+from core.forms import (
+    UserCreationForm,
+    AdminUserCreationForm,
+    AdminUserEditForm,
+    UserEditForm,
+    UserPasswordChangeForm,
+    UserEmailChangeForm,
+    SubscriptionForm,
+    SubscriptionEditForm,
+    AdminConnectionCreationForm
+)
 
 from core.utils.link_detail_api_service import get_user_info, connection_test, get_all_online_users
 
@@ -86,9 +101,6 @@ def user_sign_in(request) -> HttpResponse:
     if request.user.is_authenticated:
         return redirect_based_on_user_type(request.user)
 
-    user_ip = request.META['REMOTE_ADDR']
-    request.session['user_ip'] = user_ip
-
     context = {
         'custom_app_name': CUSTOM_APP_NAME,
         'page_title': ['Sign In'],
@@ -100,10 +112,13 @@ def user_sign_in(request) -> HttpResponse:
 
         try:
             user = UserAccount.objects.get(email=email)
-            user = authenticate(request, username=user.username, password=password)
+            user_auth = authenticate(request, username=user.username, password=password)
 
-            if user is not None:
-                login(request, user)
+            if user_auth is not None:
+                login(request, user_auth)
+                user.last_login_ip = request.META.get('REMOTE_ADDR')
+                user.save()
+
                 if user.account_type in ('admin', 'moderator'):
                     return redirect('panel-admin')
                 return redirect('user-view-links', username=user.username)
@@ -698,20 +713,18 @@ def user_view_single_link_restrict(request, shorten_uuid_link) -> HttpResponse:
 
 def user_view_single_link_show(request, shorten_uuid_link) -> HttpResponse:
     user_ip = request.META['REMOTE_ADDR']
-    stored_ip = request.session.get('user_ip', None)
 
     try:
-
         link = Subscription.objects.get(subscription_uuid=shorten_uuid_link)
 
-        if link.expose or \
-                ((stored_ip and user_ip) == stored_ip) or \
-                (request.user.account_type == 'moderator' and link.assigned_to.account_type == 'user') or \
-                request.user.account_type == 'admin':
+        if link.expose or link.assigned_to.last_login_ip == user_ip:
+
             link.use_count += 1
             link.save()
-            if link.panel_connection.panel_name == PanelConnection.panel_marzban:
-                return HttpResponse(link_scraper(link.subscription_link))
+
+            if link.panel_connection:
+                if link.panel_connection.panel_name == PanelConnection.panel_marzban:
+                    return HttpResponse(link_scraper(link.subscription_link))
             else:
                 return HttpResponse(link.subscription_link)
         else:
