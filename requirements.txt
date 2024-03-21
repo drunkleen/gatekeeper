@@ -4,7 +4,7 @@ certifi==2024.2.2
 cffi==1.16.0
 charset-normalizer==3.3.2
 colorama==0.4.6
-Django==5.0.2
+Django==5.0.3
 django-cron==0.6.0
 django-qrcode==0.3
 djangorestframework==3.14.0
